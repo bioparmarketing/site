@@ -1,0 +1,20 @@
+{
+  "name": "biopar-website",
+  "version": "1.0.0",
+  "description": "Plataforma digital corporativa, catálogo biológico e inteligência de mercado da Biopar",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "biopar",
+    "agronegocio",
+    "biologicos",
+    "bioinsumos",
+    "inoculantes",
+    "biofungicidas",
+    "bioinseticidas"
+  ],
+  "author": "Biopar Biotecnologia Agrícola S.A.",
+  "license": "Proprietary"
+}

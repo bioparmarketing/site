@@ -1,0 +1,266 @@
+/* ==========================================================================
+   Biopar Design System — Apple-inspired Minimal UI for Agribusiness & Biotech
+   ========================================================================== */
+
+@font-face {
+  font-family: 'Lenia Sans';
+  src: local('Lenia Sans Bold'), local('Leni Sans Bold'), local('Lenia Sans'), local('Leni Sans'),
+       url('../../public/fonts/LeniaSans-Bold.ttf') format('truetype'),
+       url('/public/fonts/LeniaSans-Bold.ttf') format('truetype');
+  font-weight: 600 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Leni Sans';
+  src: local('Lenia Sans Bold'), local('Leni Sans Bold'), local('Lenia Sans'), local('Leni Sans'),
+       url('../../public/fonts/LeniaSans-Bold.ttf') format('truetype'),
+       url('/public/fonts/LeniaSans-Bold.ttf') format('truetype');
+  font-weight: 600 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Lenia Sans';
+  src: local('Lenia Sans Regular'), local('Leni Sans Regular'), local('Lenia Sans'), local('Leni Sans'),
+       url('../../public/fonts/LeniaSans-Regular.ttf') format('truetype'),
+       url('/public/fonts/LeniaSans-Regular.ttf') format('truetype');
+  font-weight: 300 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Leni Sans';
+  src: local('Lenia Sans Regular'), local('Leni Sans Regular'), local('Lenia Sans'), local('Leni Sans'),
+       url('../../public/fonts/LeniaSans-Regular.ttf') format('truetype'),
+       url('/public/fonts/LeniaSans-Regular.ttf') format('truetype');
+  font-weight: 300 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F5F5F7;
+  --bg-tertiary: #EFEFF1;
+  --text-primary: #1D1D1F;
+  --text-secondary: #6E6E73;
+  --border-color: #D2D2D7;
+  --border-light: #E5E5EA;
+  --brand-green: #0B7C41;
+  --brand-green-hover: #086133;
+  --brand-green-light: #E8F5E9;
+  --brand-emerald: #0E7051;
+  --positive-market: #10B981;
+  --negative-market: #EF4444;
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", "Inter", sans-serif;
+  --font-heading: 'Lenia Sans', 'Leni Sans', sans-serif;
+  --card-radius: 24px;
+  --button-radius: 9999px;
+  --input-radius: 16px;
+  --shadow-subtle: 0 4px 20px -2px rgba(0, 0, 0, 0.04), 0 2px 6px -1px rgba(0, 0, 0, 0.02);
+  --shadow-elevated: 0 20px 40px -4px rgba(0, 0, 0, 0.08), 0 8px 16px -2px rgba(0, 0, 0, 0.03);
+  --glass-blur: blur(20px);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.5;
+  overflow-x: hidden;
+  letter-spacing: -0.01em;
+}
+
+h1, h2, h3, h4, h5, h6, .font-heading {
+  font-family: var(--font-heading) !important;
+}
+
+/* Glassmorphism Header */
+.glass-header {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-bottom: 1px solid rgba(210, 210, 215, 0.5);
+  transition: all 0.25s ease-in-out;
+}
+
+/* Apple-style Cards */
+.apple-card {
+  background: #FFFFFF;
+  border-radius: var(--card-radius);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-subtle);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.apple-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-elevated);
+  border-color: rgba(11, 124, 65, 0.25);
+}
+
+.apple-card-static {
+  background: #FFFFFF;
+  border-radius: var(--card-radius);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-subtle);
+}
+
+/* Apple Pill Buttons */
+.btn-pill-primary {
+  background: var(--brand-green);
+  color: #FFFFFF;
+  border-radius: var(--button-radius);
+  padding: 12px 26px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.btn-pill-primary:hover {
+  background: var(--brand-green-hover);
+  transform: scale(1.02);
+  box-shadow: 0 4px 14px rgba(11, 124, 65, 0.3);
+}
+
+.btn-pill-secondary {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border-radius: var(--button-radius);
+  padding: 12px 26px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+  border: 1px solid var(--border-light);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.btn-pill-secondary:hover {
+  background: #EAEAEA;
+  border-color: var(--border-color);
+  transform: scale(1.02);
+}
+
+.btn-pill-dark {
+  background: var(--text-primary);
+  color: #FFFFFF;
+  border-radius: var(--button-radius);
+  padding: 12px 26px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.btn-pill-dark:hover {
+  background: #000000;
+  transform: scale(1.02);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D2D2D7;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #A1A1A6;
+}
+
+/* Pulsing Status Dot */
+.pulse-live {
+  position: relative;
+}
+
+.pulse-live::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: var(--positive-market);
+  animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+@keyframes pulse-ring {
+  0% {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+  70% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(2.6);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(2.8);
+  }
+}
+
+/* Hide scrollbar for ticker */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Reading Progress Bar */
+#reading-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--brand-green), #10B981);
+  z-index: 100;
+  width: 0%;
+  transition: width 0.1s linear;
+}
+
+/* Italic scientific names */
+.scientific-name {
+  font-style: italic;
+  font-weight: 500;
+}

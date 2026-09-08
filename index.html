@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Biopar — Biologia que trabalha a favor do campo</title>
+  <meta name="description" content="Soluções biológicas de alta pureza e densidade celular para agricultura de alta produtividade. Inoculantes, biofungicidas, bioinseticidas e inteligência de mercado agro.">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/avif" href="./public/assets/logo-biopar.avif">
+
+  <!-- Inter Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              DEFAULT: '#0B7C41',
+              dark: '#086133',
+              light: '#E8F5E9',
+              emerald: '#0E7051'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            heading: ['"Lenia Sans"', '"Leni Sans"', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          },
+          borderRadius: {
+            '2xl': '20px',
+            '3xl': '28px',
+            'full': '9999px'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Biopar Design System Styles -->
+  <link rel="stylesheet" href="./src/css/styles.css">
+</head>
+<body class="bg-white text-[#1D1D1F] flex flex-col min-h-screen antialiased selection:bg-emerald-100 selection:text-emerald-900">
+
+  <!-- Header Global -->
+  <div id="app-header"></div>
+
+  <!-- Conteúdo Dinâmico SPA -->
+  <main id="app-content" class="flex-grow w-full"></main>
+
+  <!-- Footer Global -->
+  <div id="app-footer"></div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- Application Bootstrap (ES Modules) -->
+  <script type="module">
+    import { router } from './src/services/router.js';
+    import { marketService } from './src/services/marketProvider.js';
+    import { renderHeader } from './src/components/Header.js';
+    import { renderFooter } from './src/components/Footer.js';
+
+    import { createHomePage } from './src/pages/HomePage.js';
+    import { createCatalogPage } from './src/pages/CatalogPage.js';
+    import { createProductDetailPage } from './src/pages/ProductDetailPage.js';
+    import { createBlogPage } from './src/pages/BlogPage.js';
+    import { createArticleDetailPage } from './src/pages/ArticleDetailPage.js';
+
+    // Monta Layout Global
+    const headerContainer = document.getElementById('app-header');
+    const footerContainer = document.getElementById('app-footer');
+
+    if (headerContainer) headerContainer.appendChild(renderHeader());
+    if (footerContainer) footerContainer.appendChild(renderFooter());
+
+    // Registra Rotas SPA
+    router
+      .add('/', createHomePage)
+      .add('/produtos', createCatalogPage)
+      .add('/produtos/:slug', createProductDetailPage)
+      .add('/blog', createBlogPage)
+      .add('/blog/:slug', createArticleDetailPage);
+
+    // Inicializa Provedores e Roteamento
+    marketService.init();
+    router.init();
+  </script>
+</body>
+</html>

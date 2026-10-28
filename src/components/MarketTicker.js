@@ -18,10 +18,10 @@ export function createMarketSection() {
         <div>
           <div class="flex items-center gap-2 mb-2">
             <span class="relative flex h-2.5 w-2.5">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#60B73F] opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#60B73F]"></span>
             </span>
-            <span class="text-xs font-semibold uppercase tracking-wider text-emerald-800 bg-emerald-100/60 px-2.5 py-0.5 rounded-full" id="market-status-badge">Mercado Agora</span>
+            <span class="text-xs font-semibold uppercase tracking-wider text-neutral-700 bg-neutral-100 px-2.5 py-0.5 rounded-full border border-neutral-300" id="market-status-badge">Mercado Agora</span>
             <span class="text-xs text-neutral-500 font-medium" id="market-last-update">Atualizando...</span>
           </div>
           <h2 class="text-3xl sm:text-4xl font-extrabold text-neutral-900 tracking-tight">Indicadores do Agro</h2>
@@ -75,7 +75,7 @@ export function createMarketSection() {
     if (statusBadge) {
       if (state === 'live') {
         statusBadge.textContent = 'Mercado Ao Vivo';
-        statusBadge.className = 'text-xs font-semibold uppercase tracking-wider text-emerald-800 bg-emerald-100/70 px-2.5 py-0.5 rounded-full';
+        statusBadge.className = 'text-xs font-semibold uppercase tracking-wider text-neutral-700 bg-neutral-100 px-2.5 py-0.5 rounded-full border border-neutral-300';
       } else if (state === 'cached') {
         statusBadge.textContent = 'Modo Offline (Cache)';
         statusBadge.className = 'text-xs font-semibold uppercase tracking-wider text-amber-800 bg-amber-100/70 px-2.5 py-0.5 rounded-full';
@@ -88,12 +88,12 @@ export function createMarketSection() {
     if (grid && indicators) {
       grid.innerHTML = indicators.map(ind => {
         const isUp = ind.dailyChangePercent >= 0;
-        const trendClass = isUp ? 'text-emerald-700 bg-emerald-50' : 'text-red-700 bg-red-50';
+        const trendClass = isUp ? 'text-[#60B73F] bg-neutral-100 border border-neutral-300' : 'text-red-700 bg-neutral-100 border border-neutral-300';
         const trendSign = isUp ? '+' : '';
         const trendArrow = isUp ? '▲' : '▼';
 
         return `
-          <div data-indicator-id="${ind.id}" class="indicator-card cursor-pointer bg-white rounded-2xl p-5 border border-neutral-200/80 shadow-sm hover:shadow-md hover:border-emerald-500/40 transition-all duration-200 flex flex-col justify-between">
+          <div data-indicator-id="${ind.id}" class="indicator-card cursor-pointer bg-white rounded-2xl p-5 border border-neutral-200/80 shadow-sm hover:shadow-md hover:border-neutral-300 transition-all duration-200 flex flex-col justify-between">
             <div>
               <div class="flex items-center justify-between text-xs text-neutral-500 mb-1.5">
                 <span class="font-medium uppercase tracking-wide truncate max-w-[150px]">${ind.commodity}</span>
@@ -104,10 +104,10 @@ export function createMarketSection() {
             </div>
 
             <div class="flex items-center justify-between mt-4 pt-3 border-t border-neutral-100">
-              <span class="inline-flex items-center gap-1 text-xs font-bold px-2 py-0.5 rounded-full ${trendClass}">
+              <span class="inline-flex items-center gap-1 text-xs font-bold px-2.5 py-0.5 rounded-full ${trendClass}">
                 ${trendArrow} ${trendSign}${ind.dailyChangePercent.toFixed(2)}%
               </span>
-              <span class="text-[11px] text-neutral-400 group-hover:text-emerald-700 flex items-center gap-0.5">
+              <span class="text-[11px] text-neutral-400 group-hover:text-black flex items-center gap-0.5">
                 Detalhes
                 <svg class="w-3 h-3 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
               </span>

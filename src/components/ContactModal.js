@@ -4,6 +4,8 @@
  */
 
 import { showToast } from './Toast.js';
+import { leadService } from '../services/leadService.js';
+import { companyData } from '../data/company.js';
 
 export function openContactModal(initialProduct = '') {
   let modalEl = document.getElementById('contact-modal-overlay');
@@ -21,34 +23,36 @@ export function openContactModal(initialProduct = '') {
 
       <div class="mb-6">
         <div class="flex items-center justify-between mb-4">
-          <img src="./public/assets/logo-biopar.avif" alt="Biopar Biotecnologia" class="h-8 w-auto object-contain" />
-          <span class="inline-block text-[11px] font-semibold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full">Atendimento Especializado</span>
+          <img src="./static/assets/logo-biopar.svg" alt="Biopar Biotecnologia" class="h-8 w-auto object-contain" />
+          <span class="inline-block text-[11px] font-semibold uppercase tracking-wider text-neutral-700 bg-neutral-100 px-2.5 py-1 rounded-full border border-neutral-300">Atendimento Especializado</span>
         </div>
         <h3 class="text-2xl font-bold text-neutral-900 tracking-tight">Fale com a Biopar</h3>
-        <p class="text-neutral-500 text-sm mt-1">Conecte-se com nossa equipe técnica de agrônomos e microbiologistas.</p>
+        <p class="text-neutral-500 text-sm mt-1">
+          As mensagens são direcionadas para <strong class="text-neutral-800">comercial@biopar.agr.br</strong> e atendidas por nossa equipe técnica.
+        </p>
       </div>
 
       <form id="contact-form" class="space-y-4">
         <div>
           <label class="block text-xs font-semibold text-neutral-700 uppercase tracking-wider mb-1.5">Nome Completo</label>
-          <input type="text" required placeholder="Seu nome ou da fazenda" class="w-full px-4 py-2.5 rounded-xl border border-neutral-200 text-sm text-neutral-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all" />
+          <input type="text" id="modal-name" required placeholder="Seu nome ou da fazenda" class="w-full px-4 py-2.5 rounded-xl border border-neutral-200 text-sm text-neutral-900 focus:outline-none focus:ring-2 focus:ring-[#60B73F] focus:border-transparent transition-all" />
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
             <label class="block text-xs font-semibold text-neutral-700 uppercase tracking-wider mb-1.5">E-mail</label>
-            <input type="email" required placeholder="seuemail@agro.com" class="w-full px-4 py-2.5 rounded-xl border border-neutral-200 text-sm text-neutral-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all" />
+            <input type="email" id="modal-email" required placeholder="seuemail@agro.com" class="w-full px-4 py-2.5 rounded-xl border border-neutral-200 text-sm text-neutral-900 focus:outline-none focus:ring-2 focus:ring-[#60B73F] focus:border-transparent transition-all" />
           </div>
           <div>
             <label class="block text-xs font-semibold text-neutral-700 uppercase tracking-wider mb-1.5">Telefone / WhatsApp</label>
-            <input type="tel" required placeholder="(00) 00000-0000" class="w-full px-4 py-2.5 rounded-xl border border-neutral-200 text-sm text-neutral-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all" />
+            <input type="tel" id="modal-phone" required placeholder="(00) 00000-0000" class="w-full px-4 py-2.5 rounded-xl border border-neutral-200 text-sm text-neutral-900 focus:outline-none focus:ring-2 focus:ring-[#60B73F] focus:border-transparent transition-all" />
           </div>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
             <label class="block text-xs font-semibold text-neutral-700 uppercase tracking-wider mb-1.5">Seu Perfil</label>
-            <select class="w-full px-4 py-2.5 rounded-xl border border-neutral-200 text-sm text-neutral-900 bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all">
+            <select id="modal-role" class="w-full px-4 py-2.5 rounded-xl border border-neutral-200 text-sm text-neutral-900 bg-white focus:outline-none focus:ring-2 focus:ring-[#60B73F] focus:border-transparent transition-all">
               <option>Produtor Rural</option>
               <option>Engenheiro Agrônomo / Consultor</option>
               <option>Revenda / Distribuidor</option>
@@ -58,7 +62,7 @@ export function openContactModal(initialProduct = '') {
           </div>
           <div>
             <label class="block text-xs font-semibold text-neutral-700 uppercase tracking-wider mb-1.5">Cultura Principal</label>
-            <select class="w-full px-4 py-2.5 rounded-xl border border-neutral-200 text-sm text-neutral-900 bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all">
+            <select id="modal-crop" class="w-full px-4 py-2.5 rounded-xl border border-neutral-200 text-sm text-neutral-900 bg-white focus:outline-none focus:ring-2 focus:ring-[#60B73F] focus:border-transparent transition-all">
               <option>Soja</option>
               <option>Milho</option>
               <option>Algodão</option>
@@ -73,12 +77,12 @@ export function openContactModal(initialProduct = '') {
 
         <div>
           <label class="block text-xs font-semibold text-neutral-700 uppercase tracking-wider mb-1.5">Como podemos ajudar?</label>
-          <textarea rows="3" placeholder="${initialProduct ? `Gostaria de informações sobre o ${initialProduct}...` : 'Descreva seu desafio no campo ou interesse técnico...'}" class="w-full px-4 py-2.5 rounded-xl border border-neutral-200 text-sm text-neutral-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all resize-none"></textarea>
+          <textarea id="modal-message" rows="3" placeholder="${initialProduct ? `Gostaria de informações sobre o ${initialProduct}...` : 'Descreva seu desafio no campo ou interesse técnico...'}" class="w-full px-4 py-2.5 rounded-xl border border-neutral-200 text-sm text-neutral-900 focus:outline-none focus:ring-2 focus:ring-[#60B73F] focus:border-transparent transition-all resize-none"></textarea>
         </div>
 
         <div class="pt-2">
           <button type="submit" class="w-full btn-pill-primary py-3 text-base shadow-md font-semibold">
-            Enviar Mensagem
+            Enviar Mensagem para a Biopar
           </button>
         </div>
       </form>
@@ -114,7 +118,30 @@ export function openContactModal(initialProduct = '') {
   const form = document.getElementById('contact-form');
   form?.addEventListener('submit', (e) => {
     e.preventDefault();
+    const name = document.getElementById('modal-name')?.value || '';
+    const email = document.getElementById('modal-email')?.value || '';
+    const phone = document.getElementById('modal-phone')?.value || '';
+    const role = document.getElementById('modal-role')?.value || '';
+    const crop = document.getElementById('modal-crop')?.value || '';
+    const message = document.getElementById('modal-message')?.value || '';
+
+    // Dispara para o leadService com destino comercial@biopar.agr.br
+    const result = leadService.dispatchLead({
+      source: 'Modal de Contato Geral',
+      name,
+      email,
+      phone,
+      crop: `${crop} (${role})`,
+      message,
+      sendToWhatsApp: true
+    });
+
     close();
-    showToast('Sua solicitação foi enviada com sucesso! Um consultor técnico Biopar entrará em contato em breve.', 'success');
+    showToast(`Mensagem registrada com sucesso! Encaminhada para ${leadService.destinationEmail}`, 'success');
+
+    // Abre mailto para comercial@biopar.agr.br com a mensagem pronta
+    setTimeout(() => {
+      window.location.href = result.mailtoUrl;
+    }, 500);
   });
 }

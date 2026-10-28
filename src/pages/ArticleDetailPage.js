@@ -4,20 +4,22 @@
  * produtos relacionados e compartilhamento social.
  */
 
-import { articles } from '../data/articles.js';
+import { articleService } from '../services/articleService.js';
 import { products } from '../data/products.js';
 import { showToast } from '../components/Toast.js';
 
 export function createArticleDetailPage({ params, router }) {
   const { slug } = params;
-  const article = articles.find(a => a.slug === slug) || articles[0];
+  const allArticles = articleService.getAll();
+  const article = articleService.getBySlug(slug) || allArticles[0];
+  const isAuth = articleService.isAuthenticated();
 
   const container = document.createElement('div');
   container.className = 'w-full bg-[#FFFFFF] min-h-screen';
 
   // Produtos e Artigos Relacionados
   const relatedProducts = products.filter(p => article.relatedProductIds?.includes(p.id));
-  const relatedArticles = articles.filter(a => a.id !== article.id && (article.relatedArticleIds?.includes(a.id) || a.category === article.category));
+  const relatedArticles = allArticles.filter(a => a.id !== article.id && (article.relatedArticleIds?.includes(a.id) || a.category === article.category));
 
   container.innerHTML = `
     <!-- Barra de Progresso de Leitura -->
@@ -28,17 +30,25 @@ export function createArticleDetailPage({ params, router }) {
       <!-- Cabeçalho do Artigo -->
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <!-- Breadcrumbs -->
-        <nav class="flex items-center gap-2 text-xs text-neutral-400 mb-6">
-          <a href="#/" data-link class="hover:text-emerald-700">Início</a>
-          <span>/</span>
-          <a href="#/blog" data-link class="hover:text-emerald-700">Conteúdo</a>
-          <span>/</span>
-          <span class="text-neutral-700 font-semibold truncate max-w-xs">${article.category}</span>
-        </nav>
+        <!-- Breadcrumbs & Admin Actions -->
+        <div class="flex items-center justify-between gap-4 mb-6 flex-wrap">
+          <nav class="flex items-center gap-2 text-xs text-neutral-400">
+            <a href="#/" data-link class="hover:text-black transition-colors">Início</a>
+            <span>/</span>
+            <a href="#/blog" data-link class="hover:text-black transition-colors">Conteúdo</a>
+            <span>/</span>
+            <span class="text-neutral-700 font-semibold truncate max-w-xs">${article.category}</span>
+          </nav>
+          ${isAuth ? `
+            <a href="#/admin" data-link class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold text-[#007A42] bg-[#60B73F]/15 border border-[#60B73F]/30 hover:bg-[#60B73F]/25 transition-colors">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+              <span>Editar no Painel Admin</span>
+            </a>
+          ` : ''}
+        </div>
 
         <div class="space-y-4">
-          <span class="inline-block text-xs font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 px-3 py-1 rounded-full">
+          <span class="inline-block text-xs font-semibold uppercase tracking-wider text-neutral-700 bg-neutral-100 px-3 py-1 rounded-full border border-neutral-300">
             ${article.category}
           </span>
           <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-neutral-900 tracking-tight leading-tight">
@@ -90,7 +100,7 @@ export function createArticleDetailPage({ params, router }) {
           <img src="${article.author.avatar}" alt="${article.author.name}" class="w-16 h-16 rounded-full object-cover shrink-0 border-2 border-white shadow-sm" />
           <div class="text-center sm:text-left">
             <h4 class="text-lg font-bold text-neutral-900">${article.author.name}</h4>
-            <div class="text-xs text-emerald-800 font-semibold mb-2">${article.author.role}</div>
+            <div class="text-xs text-neutral-500 font-medium mb-2">${article.author.role}</div>
             <p class="text-xs sm:text-sm text-neutral-600 leading-relaxed">${article.author.bio}</p>
           </div>
         </div>
@@ -101,12 +111,12 @@ export function createArticleDetailPage({ params, router }) {
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
           <div class="p-6 sm:p-8 bg-white rounded-3xl border border-neutral-200">
             <h4 class="text-sm font-bold text-neutral-900 uppercase tracking-wider mb-4 flex items-center gap-2">
-              <svg class="w-4 h-4 text-emerald-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+              <svg class="w-4 h-4 text-neutral-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
               Referências Bibliográficas Citadas
             </h4>
             <ul class="space-y-2.5 text-xs text-neutral-600 leading-relaxed">
               ${article.references.map(ref => `
-                <li class="pl-4 border-l-2 border-emerald-600/60">${ref}</li>
+                <li class="pl-4 border-l-2 border-neutral-300">${ref}</li>
               `).join('')}
             </ul>
           </div>
@@ -118,7 +128,7 @@ export function createArticleDetailPage({ params, router }) {
         <div class="flex items-center justify-between p-4 bg-neutral-50 rounded-2xl border border-neutral-200/60">
           <span class="text-xs font-semibold text-neutral-700">Gostou deste conteúdo? Compartilhe:</span>
           <div class="flex items-center gap-2">
-            <button id="btn-share-whatsapp" class="px-3.5 py-1.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-sm">
+            <button id="btn-share-whatsapp" class="px-3.5 py-1.5 rounded-full bg-[#60B73F] hover:bg-[#52A633] text-white text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-sm">
               <span>WhatsApp</span>
             </button>
             <button id="btn-share-linkedin" class="px-3.5 py-1.5 rounded-full bg-[#0A66C2] hover:bg-[#084e96] text-white text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-sm">
@@ -140,12 +150,12 @@ export function createArticleDetailPage({ params, router }) {
             ${relatedProducts.map(rp => `
               <a href="#/produtos/${rp.slug}" data-link class="apple-card p-6 bg-white flex flex-col justify-between group">
                 <div>
-                  <span class="text-xs font-semibold text-emerald-700">${rp.category}</span>
-                  <h4 class="text-xl font-bold text-neutral-900 group-hover:text-emerald-700 transition-colors mt-1">${rp.name}</h4>
-                  <div class="text-xs text-neutral-400 font-mono italic mt-0.5">${rp.microorganismShort}</div>
+                  <span class="text-xs font-semibold text-neutral-700 bg-neutral-100 px-2 py-0.5 rounded-full border border-neutral-200">${rp.category}</span>
+                  <h4 class="text-xl font-bold text-neutral-900 group-hover:text-black transition-colors mt-2">${rp.name}</h4>
+                  <div class="text-xs text-neutral-400 italic mt-0.5" style="font-family: Arial, sans-serif;">${rp.microorganismShort}</div>
                   <p class="text-xs sm:text-sm text-neutral-500 mt-2 line-clamp-2">${rp.shortDescription}</p>
                 </div>
-                <div class="mt-4 pt-3 border-t border-neutral-100 flex items-center justify-between text-xs font-semibold text-emerald-700">
+                <div class="mt-4 pt-3 border-t border-neutral-100 flex items-center justify-between text-xs font-semibold text-neutral-800 group-hover:text-[#60B73F] transition-colors">
                   <span>Conhecer tecnologia</span>
                   <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                 </div>
@@ -167,7 +177,7 @@ export function createArticleDetailPage({ params, router }) {
                   <span class="absolute top-3 left-3 bg-white/95 px-2.5 py-0.5 rounded-full text-[11px] font-bold text-neutral-800">${art.category}</span>
                 </div>
                 <div class="p-5">
-                  <h4 class="text-base font-bold text-neutral-900 group-hover:text-emerald-700 transition-colors line-clamp-2">${art.title}</h4>
+                  <h4 class="text-base font-bold text-neutral-900 group-hover:text-black transition-colors line-clamp-2">${art.title}</h4>
                   <span class="text-xs text-neutral-400 mt-2 block">${art.readingTime}</span>
                 </div>
               </a>

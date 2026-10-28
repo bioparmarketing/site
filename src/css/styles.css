@@ -50,10 +50,10 @@
   --text-secondary: #6E6E73;
   --border-color: #D2D2D7;
   --border-light: #E5E5EA;
-  --brand-green: #0B7C41;
-  --brand-green-hover: #086133;
-  --brand-green-light: #E8F5E9;
-  --brand-emerald: #0E7051;
+  --brand-green: #60B73F;
+  --brand-green-hover: #52A633;
+  --brand-green-light: #EBF7E7;
+  --brand-emerald: #007A42;
   --positive-market: #10B981;
   --negative-market: #EF4444;
   --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", "Inter", sans-serif;
@@ -108,7 +108,7 @@ h1, h2, h3, h4, h5, h6, .font-heading {
 .apple-card:hover {
   transform: translateY(-3px);
   box-shadow: var(--shadow-elevated);
-  border-color: rgba(11, 124, 65, 0.25);
+  border-color: rgba(96, 183, 63, 0.35);
 }
 
 .apple-card-static {
@@ -125,7 +125,7 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   border-radius: var(--button-radius);
   padding: 12px 26px;
   font-size: 0.9375rem;
-  font-weight: 500;
+  font-weight: 600;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -139,7 +139,7 @@ h1, h2, h3, h4, h5, h6, .font-heading {
 .btn-pill-primary:hover {
   background: var(--brand-green-hover);
   transform: scale(1.02);
-  box-shadow: 0 4px 14px rgba(11, 124, 65, 0.3);
+  box-shadow: 0 4px 14px rgba(96, 183, 63, 0.4);
 }
 
 .btn-pill-secondary {
@@ -253,14 +253,73 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   top: 0;
   left: 0;
   height: 3px;
-  background: linear-gradient(90deg, var(--brand-green), #10B981);
+  background: linear-gradient(90deg, var(--brand-green), #52A633);
   z-index: 100;
   width: 0%;
   transition: width 0.1s linear;
 }
 
-/* Italic scientific names */
-.scientific-name {
-  font-style: italic;
-  font-weight: 500;
+/* Ticker Marquee de Urgência (Estilo Vidro & Animação Contínua) */
+@keyframes urgentTicker {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-urgent-ticker {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: urgentTicker 30s linear infinite;
+}
+
+.animate-urgent-ticker:hover {
+  animation-play-state: paused;
+}
+
+/* Italic scientific names - Arial Normal Itálico */
+.scientific-name, .font-scientific {
+  font-family: Arial, sans-serif !important;
+  font-style: italic !important;
+  font-weight: normal !important;
+  color: #262626 !important;
+}
+
+.font-arial {
+  font-family: Arial, sans-serif !important;
+}
+
+.bg-brand-green {
+  background-color: var(--brand-green) !important;
+}
+
+.hover\:bg-brand-green-hover:hover {
+  background-color: var(--brand-green-hover) !important;
+}
+
+
+/* ==========================================================================
+   Fixes: Dropdown Background 100% Sólido e Tabs Internas de Produtos
+   ========================================================================== */
+#products-dropdown-panel {
+  z-index: 99999 !important;
+}
+
+#products-dropdown-panel .dropdown-card {
+  background-color: #FFFFFF !important;
+  opacity: 1 !important;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.08) !important;
+}
+
+#products-dropdown-panel .dropdown-footer {
+  background-color: #F9FAFB !important;
+  opacity: 1 !important;
+}
+
+.product-sticky-nav {
+  background-color: #FFFFFF !important;
+  opacity: 1 !important;
 }

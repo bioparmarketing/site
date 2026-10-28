@@ -16,13 +16,13 @@ export function createDoseCalculator(product) {
   container.innerHTML = `
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-neutral-100">
       <div>
-        <span class="text-xs font-semibold uppercase tracking-wider text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full">Ferramenta de Campo</span>
+        <span class="text-xs font-semibold uppercase tracking-wider text-neutral-700 bg-neutral-100 px-2.5 py-1 rounded-full border border-neutral-300">Ferramenta de Campo</span>
         <h4 class="text-xl font-bold text-neutral-900 mt-2">Calculadora de Dosagem — ${product.name}</h4>
         <p class="text-xs sm:text-sm text-neutral-500 mt-0.5">Estime o volume total de produto e calda necessários para a sua área de plantio.</p>
       </div>
       <div class="text-right">
         <span class="text-xs text-neutral-400 font-medium">Dose Técnica Recomendada:</span>
-        <div class="text-lg font-bold text-emerald-700">${defaultDose} ${unit}</div>
+        <div class="text-lg font-bold text-neutral-900">${defaultDose} ${unit}</div>
       </div>
     </div>
 
@@ -31,7 +31,7 @@ export function createDoseCalculator(product) {
       <div class="space-y-2">
         <label class="block text-xs font-semibold text-neutral-700 uppercase tracking-wider">Área a Tratar (Hectares)</label>
         <div class="relative">
-          <input id="calc-area-input" type="number" min="1" max="100000" value="100" class="w-full px-4 py-3 rounded-2xl border border-neutral-200 text-base font-semibold text-neutral-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all" />
+          <input id="calc-area-input" type="number" min="1" max="100000" value="100" class="w-full px-4 py-3 rounded-2xl border border-neutral-200 text-base font-semibold text-neutral-900 focus:outline-none focus:ring-2 focus:ring-[#60B73F] focus:border-transparent transition-all" />
           <span class="absolute right-4 top-3.5 text-xs text-neutral-400 font-semibold uppercase">ha</span>
         </div>
         <div class="flex gap-2 pt-1">
@@ -45,7 +45,7 @@ export function createDoseCalculator(product) {
       <div class="space-y-2">
         <label class="block text-xs font-semibold text-neutral-700 uppercase tracking-wider">Volume de Calda Médio</label>
         <div class="relative">
-          <input id="calc-flow-input" type="number" min="10" max="500" value="80" class="w-full px-4 py-3 rounded-2xl border border-neutral-200 text-base font-semibold text-neutral-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all" />
+          <input id="calc-flow-input" type="number" min="10" max="500" value="80" class="w-full px-4 py-3 rounded-2xl border border-neutral-200 text-base font-semibold text-neutral-900 focus:outline-none focus:ring-2 focus:ring-[#60B73F] focus:border-transparent transition-all" />
           <span class="absolute right-4 top-3.5 text-xs text-neutral-400 font-semibold uppercase">L/ha</span>
         </div>
         <p class="text-[11px] text-neutral-400">Recomendação: ${product.application?.sprayVolume || '40 a 100 L/ha'}</p>

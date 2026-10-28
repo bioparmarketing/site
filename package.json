@@ -2,8 +2,9 @@
   "name": "biopar-website",
   "version": "1.0.0",
   "description": "Plataforma digital corporativa, catálogo biológico e inteligência de mercado da Biopar",
-  
   "scripts": {
+    "dev": "node dev-server.js",
+    "start": "node dev-server.js",
     "build": "echo no build needed"
   },
   "keywords": [

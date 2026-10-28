@@ -1,6 +1,6 @@
 /**
  * Roteador SPA Ultrarrápido e Fluido para o Biopar Website
- * Suporta rotas diretas, parâmetros dinâmicos (:slug) e navegação com histórico.
+ * Suporta rotas diretas, parâmetros dinâmicos (:slug), âncoras na home e histórico.
  */
 
 export class Router {
@@ -15,7 +15,6 @@ export class Router {
    * Adiciona uma rota e sua função renderizadora
    */
   add(path, handler) {
-    // Converte /produtos/:slug em regex
     const paramNames = [];
     const regexPath = path.replace(/:([a-zA-Z0-9_-]+)/g, (_, name) => {
       paramNames.push(name);
@@ -28,7 +27,7 @@ export class Router {
   }
 
   /**
-   * Inicializa o listener de navegação
+   * Inicializa os listeners de navegação
    */
   init() {
     window.addEventListener('hashchange', () => this.handleRoute());
@@ -48,39 +47,75 @@ export class Router {
   }
 
   /**
-   * Navega para uma rota específica
+   * Navega para uma rota ou âncora específica
    */
   navigate(url) {
-    if (url.startsWith('/#') || url.startsWith('#')) {
-      const anchor = url.replace(/^\/?#/, '');
-      if (window.location.hash.startsWith('#/produtos') || window.location.hash.startsWith('#/blog')) {
-        window.location.hash = `#/${anchor ? '#' + anchor : ''}`;
+    if (!url) return;
+
+    // Caso 1: Âncora interna da home (ex: /#biopar ou #biopar ou #/#biopar ou #science)
+    const isAnchor = url.startsWith('/#') || url.startsWith('##') || (url.startsWith('#') && !url.startsWith('#/'));
+    if (isAnchor) {
+      const anchor = url.replace(/^(\/?#+|#+)/, '');
+      const currentHash = (window.location.hash || '').split('?')[0];
+      const isHome = currentHash === '' || currentHash === '#' || currentHash === '#/' || currentHash.startsWith('#/#');
+
+      if (!isHome) {
+        window.location.hash = `#/#${anchor}`;
       } else {
         const el = document.getElementById(anchor);
         if (el) {
           el.scrollIntoView({ behavior: 'smooth' });
-          return;
         }
       }
       return;
     }
 
-    const cleanUrl = url.startsWith('/') ? url : `/${url}`;
-    window.location.hash = `#${cleanUrl}`;
+    // Caso 2: Rota SPA (ex: #/produtos, #/produtos/trixma, #/produtos/categoria/biofungicidas)
+    let cleanPath = url;
+    if (cleanPath.startsWith('#/')) {
+      cleanPath = cleanPath.slice(1); // remove o primeiro '#' mantendo a barra: '/produtos/trixma'
+    } else if (cleanPath.startsWith('#')) {
+      cleanPath = cleanPath.slice(1);
+    }
+    if (!cleanPath.startsWith('/')) {
+      cleanPath = `/${cleanPath}`;
+    }
+
+    const targetHash = `#${cleanPath}`;
+
+    if (window.location.hash === targetHash) {
+      this.handleRoute();
+    } else {
+      window.location.hash = targetHash;
+      // Garante resolução imediata da rota
+      this.handleRoute();
+    }
   }
 
   /**
-   * Resolve a rota atual
+   * Resolve a rota atual baseada no hash da URL
    */
   handleRoute() {
     let hash = window.location.hash.slice(1);
     if (!hash || hash === '') hash = '/';
     
+    // Se o hash for uma âncora local de seção (não começa com '/'), rola até o elemento e NÃO reseta a página!
+    if (!hash.startsWith('/')) {
+      const el = document.getElementById(hash);
+      if (el) {
+        const headerOffset = 145;
+        const offsetPosition = el.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+        return;
+      }
+      return;
+    }
+
     // Separa query params se existirem
     const [pathOnly, queryString] = hash.split('?');
     const queryParams = new URLSearchParams(queryString || '');
 
-    // Verifica âncoras na home tipo /#biopar
+    // Verifica âncoras na home tipo /#biopar ou /#science
     if (pathOnly.includes('#')) {
       const parts = pathOnly.split('#');
       const base = parts[0] || '/';
@@ -112,7 +147,7 @@ export class Router {
         if (container) {
           container.innerHTML = '';
           const pageElement = route.handler({ params, queryParams, router: this });
-          if (pageElement instanceof HTMLElement) {
+          if (pageElement && (typeof HTMLElement === 'undefined' || pageElement instanceof HTMLElement)) {
             container.appendChild(pageElement);
           }
         }
@@ -122,7 +157,7 @@ export class Router {
           setTimeout(() => {
             const target = document.getElementById(anchor);
             if (target) target.scrollIntoView({ behavior: 'smooth' });
-          }, 100);
+          }, 150);
         } else {
           window.scrollTo({ top: 0, behavior: 'instant' });
         }
@@ -133,7 +168,16 @@ export class Router {
     }
 
     if (!matched) {
-      // 404 Fallback - redireciona para a Home
+      // Se path corresponder a um ID existente na página, apenas rola até ele
+      const cleanId = path.replace(/^\//, '');
+      const el = document.getElementById(cleanId);
+      if (el) {
+        const headerOffset = 145;
+        const offsetPosition = el.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+        return;
+      }
+      // 404 Fallback - redireciona para a Home apenas se for realmente rota inexistente
       this.navigate('/');
     }
   }

@@ -68,8 +68,9 @@ export const companyData = {
   contactChannels: {
     phone: '+55 (45) 99131-2295',
     whatsapp: '+55 (45) 99131-2295',
-    emailTechnical: 'comercial@bioparagro.com.br',
-    emailCommercial: 'comercial@bioparagro.com.br',
+    emailTechnical: 'comercial@biopar.agr.br',
+    emailCommercial: 'comercial@biopar.agr.br',
+    emailDpo: 'comercial@biopar.agr.br',
     address: 'Estrada Rural Adroaldo José Bombardelli, S/N',
     googleMapsUrl: 'https://maps.app.goo.gl/BYmNGKjw41yeP8T8A',
     operatingHours: 'Segunda a Sexta, das 08h às 18h (Horário de Brasília)'

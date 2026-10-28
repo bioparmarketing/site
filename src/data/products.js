@@ -1,755 +1,672 @@
 /**
- * Base de Dados Completa de Produtos Biopar
- * Respeita regras regulatórias, taxonomia científica e dados técnicos estruturados.
+ * Portfólio de Soluções Biológicas Biopar
+ * Categorias: Biofungicidas, Bioinseticidas e Promotores de Crescimento.
  */
 
 export const categories = [
-  { id: 'inoculantes', name: 'Inoculantes', description: 'Tecnologias microbiológicas voltadas à simbiose e nutrição biológica.' },
-  { id: 'biofungicidas', name: 'Biofungicidas', description: 'Microrganismos para controle e manejo sustentável de fitopatógenos.' },
-  { id: 'bioinseticidas', name: 'Bioinseticidas', description: 'Biológicos de alta especificidade para o manejo integrado de pragas.' },
-  { id: 'bionematicidas', name: 'Bionematicidas', description: 'Bioagentes específicos para supressão de nematoides de solo.' },
-  { id: 'solubilizadores', name: 'Solubilizadores de Nutrientes', description: 'Bactérias promotoras de disponibilização de fósforo e minerais.' }
+  {
+    id: 'biofungicidas',
+    image: './static/products/category-biofungicidas.jpg',
+    name: 'Biofungicidas',
+    tagline: 'Fungicidas Microbiológicos de Alta Eficácia',
+    description: 'Controle microbiológico e multifatorial de doenças radiculares e foliares, como mofo-branco, fusariose e rizoctoniose.',
+    icon: 'shield-check',
+    badge: 'Proteção Fúngica',
+    productIds: ['trixma', 'bpr-tricho', 'bpr-harzi-one-graf', 'bpr-tricho-10']
+  },
+  {
+    id: 'bioinseticidas',
+    image: './static/products/category-bioinseticidas.jpg',
+    name: 'Bioinseticidas',
+    tagline: 'Tecnologia Biológica que Desafia as Pragas',
+    description: 'Fungos entomopatogênicos para manejo integrado de pragas de alto impacto, como cigarrinhas, percevejos e outros sugadores.',
+    icon: 'bug',
+    badge: 'Controle de Pragas',
+    productIds: ['mb-control', 'bpr-beauveria', 'bpr-metha']
+  },
+  {
+    id: 'promotores-de-crescimento',
+    image: './static/products/category-promotores.jpg',
+    name: 'Promotores de Crescimento',
+    tagline: 'Inoculantes e Solubilizadores Biológicos',
+    description: 'Bactérias promotoras de crescimento, fixação biológica de nitrogênio (FBN), solubilização de fósforo e mitigação de estresse hídrico.',
+    icon: 'sparkles',
+    badge: 'Produtividade & Nutrição',
+    productIds: ['bpr-azo', 'bpr-brad', 'bpr-tetra']
+  }
 ];
 
 export const products = [
+  // ==========================================
+  // BIOFUNGICIDAS
+  // ==========================================
   {
-    id: 'trichocontrol',
-    slug: 'biopar-trichocontrol',
-    name: 'Biopar Trichocontrol',
+    id: 'trixma',
+    slug: 'trixma',
+    image: './static/products/hero-trixma.jpg',
+    name: 'TRIXMA®',
     category: 'Biofungicidas',
     categorySlug: 'biofungicidas',
-    microorganismShort: 'Trichoderma harzianum',
-    microorganismScientific: 'Trichoderma harzianum (IBL-01)',
-    shortDescription: 'Biofungicida e bionematicida de amplo espectro com ação antifúngica, micoparasitismo e indução de defesas naturais da planta.',
-    fullDescription: 'Biopar Trichocontrol é um bioagente de excelência formulado com a cepa exclusiva IBL-01 de Trichoderma harzianum. Atua na rizosfera e filoplano através de quatro mecanismos integrados: antibiose, micoparasitismo direto, competição por espaço e nutrientes e ativação das rotas de resistência sistêmica adquirida (SAR).',
-    mainPositioning: 'Manejo biológico avançado de patógenos de solo e nematoides, protegendo as raízes desde a germinação.',
-    featured: true,
-    badge: 'Cepa Exclusiva IBL-01',
-    heroImage: 'https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?auto=format&fit=crop&w=1200&q=80',
-    packshotImage: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80',
-    colorAccent: '#0E7051',
-    technicalIdentity: {
-      categoria: 'Biofungicida / Bionematicida Microbiológico',
-      microrganismo: 'Trichoderma harzianum',
-      especie: 'harzianum',
-      cepa_ou_isolado: 'Isolado IBL-01',
-      concentracao: '2 x 10⁹ conídios viáveis/mL',
-      formulacao: 'Suspensão Concentrada (SC)',
-      registro_mapa: 'PR-002109-4.000089',
-      apresentacao: 'Frascos de 1L e Galões de 5L',
-      classe_toxicologica: 'Classe V - Pouco Tóxico',
-      inflamabilidade: 'Não inflamável',
-      prazo_validade: '12 meses sob condições adequadas de armazenamento'
-    },
+    productType: 'Fungicida Microbiológico',
+    tagline: 'Proteção biológica multifatorial para semente, raiz, palhada e rizosfera.',
+    speciesHighlights: '2 Espécies • 4 Cepas',
+    microorganisms: 'Trichoderma harzianum + Trichoderma viride',
+    formulation: 'Suspensão Concentrada / Líquida',
+    packaging: 'Caixa contendo 12 frascos de 1 L. Caixa contendo 4 galões de 5 L.',
+    stability: 'Formulação estável com esporos resilientes.',
+    organicApproved: true,
+    regulatoryNotice: 'Registrado no Ministério da Agricultura e Pecuária – MAPA sob nº 55425. Produto improvável de causar dano agudo à saúde humana, animal e pouco perigoso ao meio ambiente. Uso exclusivamente agrícola.',
+    composition: [
+      { name: 'Trichoderma harzianum', strain: 'cepa IBLF 1278', concentration: '0,5 × 10⁸ UFC/mL' },
+      { name: 'Trichoderma harzianum', strain: 'cepa IBLF 1282', concentration: '0,5 × 10⁸ UFC/mL' },
+      { name: 'Trichoderma viride', strain: 'cepa IBLF 1275', concentration: '0,5 × 10⁸ UFC/mL' },
+      { name: 'Trichoderma viride', strain: 'cepa IBLF 1276', concentration: '0,5 × 10⁸ UFC/mL' }
+    ],
+    cropsAndTargets: 'Em todas as culturas com ocorrência dos alvos biológicos: Fusarium oxysporum e Rhizoctonia solani.',
+    targets: [
+      { name: 'Fusarium oxysporum', commonName: 'Fusariose / Podridão radicular' },
+      { name: 'Rhizoctonia solani', commonName: 'Rizoctoniose / Tombamento' }
+    ],
+    dosageTable: [
+      { modality: 'Uso preventivo', dose: '0,210 L p.c./ha', timing: 'Aplicação preventiva em área total' },
+      { modality: 'Tratamento de sementes', dose: '0,105 L p.c./100 kg sementes', timing: 'Direto no tratamento pré-plantio' },
+      { modality: 'Tubérculo no sulco de plantio', dose: '0,030 L p.c./ha', timing: 'Dirigido ao sulco de plantio' },
+      { modality: 'Camalhão', dose: '0,090 L p.c./ha', timing: 'Aplicação orientada ao camalhão' },
+      { modality: 'Pulverizado', dose: '1,4 L p.c./ha', timing: 'Pulverização foliar / área total' }
+    ],
     modeOfAction: {
-      summary: 'Ação múltipla: micoparasitismo ativo, produção de quitinases e glucanases, competição na rizosfera e elicitação de fitoalexinas.',
-      mechanisms: [
-        {
-          title: 'Micoparasitismo Enzimático',
-          description: 'Hifas de Trichoderma enrolam-se nas hifas dos fungos patogênicos, secretando enzimas hidrolíticas que rompem a parede celular do patógeno.'
-        },
-        {
-          title: 'Supressão de Nematoides',
-          description: 'Colonização de ovos e juvenis (J2) de Meloidogyne e Pratylenchus, inviabilizando sua penetração radicular.'
-        },
-        {
-          title: 'Promoção de Crescimento Radicular',
-          description: 'Produção de auxinas e ácido indolacético (AIA) que expandem o volume e absorção de água e nutrientes pela planta.'
-        }
+      summary: 'Atua de forma combinada sobre patógenos e ambiente radicular através de múltiplos mecanismos biológicos, enzimáticos e fisiológicos.',
+      points: [
+        'Redução da incidência e da severidade das doenças que afetam raízes e tecidos vasculares das plantas.',
+        'Diminuição do potencial de inóculo dos patógenos no solo, através da colonização da palhada e da rizosfera, contribuindo para um ambiente mais equilibrado ao redor das raízes.',
+        'Competição ativa por espaço e nutrientes, dificultando o desenvolvimento e o estabelecimento dos fungos causadores de doenças.',
+        'Ação antagônica direta sobre os patógenos, por meio da secreção de metabólitos e enzimas com atividade biológica.',
+        'Micoparasitismo dos fungos fitopatogênicos, auxiliando diretamente na supressão dos agentes causadores das doenças.',
+        'Modo de ação multifatorial, combinando mecanismos biológicos, enzimáticos e fisiológicos no controle integrado de patógenos.',
+        'Maior equilíbrio microbiológico da rizosfera, favorecendo o estabelecimento de microrganismos benéficos.',
+        'Proteção robusta do sistema radicular, auxiliando na manutenção de raízes mais saudáveis, vigorosas e funcionais.',
+        'Maior segurança para o desenvolvimento inicial da cultura, especialmente em áreas com histórico de doenças de solo.',
+        'Contribuição fundamental para a manutenção do potencial produtivo, ao reduzir os danos provocados por patógenos radiculares.'
       ]
     },
     benefits: [
-      'Excelente controle de Mofo-branco (Sclerotinia sclerotiorum) e Tombamento (Rhizoctonia)',
-      'Supressão expressiva da taxa de reprodução de nematoides das galhas e lesões',
-      'Zero intervalo de segurança e reentrada imediata na área tratada',
-      'Estabilidade térmica superior em calda de pulverização'
+      'Rápida colonização da palhada e da rizosfera.',
+      'Eficácia comprovada contra Fusarium e Rhizoctonia.',
+      '2 espécies sinérgicas de Trichoderma na mesma formulação.',
+      '4 cepas selecionadas de Trichoderma que ampliam a proteção.',
+      'Proteção integral da semente e das raízes contra patógenos.',
+      'Esporos altamente resilientes em uma formulação estável.',
+      'Produto biológico registrado no MAPA e aprovado para agricultura orgânica.'
     ],
-    crops: [
-      {
-        name: 'Soja',
-        targets: 'Sclerotinia sclerotiorum, Rhizoctonia solani, Pratylenchus brachyurus',
-        dose: '0.5 a 1.0 L/ha',
-        timing: 'Sulco de plantio e/ou aplicação foliar preventiva no fechamento de entrelinhas (R1)'
-      },
-      {
-        name: 'Feijão',
-        targets: 'Sclerotinia sclerotiorum, Fusarium solani',
-        dose: '0.7 a 1.0 L/ha',
-        timing: 'Tratamento de solo ou pulverização foliar no início do florescimento'
-      },
-      {
-        name: 'Algodão',
-        targets: 'Rhizoctonia solani, Meloidogyne incognita',
-        dose: '1.0 L/ha',
-        timing: 'Aplicação dirigida ao sulco de semeadura'
-      },
-      {
-        name: 'Hortifrúti (HF)',
-        targets: 'Fusarium oxysporum, Sclerotium rolfsii, Meloidogyne spp.',
-        dose: '1.0 a 2.0 L/ha',
-        timing: 'Drench no transplantio ou fertirrigação periódica'
-      }
-    ],
-    targets: [
-      { commonName: 'Mofo-branco', scientificName: 'Sclerotinia sclerotiorum', type: 'Fungo' },
-      { commonName: 'Rizoctoniose / Tombamento', scientificName: 'Rhizoctonia solani', type: 'Fungo' },
-      { commonName: 'Fusariose', scientificName: 'Fusarium oxysporum / solani', type: 'Fungo' },
-      { commonName: 'Nematoide-das-galhas', scientificName: 'Meloidogyne incognita', type: 'Nematoide' },
-      { commonName: 'Nematoide-das-lesões', scientificName: 'Pratylenchus brachyurus', type: 'Nematoide' }
-    ],
-    application: {
-      sprayVolume: '100 a 150 L/ha em aplicação foliar; 40 a 80 L/ha no sulco',
-      waterPh: 'pH ótimo entre 5.5 e 7.2',
-      compatibilityNotice: 'Compatível com a maioria dos inseticidas, acaricidas e herbicidas. Não misturar com fungicidas químicos cúpricos ou benzimidazóis na mesma calda sem teste de compatibilidade prévio.',
-      recommendedDosageHa: 0.75,
-      recommendedUnit: 'L/ha'
+    applicationConditions: {
+      climate: 'Evitar ventos fortes (>10 km/h), horas mais quentes do dia, temperatura acima de 27 °C e umidade relativa abaixo de 50%.',
+      tips: 'Priorizar aplicação nas horas mais frescas do dia ou em dias nublados para preservar a viabilidade dos propágulos biológicos.'
     },
-    evidence: [
-      {
-        title: 'Controle de Mofo-Branco em Soja Irrigada',
-        institution: 'Instituto de Fitopatologia Aplicada',
-        location: 'Cristalina - GO',
-        season: 'Safra 2024/2025',
-        yieldDelta: '-62%',
-        deltaUnit: 'Severidade da Doença',
-        controlValue: 42.5,
-        treatedValue: 16.1,
-        metricName: 'Índice de Severidade (%)',
-        notes: 'Aplicação sequencial aos 45 e 60 DAE. Redução de escleródios viáveis no solo em 58% na entressafra.'
-      },
-      {
-        title: 'Redução do Fator de Reprodução de Pratylenchus',
-        institution: 'Centro de Estudos Nematológicos AgroBio',
-        location: 'Luis Eduardo Magalhães - BA',
-        season: 'Safra 2023/2024',
-        yieldDelta: '+5.6',
-        deltaUnit: 'sc/ha',
-        controlValue: 61.4,
-        treatedValue: 67.0,
-        metricName: 'Produtividade de Soja sob Pressão Nematológica',
-        notes: 'Fator de Reprodução (FR) caiu de 3.8 (testemunha) para 1.4 no tratamento Biopar Trichocontrol.'
-      }
-    ],
-    documents: [
-      { type: 'bula', title: 'Bula Oficial Biopar Trichocontrol', code: 'BUL-TRICHO-2025', size: '1.8 MB', filename: 'bula_biopar_trichocontrol.pdf' },
-      { type: 'ficha', title: 'Ficha de Informações Técnicas', code: 'FIT-TRICHO-01', size: '950 KB', filename: 'ficha_tecnica_biopar_trichocontrol.pdf' },
-      { type: 'fispq', title: 'Ficha de Segurança (FISPQ)', code: 'FISPQ-TRICHO-089', size: '610 KB', filename: 'fispq_biopar_trichocontrol.pdf' }
-    ],
-    relatedProductIds: ['bacillus-shield', 'nematox', 'azos'],
-    relatedArticleIds: ['artigo-manejo-mofo-branco', 'artigo-microbioma-solo']
+    imagePlaceholders: {
+      packshot: { label: 'Imagem do Frasco / Galão TRIXMA®', hint: 'Reservado para foto do produto comercial com fundo transparente/clean' },
+      infographic: { label: 'Diagrama de Ação Multifatorial', hint: 'Reservado para infográfico de colonização de raízes e palhada' }
+    }
   },
+
   {
-    id: 'bacillus-shield',
-    slug: 'biopar-bacillus-shield',
-    name: 'Biopar Bacillus Shield',
+    id: 'bpr-tricho',
+    slug: 'bpr-tricho',
+    image: './static/products/hero-bpr-tricho.jpg',
+    name: 'BPR TRICHO',
     category: 'Biofungicidas',
     categorySlug: 'biofungicidas',
-    microorganismShort: 'Bacillus subtilis + B. pumilus',
-    microorganismScientific: 'Bacillus subtilis (BS-15) + Bacillus pumilus (BP-08)',
-    shortDescription: 'Biofungicida foliar com duplo consórcio bacteriano formador de endósporos para proteção contra manchas e ferrugem.',
-    fullDescription: 'Biopar Bacillus Shield combina duas cepas sinérgicas de Bacillus (subtilis BS-15 e pumilus BP-08) que produzem biofilmes protetores e lipopeptídeos antimicrobianos (surfactinas, iturinas e fengicinas) sobre a cutícula das folhas, inibindo a germinação de esporos de fungos patogênicos.',
-    mainPositioning: 'Barreira biológica foliar e potente elicitor imunológico para manejo integrado de manchas foliares e ferrugens.',
-    featured: true,
-    badge: 'Consórcio de Endósporos',
-    heroImage: 'https://images.unsplash.com/photo-1574943320219-553eb213f72d?auto=format&fit=crop&w=1200&q=80',
-    packshotImage: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80',
-    colorAccent: '#107C41',
-    technicalIdentity: {
-      categoria: 'Biofungicida Microbiológico Foliar',
-      microrganismo: 'Bacillus subtilis + Bacillus pumilus',
-      especie: 'subtilis / pumilus',
-      cepa_ou_isolado: 'BS-15 + BP-08',
-      concentracao: '1 x 10¹⁰ UFC/g de endósporos resistentes',
-      formulacao: 'Pó Molhável Premium / Dispersível (WP)',
-      registro_mapa: 'PR-003290-1.000120',
-      apresentacao: 'Sacos aluminizados herméticos de 1 kg e 5 kg',
-      classe_toxicologica: 'Classe V - Pouco Tóxico',
-      inflamabilidade: 'Não inflamável',
-      prazo_validade: '24 meses em temperatura ambiente até 35°C (alta estabilidade)'
-    },
+    productType: 'Fungicida Microbiológico',
+    tagline: 'Controle biológico do mofo-branco com Trichoderma harzianum IB 19/17.',
+    speciesHighlights: '1 Espécie • 1 Cepa • 5 × 10⁹ conídios/mL',
+    microorganisms: 'Trichoderma harzianum • IB 19/17',
+    formulation: 'Suspensão Concentrada (SC)',
+    packaging: 'Caixa contendo 12 frascos de 1 L. Caixa contendo 4 galões de 5 L.',
+    stability: 'Formulação estável e com esporos resilientes para amplo uso na agricultura.',
+    organicApproved: true,
+    regulatoryNotice: 'Registro MAPA nº 15826. Produto improvável de causar dano agudo à saúde humana, animal e pouco perigoso ao meio ambiente. Uso exclusivamente agrícola.',
+    composition: [
+      { name: 'Trichoderma harzianum', strain: 'cepa IB 19/17', concentration: '5 × 10⁹ conídios viáveis/mL' }
+    ],
+    cropsAndTargets: 'Em todas as culturas com ocorrência do alvo biológico: Sclerotinia sclerotiorum (mofo-branco, podridão-de-sclerotinia ou podridão branca).',
+    targets: [
+      { name: 'Sclerotinia sclerotiorum', commonName: 'Mofo-branco / Podridão-de-sclerotinia' }
+    ],
+    dosageTable: [
+      { modality: 'Dose recomendada geral', dose: '0,400 L p.c./ha', timing: 'Aplicação preventiva ou início da ocorrência do alvo biológico' }
+    ],
     modeOfAction: {
-      summary: 'Produção contínua de metabólitos secundários e lipopeptídeos que rompem a membrana de esporos fúngicos.',
-      mechanisms: [
-        {
-          title: 'Formação de Biofilme Epifítico',
-          description: 'As bactérias colonizam rapidamente os estômatos e a superfície foliar, impedindo a penetração das estruturas fúngicas.'
-        },
-        {
-          title: 'Secreção de Lipopeptídeos (Surfactinas e Fengicinas)',
-          description: 'Ação lítica direta sobre a membrana celular de Phakopsora pachyrhizi e Corynespora casiicola.'
-        },
-        {
-          title: 'Indução de Resistência Sistêmica (ISR)',
-          description: 'Ativação das vias do ácido jasmônico e etileno na planta hospedeira, acelerando sua resposta de defesa.'
-        }
+      summary: 'Ação biológica multifatorial sobre o patógeno e o ambiente radicular com degradação direta da parede celular dos fungos.',
+      points: [
+        'Controle biológico altamente eficiente do mofo-branco (Sclerotinia sclerotiorum).',
+        'Pode ser utilizado em todas as culturas com ocorrência do patógeno alvo.',
+        'Coloniza ativamente a rizosfera e o tecido radicular, estabelecendo-se próximo às raízes das plantas.',
+        'Compete intensamente por espaço e nutrientes, inibindo e reduzindo a proliferação dos fungos patogênicos no solo.',
+        'Atua por micoparasitismo, aderindo às hifas dos patógenos.',
+        'Degrada ativamente a parede celular dos fungos causadores de doenças.',
+        'Modo de ação biológico e multifatorial, contribuindo para um manejo fitossanitário mais sustentável.',
+        'Excelente ferramenta para o Manejo Integrado de Doenças (MID) e diversificação dos mecanismos de controle.',
+        'Colabora com estratégias de manejo da resistência: não causa fitotoxicidade às plantas e não é tóxico ao meio ambiente.',
+        'Produto aprovado para uso na agricultura orgânica.'
       ]
     },
     benefits: [
-      'Excelente ferramenta anti-resistência para fungicidas químicos sítio-específicos',
-      'Termorresistência extrema graças à formulação à base de endósporos puros',
-      'Compatibilidade em tanque com fungicidas e fertilizantes foliares',
-      'Sem carência para colheita'
+      'Controle biológico eficiente para Sclerotinia sclerotiorum (mofo-branco).',
+      'Indicado para todas as culturas agrícolas com ocorrência do alvo.',
+      'Coloniza vigorosamente a rizosfera e o tecido radicular das plantas.',
+      'Degrada a parede celular dos fungos causadores de doenças.',
+      'Excelente ferramenta para compor o Manejo Integrado de Doenças (MID).',
+      'Formulação estável e com esporos resilientes para alta eficiência no campo.',
+      'Produto biológico registrado e certificado para agricultura orgânica.'
     ],
-    crops: [
-      {
-        name: 'Soja',
-        targets: 'Phakopsora pachyrhizi, Corynespora casiicola, Cercospora kikuchii',
-        dose: '0.2 a 0.5 kg/ha',
-        timing: 'Preventivo desde V4/V6 com reaplicações a cada 14-21 dias'
-      },
-      {
-        name: 'Milho',
-        targets: 'Puccinia polysora, Exserohilum turcicum, Bipolaris maydis',
-        dose: '0.3 a 0.5 kg/ha',
-        timing: 'V4 a V8 e pré-pendoamento'
-      },
-      {
-        name: 'Café',
-        targets: 'Hemileia vastatrix (Ferrugem-do-cafeeiro), Cercospora coffeicola',
-        dose: '0.5 a 1.0 kg/ha',
-        timing: 'Preventivo nas épocas chuvosas de maior pressão'
-      },
-      {
-        name: 'Algodão',
-        targets: 'Ramularia areola (Ramulária)',
-        dose: '0.3 a 0.5 kg/ha',
-        timing: 'Aplicações preventivas a cada 12-15 dias'
-      }
-    ],
-    targets: [
-      { commonName: 'Ferrugem Asiática da Soja', scientificName: 'Phakopsora pachyrhizi', type: 'Fungo' },
-      { commonName: 'Mancha-alvo', scientificName: 'Corynespora casiicola', type: 'Fungo' },
-      { commonName: 'Mancha Parda / Cercóspora', scientificName: 'Septoria glycines / Cercospora', type: 'Fungo' },
-      { commonName: 'Ferrugem Polissora do Milho', scientificName: 'Puccinia polysora', type: 'Fungo' },
-      { commonName: 'Ramulária do Algodoeiro', scientificName: 'Ramularia areola', type: 'Fungo' }
-    ],
-    application: {
-      sprayVolume: '100 a 200 L/ha com bicos que proporcionem cobertura homogênea',
-      waterPh: 'pH 5.0 a 7.5',
-      compatibilityNotice: 'Altamente compatível com a maioria dos defensivos agrícolas graças à resistência dos endósporos.',
-      recommendedDosageHa: 0.35,
-      recommendedUnit: 'kg/ha'
+    applicationConditions: {
+      climate: 'Evitar ventos fortes (>10 km/h), horas mais quentes do dia, temperatura acima de 27 °C e umidade relativa abaixo de 50%.',
+      tips: 'Pulverizar com boa cobertura de calda sobre solo, restos culturais e dossel vegetal.'
     },
-    evidence: [
-      {
-        title: 'Manejo Integrado de Mancha-Alvo em Soja',
-        institution: 'Fundação de Apoio à Pesquisa Agropecuária (FAPA)',
-        location: 'Guarapuava - PR',
-        season: 'Safra 2024/2025',
-        yieldDelta: '+4.2',
-        deltaUnit: 'sc/ha',
-        controlValue: 68.4,
-        treatedValue: 72.6,
-        metricName: 'Produtividade de Soja em Manejo Integrado',
-        notes: 'Associação de fungicida químico triazol/carboxamida com Biopar Bacillus Shield reduziu a dessecação prematura em 22%.'
-      }
-    ],
-    documents: [
-      { type: 'bula', title: 'Bula Oficial Biopar Bacillus Shield', code: 'BUL-SHIELD-2025', size: '1.6 MB', filename: 'bula_biopar_bacillus_shield.pdf' },
-      { type: 'ficha', title: 'Ficha Técnica de Aplicação', code: 'FIT-SHIELD-01', size: '780 KB', filename: 'ficha_tecnica_biopar_bacillus_shield.pdf' }
-    ],
-    relatedProductIds: ['trichocontrol', 'metamix', 'beauveril'],
-    relatedArticleIds: ['artigo-manejo-antirresistencia', 'artigo-microbioma-solo']
+    imagePlaceholders: {
+      packshot: { label: 'Imagem do Frasco BPR TRICHO', hint: 'Reservado para foto de embalagem de 1L ou galão de 5L' },
+      infographic: { label: 'Foto de Campo / Inibição de Escleródios', hint: 'Reservado para imagem de campo demonstrando ação sobre mofo-branco' }
+    }
   },
+
   {
-    id: 'azos',
-    slug: 'biopar-azos',
-    name: 'Biopar Azos',
-    category: 'Inoculantes',
-    categorySlug: 'inoculantes',
-    microorganismShort: 'Azospirillum brasilense',
-    microorganismScientific: 'Azospirillum brasilense (Ab-V5 + Ab-V6)',
-    shortDescription: 'Inoculante promotor de crescimento vegetal e fixador associativo de nitrogênio para gramíneas e co-inoculação em leguminosas.',
-    fullDescription: 'Biopar Azos é desenvolvido com as estirpes comprovadas Ab-V5 e Ab-V6 de Azospirillum brasilense. Estimula a produção endógena de fitormônios vegetais (auxinas, giberelinas e citocininas), promovendo a hipertrofia do sistema radicular e maior capacidade de absorção de água e nutrientes em condições normais e sob estresse hídrico.',
-    mainPositioning: 'Expansão radicular vigorosa, tolerância ao estresse hídrico e eficiência no aproveitamento de fertilizantes.',
-    featured: true,
-    badge: 'Co-Inoculação Campeã',
-    heroImage: 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=1200&q=80',
-    packshotImage: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80',
-    colorAccent: '#0B7C41',
-    technicalIdentity: {
-      categoria: 'Inoculante Microbiológico Promotor de Crescimento',
-      microrganismo: 'Azospirillum brasilense',
-      especie: 'brasilense',
-      cepa_ou_isolado: 'Estirpes Ab-V5 e Ab-V6',
-      concentracao: '3 x 10⁹ UFC/mL',
-      formulacao: 'Líquida Estabilizada (L)',
-      registro_mapa: 'PR-006231-5.000078',
-      apresentacao: 'Bag-in-box 5L e Galões de 20L',
-      classe_toxicologica: 'Não aplicável (Insumo Biológico Registrado)',
-      inflamabilidade: 'Não inflamável',
-      prazo_validade: '12 meses sob refrigeração ou ambiente fresco (< 25°C)'
-    },
+    id: 'bpr-harzi-one-graf',
+    slug: 'bpr-harzi-one-graf',
+    image: './static/products/hero-bpr-harzi-one-graf.jpg',
+    name: 'BPR HARZI ONE GRAF',
+    category: 'Biofungicidas',
+    categorySlug: 'biofungicidas',
+    productType: 'Fungicida Microbiológico',
+    tagline: 'Controle microbiológico do mofo-branco com Trichoderma harzianum IB19/17.',
+    speciesHighlights: '1 Espécie • 1 Isolado • Pó Molhável (WP)',
+    microorganisms: 'Trichoderma harzianum • IB19/17',
+    formulation: 'Pó Molhável (WP)',
+    packaging: 'Conteúdo: vide rótulo / sacos de 1 kg.',
+    stability: 'Estabilidade de até 12 meses sob temperaturas entre 5 °C e 24 °C.',
+    organicApproved: true,
+    regulatoryNotice: 'Categoria 5 – Produto improvável de causar dano agudo. Classe IV – Pouco perigoso ao meio ambiente. Produto fitossanitário dispensado de receituário agronômico com uso aprovado pela agricultura orgânica.',
+    composition: [
+      { name: 'Trichoderma harzianum', strain: 'isolado IB19/17', concentration: 'Mínimo de 1,33 × 10⁹ conídios viáveis/g (100 g/kg - 10% m/m)' },
+      { name: 'Outros ingredientes', strain: 'Veículo inerte', concentration: '900 g/kg (90% m/m)' }
+    ],
+    cropsAndTargets: 'Em todas as culturas com ocorrência do alvo biológico: Sclerotinia sclerotiorum (mofo-branco).',
+    targets: [
+      { name: 'Sclerotinia sclerotiorum', commonName: 'Mofo-branco' }
+    ],
+    dosageTable: [
+      { modality: 'Dose recomendada geral', dose: '1,5 kg p.c./ha', timing: 'Equivale a 2 × 10¹² conídios viáveis/ha • Realizar 2 aplicações • Calda de 200 L/ha quando pertinente' },
+      { modality: 'Cultura da Soja', dose: '1,5 kg p.c./ha', timing: '1ª aplicação em V3 e 2ª aplicação em R1' },
+      { modality: 'Cultura do Feijão', dose: '1,5 kg p.c./ha', timing: '1ª aplicação em V3 e 2ª aplicação em R5' },
+      { modality: 'Aplicação Aérea', dose: '1,5 kg p.c./ha', timing: 'Volume de calda entre 30 e 50 L/ha' }
+    ],
     modeOfAction: {
-      summary: 'Colonização endofítica e epifítica das raízes com secreção de fitormônios de crescimento e fixação associativa de N.',
-      mechanisms: [
-        {
-          title: 'Síntese de Fitormônios (Auxinas e AIA)',
-          description: 'Acelera a emissão de raízes secundárias e pelos absorventes, dobrando a área de contato da raiz com o solo.'
-        },
-        {
-          title: 'Fixação Associativa de N₂',
-          description: 'Fornece de 20 a 40 kg de N/ha para culturas como milho, trigo e pastagens.'
-        },
-        {
-          title: 'Mitigação de Estresse Hídrico (Veranicos)',
-          description: 'Planta explora camadas mais profundas de solo em busca de água.'
-        }
+      summary: 'Tripla ação: colonização + competição + micoparasitismo agressivo no controle do mofo-branco.',
+      points: [
+        'Eficácia comprovada para o controle do mofo-branco (Sclerotinia sclerotiorum).',
+        'Pode ser usado em todas as culturas com ocorrência do alvo biológico.',
+        'Coloniza a rizosfera e o tecido radicular, estabelecendo-se próximo às raízes.',
+        'Compete com fungos patogênicos por espaço e nutrientes vitais.',
+        'Realiza micoparasitismo, aderindo com afinidade às hifas dos fungos fitopatogênicos.',
+        'Degrada ativamente a parede celular dos fungos causadores de doenças.',
+        'Realizar duas aplicações estratégicas, preferencialmente nas horas mais frescas do dia.'
       ]
     },
     benefits: [
-      'Aumento de até 20% no volume de massa radicular profunda',
-      'Fundamental na co-inoculação de gramíneas e leguminosas',
-      'Economia de até 25% na adubação nitrogenada de cobertura em milho e trigo',
-      'Acelera o estabelecimento e perfilhamento de pastagens'
+      'Eficácia comprovada no controle de Sclerotinia sclerotiorum (mofo-branco).',
+      'Indicado para todas as culturas agrícolas com ocorrência de mofo-branco.',
+      'Coloniza a rizosfera e o tecido radicular das plantas.',
+      'Compete intensamente com fungos patogênicos por espaço e nutrientes.',
+      'Atua por micoparasitismo e degrada a parede celular dos patógenos.',
+      'Formulação pó molhável estável por até 12 meses entre 5 °C e 24 °C.',
+      'Produto fitossanitário aprovado para agricultura orgânica.'
     ],
-    crops: [
-      {
-        name: 'Milho',
-        targets: 'Promoção de crescimento e fixação de N',
-        dose: '100 a 150 mL / 60.000 sementes ou 200 a 300 mL/ha no sulco / foliar em V4',
-        timing: 'Tratamento de sementes, sulco de plantio ou pulverização foliar em V3/V4'
-      },
-      {
-        name: 'Soja (Co-Inoculação)',
-        targets: 'Promoção de enraizamento e nodulação',
-        dose: '100 mL / 50 kg de semente ou 200 mL/ha no sulco',
-        timing: 'Aplicação no tratamento de sementes ou sulco de plantio'
-      },
-      {
-        name: 'Trigo e Arroz',
-        targets: 'Fixação associativa e enraizamento',
-        dose: '100 a 200 mL / 100 kg de sementes',
-        timing: 'Tratamento de sementes'
-      },
-      {
-        name: 'Pastagens (Brachiaria)',
-        targets: 'Perfilhamento e nutrição vegetal',
-        dose: '200 a 300 mL / ha',
-        timing: 'Foliar logo após o primeiro pastejo'
-      }
-    ],
-    targets: [
-      { commonName: 'Promoção de Crescimento Radicular', scientificName: 'Síntese de auxinas e AIA', type: 'Fisiológico' },
-      { commonName: 'Fixação Associativa de Nitrogênio', scientificName: 'Simbiose associativa', type: 'Nutrição Biológica' },
-      { commonName: 'Tolerância ao Estresse Hídrico', scientificName: 'Resiliência hídrica', type: 'Fisiológico' }
-    ],
-    application: {
-      sprayVolume: '40 a 100 L/ha no sulco ou pulverização em V3/V4',
-      waterPh: 'pH 6.0 a 7.0',
-      compatibilityNotice: 'Excelente compatibilidade na calda de co-inoculação.',
-      recommendedDosageHa: 0.25,
-      recommendedUnit: 'L/ha'
+    applicationConditions: {
+      climate: 'Preferir fim da tarde ou dias nublados. Pulverização: UR > 55%, temperatura < 30 °C e vento entre 3 e 10 km/h.',
+      tips: 'Na aplicação aérea, manter volume de calda entre 30 e 50 L/ha com bicos regulados para gotas adequadas.'
     },
-    evidence: [
-      {
-        title: 'Resposta de Produtividade em Milho Safrinha',
-        institution: 'Rede de Ensaios Agronômicos Sul / PR',
-        location: 'Cascavel - PR',
-        season: 'Safrinha 2024',
-        yieldDelta: '+7.3',
-        deltaUnit: 'sc/ha',
-        controlValue: 114.2,
-        treatedValue: 121.5,
-        metricName: 'Produtividade Média de Milho Grão',
-        notes: 'Incremento estatístico significativo mesmo com redução de 20% do adubo nitrogenado em cobertura.'
-      }
-    ],
-    documents: [
-      { type: 'bula', title: 'Bula Oficial Biopar Azos', code: 'BUL-AZOS-2025', size: '1.2 MB', filename: 'bula_biopar_azos.pdf' },
-      { type: 'ficha', title: 'Manual de Inoculação e Co-Inoculação', code: 'FIT-AZOS-03', size: '920 KB', filename: 'manual_coinoculacao_biopar.pdf' }
-    ],
-    relatedProductIds: ['fosfotech', 'trichocontrol'],
-    relatedArticleIds: ['artigo-coinoculacao-soja', 'artigo-microbioma-solo']
+    imagePlaceholders: {
+      packshot: { label: 'Imagem da Embalagem BPR HARZI ONE GRAF (WP)', hint: 'Reservado para foto do pacote pó molhável' },
+      infographic: { label: 'Cronograma Fenológico Soja / Feijão (V3, R1, R5)', hint: 'Reservado para infográfico das épocas de aplicação' }
+    }
   },
+
   {
-    id: 'metamix',
-    slug: 'biopar-metamix',
-    name: 'Biopar Metamix',
+    id: 'bpr-tricho-10',
+    slug: 'bpr-tricho-10',
+    image: './static/products/hero-bpr-tricho-10.jpg',
+    name: 'BPR TRICHO 10',
+    category: 'Biofungicidas',
+    categorySlug: 'biofungicidas',
+    productType: 'Fungicida Microbiológico',
+    tagline: 'Alta concentração de Trichoderma harzianum IB19/17 para o controle do mofo-branco.',
+    speciesHighlights: '1 Espécie • 1 Isolado • 2,0 × 10¹⁰ conídios/mL',
+    microorganisms: 'Trichoderma harzianum • IB19/17',
+    formulation: 'Suspensão Concentrada (SC)',
+    packaging: 'Conteúdo: vide rótulo / frascos de 1 L.',
+    stability: 'Estabilidade de até 12 meses entre 5 °C e 24 °C.',
+    organicApproved: true,
+    regulatoryNotice: 'Categoria 5 – Produto improvável de causar dano agudo. Classe IV – Pouco perigoso ao meio ambiente. Produto fitossanitário dispensado de receituário agronômico com uso aprovado pela agricultura orgânica.',
+    composition: [
+      { name: 'Trichoderma harzianum', strain: 'isolado IB19/17', concentration: 'Mínimo de 2,0 × 10¹⁰ conídios viáveis/mL (40 g/L - 3,63% m/v)' },
+      { name: 'Outros ingredientes', strain: 'Veículo formulado', concentration: '1060,4 g/L (96,36% m/v)' }
+    ],
+    cropsAndTargets: 'Em todas as culturas agrícolas com ocorrência do alvo biológico: Sclerotinia sclerotiorum (mofo-branco).',
+    targets: [
+      { name: 'Sclerotinia sclerotiorum', commonName: 'Mofo-branco' }
+    ],
+    dosageTable: [
+      { modality: 'Dose recomendada', dose: '0,100 L p.c./ha', timing: 'Volume de calda: 200 L/ha quando pertinente • Realizar duas aplicações' },
+      { modality: 'Cultura da Soja', dose: '0,100 L p.c./ha', timing: '1ª aplicação em V3 e 2ª aplicação em R1' },
+      { modality: 'Cultura do Feijão', dose: '0,100 L p.c./ha', timing: '1ª aplicação em V3 e 2ª aplicação em R5' },
+      { modality: 'Aplicação Aérea', dose: '0,100 L p.c./ha', timing: 'Volume de calda: 30 a 50 L/ha' }
+    ],
+    modeOfAction: {
+      summary: 'Máxima concentração de inóculo ativo com colonização rápida, competição vigorosa e micoparasitismo letal.',
+      points: [
+        'Eficácia superior comprovada para o controle do mofo-branco (Sclerotinia sclerotiorum).',
+        'Pode ser utilizado em todas as culturas com ocorrência do alvo biológico.',
+        'Coloniza rapidamente a rizosfera e o tecido radicular, blindando raízes e colo.',
+        'Compete ferrenhamente com fungos patogênicos por espaço físico e nutrientes.',
+        'Realiza micoparasitismo, aderindo firmemente às hifas patogênicas.',
+        'Degrada enzimaticamente a parede celular dos fungos causadores de podridões.',
+        'Aplicar preferencialmente nas horas mais frescas do dia ou em dias nublados.'
+      ]
+    },
+    benefits: [
+      'Eficácia comprovada para o controle de Sclerotinia sclerotiorum (mofo-branco).',
+      'Pode ser utilizado em todas as culturas com ocorrência do alvo.',
+      'Concentração ultra elevada: mínimo de 2,0 × 10¹⁰ conídios viáveis/mL.',
+      'Menor volume de produto transportado e manuseado na fazenda (alta densidade).',
+      'Coloniza a rizosfera e o tecido radicular das plantas.',
+      'Compete intensamente com fungos patogênicos e atua por micoparasitismo.',
+      'Produto formulado estável por até 12 meses entre 5 °C e 24 °C.',
+      'Produto fitossanitário com uso aprovado pela agricultura orgânica.'
+    ],
+    applicationConditions: {
+      climate: 'Pulverização: UR > 55%, temperatura < 30 °C e vento entre 3 e 10 km/h. Evitar ventos fortes e as horas mais quentes.',
+      tips: 'Em aplicação aérea utilizar volume entre 30 e 50 L/ha de calda.'
+    },
+    imagePlaceholders: {
+      packshot: { label: 'Imagem do Frasco BPR TRICHO 10', hint: 'Reservado para foto do produto de alta concentração' },
+      infographic: { label: 'Comparativo de Densidade Conidial', hint: 'Reservado para gráfico de 2,0 × 10¹⁰ conídios/mL' }
+    }
+  },
+
+  // ==========================================
+  // BIOINSETICIDAS
+  // ==========================================
+  {
+    id: 'mb-control',
+    slug: 'mb-control',
+    image: './static/products/hero-mb-control.jpg',
+    name: 'MB CONTROL®',
     category: 'Bioinseticidas',
     categorySlug: 'bioinseticidas',
-    microorganismShort: 'Metarhizium anisopliae',
-    microorganismScientific: 'Metarhizium anisopliae (IBCB 425)',
-    shortDescription: 'Bioinseticida de contato à base de fungo entomopatogênico para controle de cigarrinhas, pragas de solo e percevejos.',
-    fullDescription: 'Biopar Metamix contém conídios puros do fungo entomopatogênico Metarhizium anisopliae (isolado IBCB 425), reconhecido cientificamente pela alta virulência e rapidez na germinação sobre o exoesqueleto de pragas-chave do agro brasileiro, como a cigarrinha-do-milho e cigarrinha-da-raiz.',
-    mainPositioning: 'Controle microbiológico de alta eficiência para quebra de ciclos de cigarrinhas e pragas de difícil controle químico.',
-    featured: false,
-    badge: 'Virulência Comprovada',
-    heroImage: 'https://images.unsplash.com/photo-1628352081506-83c43123ed6d?auto=format&fit=crop&w=1200&q=80',
-    packshotImage: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80',
-    colorAccent: '#0B7C41',
-    technicalIdentity: {
-      categoria: 'Bioinseticida Microbiológico Entomopatogênico',
-      microrganismo: 'Metarhizium anisopliae',
-      especie: 'anisopliae',
-      cepa_ou_isolado: 'Isolado IBCB 425',
-      concentracao: '5 x 10⁹ conídios viáveis/mL',
-      formulacao: 'Óleo Dispersível (OD) / Suspensão Oleosa',
-      registro_mapa: 'PR-004455-2.000199',
-      apresentacao: 'Bombonas de 5L e 10L',
-      classe_toxicologica: 'Classe V - Pouco Tóxico',
-      inflamabilidade: 'Não inflamável',
-      prazo_validade: '12 meses sob refrigeração ou 6 meses em local fresco (< 20°C)'
-    },
+    productType: 'Inseticida Microbiológico',
+    tagline: 'Beauveria bassiana IBCB 66 + Metarhizium anisopliae IBCB 425 para o controle biológico de pragas.',
+    speciesHighlights: '2 Espécies • 2 Isolados Entomopatogênicos',
+    microorganisms: 'Beauveria bassiana IBCB 66 • Metarhizium anisopliae IBCB 425',
+    formulation: 'Suspensão / Calda Pronta',
+    packaging: 'Caixa contendo 12 frascos de 1 L. Caixa contendo 4 galões de 5 L.',
+    stability: 'Formulação estabilizada e altamente compatível para mistura e pulverização.',
+    organicApproved: true,
+    regulatoryNotice: 'Registrado no MAPA sob nº 20525. Produto biológico aprovado para agricultura orgânica. Uso exclusivamente agrícola.',
+    composition: [
+      { name: 'Beauveria bassiana', strain: 'isolado IBCB 66', concentration: '1,5 × 10⁵ UFC/mL' },
+      { name: 'Metarhizium anisopliae', strain: 'isolado IBCB 425', concentration: '1,5 × 10⁵ UFC/mL' }
+    ],
+    cropsAndTargets: 'Uso em todas as culturas com ocorrência dos alvos biológicos: Deois flavopicta e Percevejo-marrom (Euschistus heros).',
+    targets: [
+      { name: 'Deois flavopicta', commonName: 'Cigarrinha-das-pastagens' },
+      { name: 'Euschistus heros', commonName: 'Percevejo-marrom da soja' }
+    ],
+    dosageTable: [
+      { modality: 'Dose recomendada por hectare', dose: '0,133 a 0,200 L/ha', timing: 'Aplicar conforme recomendação técnica respeitando alvos e condições climáticas' }
+    ],
     modeOfAction: {
-      summary: 'Penetração mecânica e enzimática na cutícula do inseto seguida de colonização da hemocele e morte por micose verde.',
-      mechanisms: [
-        {
-          title: 'Adesão e Germinação Cuticular',
-          description: 'Os conídios aderem ao tegumento do inseto e emitem o tubo germinativo com apressório.'
-        },
-        {
-          title: 'Produção de Destruxinas',
-          description: 'Liberação de toxinas peptídicas que paralisam a alimentação e o sistema neuromuscular da praga em 48-72h.'
-        },
-        {
-          title: 'Esporulação Epizoótica',
-          description: 'Em condições de umidade favorável, o fungo esporula na carcaça do inseto, disseminando o inóculo na lavoura.'
-        }
+      summary: 'Infecção direta por contato, germinação na cutícula, colonização interna e ação microbiológica complementar de duas espécies.',
+      points: [
+        'Os fungos infectam a praga diretamente pela superfície do corpo, sem depender de ingestão.',
+        'Os conídios germinam e penetram naturalmente pela cutícula do inseto.',
+        'A combinação de Beauveria bassiana e Metarhizium anisopliae amplia a estratégia biológica.',
+        'Após a penetração, os fungos colonizam internamente a cavidade celômica da praga.',
+        'A colonização provoca alterações fisiológicas severas que levam o inseto à morte.',
+        'Pode atuar sobre ninfas e adultos expostos, conforme a suscetibilidade e o ambiente.',
+        'A mortalidade dos insetos contribui de forma decisiva para quebrar o ciclo populacional da praga.',
+        'O modo de ação biológico auxilia programas de manejo de resistência a defensivos químicos.',
+        'Pode integrar perfeitamente estratégias culturais, biológicas e químicas no Manejo Integrado de Pragas (MIP).',
+        'Em condições ambientais favoráveis, ocorre esporulação externa sobre o cadáver do inseto, disseminando novos conídios na lavoura (epizootia).'
       ]
     },
     benefits: [
-      'Eficácia superior no controle de ninfas e adultos da cigarrinha-do-milho (Dalbulus maidis)',
-      'Formulações em base oleosa que protegem os conídios contra a dessecação e radiação UV',
-      'Seletivo para polinizadores (abelhas) e inimigos naturais (parasitoides e predadores)',
-      'Sem geração de resistência cruzada com inseticidas neonicotinoides e piretroides'
+      'Ação de choque e residual por contato durante ou após a aplicação na área tratada.',
+      'Dupla ação microbiológica complementar de Beauveria bassiana e Metarhizium anisopliae.',
+      'Duas espécies consagradas de fungos entomopatogênicos na mesma formulação equilibrada.',
+      'Potencial de multiplicação dos fungos sobre o próprio inseto praga, ampliando o controle na área.',
+      'Esporos resilientes desenvolvidos para aplicação prática em pulverizadores agrícolas.',
+      'Formulação estabilizada e compatível para mistura de calda e pulverização uniforme.',
+      'Produto biológico registrado e certificado para agricultura orgânica.'
     ],
-    crops: [
-      {
-        name: 'Milho',
-        targets: 'Dalbulus maidis (Cigarrinha-do-milho), Spodoptera frugiperda',
-        dose: '0.5 a 1.0 L/ha',
-        timing: 'Início em V1/V2 na primeira detecção de adultos, reaplicando conforme monitoramento'
-      },
-      {
-        name: 'Cana-de-açúcar',
-        targets: 'Mahanarva fimbriolata (Cigarrinha-da-raiz)',
-        dose: '1.0 a 2.0 L/ha',
-        timing: 'Início do período chuvoso na detecção das primeiras ninfas com espuma'
-      },
-      {
-        name: 'Pastagens',
-        targets: 'Notozulia entreriana, Deois flavopicta (Cigarrinhas-das-pastagens)',
-        dose: '1.0 L/ha',
-        timing: 'Aplicação foliar no pico de ninfas'
-      }
-    ],
-    targets: [
-      { commonName: 'Cigarrinha-do-milho', scientificName: 'Dalbulus maidis', type: 'Inseto' },
-      { commonName: 'Cigarrinha-da-raiz da cana', scientificName: 'Mahanarva fimbriolata', type: 'Inseto' },
-      { commonName: 'Cigarrinha-das-pastagens', scientificName: 'Notozulia entreriana / Deois flavopicta', type: 'Inseto' },
-      { commonName: 'Lagarta-do-cartucho', scientificName: 'Spodoptera frugiperda', type: 'Inseto' }
-    ],
-    application: {
-      sprayVolume: '80 a 150 L/ha no milho; 150 a 250 L/ha em cana',
-      waterPh: 'pH 5.5 a 7.0',
-      compatibilityNotice: 'Aplicar preferencialmente no final da tarde (após as 16h) ou em dias nublados com umidade relativa > 60%.',
-      recommendedDosageHa: 0.75,
-      recommendedUnit: 'L/ha'
+    applicationConditions: {
+      climate: 'Evitar ventos > 10 km/h, horas mais quentes do dia, temperatura > 27 °C e umidade relativa < 50%.',
+      tips: 'Priorizar aplicações no final da tarde ou em noites úmidas, facilitando a germinação dos conídios.'
     },
-    evidence: [
-      {
-        title: 'Manejo de Dalbulus maidis em Milho Safrinha',
-        institution: 'Centro de Pesquisa Agronômica do Mato Grosso (CPAMT)',
-        location: 'Sorriso - MT',
-        season: 'Safrinha 2024',
-        yieldDelta: '-74%',
-        deltaUnit: 'Incidência de Enfezamento Pálido e Vermelho',
-        controlValue: 48.2,
-        treatedValue: 12.5,
-        metricName: 'Índice de Plantas com Sintomas de Molicutes (%)',
-        notes: '3 aplicações combinadas no ciclo vegetativo proporcionaram incremento de +11.2 sc/ha.'
-      }
-    ],
-    documents: [
-      { type: 'bula', title: 'Bula Oficial Biopar Metamix', code: 'BUL-META-2025', size: '1.5 MB', filename: 'bula_biopar_metamix.pdf' },
-      { type: 'ficha', title: 'Guia Técnico de Manejo de Cigarrinhas', code: 'FIT-META-02', size: '1.1 MB', filename: 'guia_tecnico_biopar_metamix.pdf' }
-    ],
-    relatedProductIds: ['beauveril', 'bacillus-shield'],
-    relatedArticleIds: ['artigo-cigarrinha-milho', 'artigo-manejo-antirresistencia']
+    imagePlaceholders: {
+      packshot: { label: 'Imagem do Frasco MB CONTROL®', hint: 'Reservado para foto do produto comercial' },
+      infographic: { label: 'Ciclo de Infecção Entomopatogênica', hint: 'Reservado para diagrama do contato, penetração cuticular e esporulação' }
+    }
   },
+
   {
-    id: 'beauveril',
-    slug: 'biopar-beauveril',
-    name: 'Biopar Beauveril',
+    id: 'bpr-beauveria',
+    slug: 'bpr-beauveria',
+    image: './static/products/hero-bpr-beauveria.jpg',
+    name: 'BPR BEAUVERIA®',
     category: 'Bioinseticidas',
     categorySlug: 'bioinseticidas',
-    microorganismShort: 'Beauveria bassiana',
-    microorganismScientific: 'Beauveria bassiana (IBCB 66)',
-    shortDescription: 'Fungo entomopatogênico de alta pureza para manejo de mosca-branca, ácaro-rajado, tripes e broca-do-café.',
-    fullDescription: 'Biopar Beauveril é formulado com a estirpe IBCB 66 de Beauveria bassiana. Desenvolvido para atuar com velocidade e seletividade no controle de pragas sugadoras e mastigadoras em diversas culturas de grãos, café, frutas e hortaliças.',
-    mainPositioning: 'Controle bio-específico de mosca-branca e pragas sugadoras com máxima segurança biológica.',
-    featured: false,
-    badge: 'Líder em Mosca-Branca',
-    heroImage: 'https://images.unsplash.com/photo-1587293852726-70cdb56c2866?auto=format&fit=crop&w=1200&q=80',
-    packshotImage: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80',
-    colorAccent: '#15803D',
-    technicalIdentity: {
-      categoria: 'Bioinseticida / Bioacaricida Microbiológico',
-      microrganismo: 'Beauveria bassiana',
-      especie: 'bassiana',
-      cepa_ou_isolado: 'Isolado IBCB 66',
-      concentracao: '1 x 10¹⁰ conídios viáveis/g',
-      formulacao: 'Pó Molhável Dispersível (WP)',
-      registro_mapa: 'PR-005112-8.000215',
-      apresentacao: 'Embalagens herméticas de 1 kg e 5 kg',
-      classe_toxicologica: 'Classe V - Pouco Tóxico',
-      inflamabilidade: 'Não inflamável',
-      prazo_validade: '18 meses em local seco e fresco (< 25°C)'
-    },
+    productType: 'Inseticida e Acaricida Microbiológico',
+    tagline: 'Desempenho de Beauveria bassiana IBCB 66 no controle de Dalbulus maidis em milho safrinha.',
+    speciesHighlights: 'Até 70% de Eficiência aos 5 DAA • Cassilândia, MS',
+    microorganisms: 'Beauveria bassiana • Isolado IBCB 66',
+    formulation: 'Líquida / Suspensão Concentrada',
+    packaging: 'Conteúdo: 1 Litro.',
+    stability: 'Conídios de alta pureza e viabilidade.',
+    organicApproved: true,
+    regulatoryNotice: 'Registro informado no card técnico: MAPA nº 15826. Produto improvável de causar dano agudo. Uso exclusivamente agrícola.',
+    composition: [
+      { name: 'Beauveria bassiana', strain: 'isolado IBCB 66', concentration: 'Formulação pura com isolado padrão agronômico IBCB 66' }
+    ],
+    cropsAndTargets: 'Milho safrinha e demais culturas com ocorrência de Dalbulus maidis (cigarrinha-do-milho).',
+    targets: [
+      { name: 'Dalbulus maidis', commonName: 'Cigarrinha-do-milho (vetora de enfezamentos)' }
+    ],
+    dosageTable: [
+      { modality: 'Ensaio técnico - 0,5 L/ha', dose: '0,5 L/ha', timing: 'Redução média para 22 cigarrinhas aos 5 DAA (vs 45,5 da testemunha)' },
+      { modality: 'Ensaio técnico - 2,0 L/ha', dose: '2,0 L/ha', timing: 'Redução média para 16,7 cigarrinhas aos 5 DAA' },
+      { modality: 'Destaque de eficácia no estudo', dose: '4 × 10¹² conídios viáveis/ha', timing: 'Alcançou até 70% de eficiência aos 5 dias após a primeira aplicação' }
+    ],
     modeOfAction: {
-      summary: 'Adsorção de conídios, digestão da epicutícula com proteases e morte por colonização sistêmica de Beauveria (micose branca).',
-      mechanisms: [
-        {
-          title: 'Ataque a Todos os Estágios',
-          description: 'Controla ninfas e adultos de mosca-branca, além de inviabilizar a eclosão de ovos.'
-        },
-        {
-          title: 'Produção de Beauvericina e Oosporeína',
-          description: 'Metabólitos antimicrobianos e inseticidas naturais que aceleram a taxa de mortalidade.'
-        }
+      summary: 'Eficiência comprovada, quebra rápida da pressão populacional e persistência de controle no milho safrinha.',
+      points: [
+        'O ensaio de campo avaliou rigorosamente o controle de Dalbulus maidis no milho safrinha (Cassilândia, MS).',
+        'A eficiência aos 5 DAA variou entre 42% e 70% entre os tratamentos apresentados.',
+        'O ensaio destaca 70% de eficiência aos 5 DAA na dose de 4 × 10¹² conídios viáveis/ha.',
+        'O controle médio observado de D. maidis no estudo situou-se entre 56% e 70%.',
+        'A testemunha não tratada apresentou média de 45,5 cigarrinhas aos 5 DAA.',
+        'Com dose de 0,5 L/ha, a média reduziu-se para 22 cigarrinhas.',
+        'Com dose de 2 L/ha, a média caiu para apenas 16,7 cigarrinhas.',
+        'A eficiência permaneceu consistente em 42% aos 10 DAA no ensaio de persistência.',
+        'Fonte bibliográfica do ensaio: Silva et al. (2009), Bol. San. Veg. Pragas 35: 657–664.'
       ]
     },
     benefits: [
-      'Excelente controle em populações de mosca-branca resistentes a químicos',
-      'Ação supressora simultânea sobre Ácaro-rajado e Tripes',
-      'Intervalo de carência zero para exportação de hortifrúti e grãos'
+      'Eficiência de até 70% aos 5 dias após a primeira aplicação.',
+      'Controle expressivo de Dalbulus maidis mantido entre 56% e 70% no estudo.',
+      'Persistência prolongada de eficiência superior a 42% até 10 dias após a aplicação.',
+      'Queda acentuada da pressão populacional da cigarrinha em relação à testemunha (de 45,5 para 16,7).',
+      'Agente biológico de referência à base do consagrado isolado IBCB 66 de Beauveria bassiana.',
+      'Desempenho comprovado em condições reais de campo no milho safrinha.',
+      'Ferramenta microbiológica de alto valor estratégico para compor o MIP Milho.'
     ],
-    crops: [
-      {
-        name: 'Soja e Feijão',
-        targets: 'Bemisia tabaci (Mosca-branca), Frankliniella schultzei (Tripes)',
-        dose: '0.5 a 1.0 kg/ha',
-        timing: 'Preventivo ou no primeiro aparecimento de adultos'
-      },
-      {
-        name: 'Algodão',
-        targets: 'Bemisia tabaci, Tetranychus urticae (Ácaro-rajado)',
-        dose: '0.75 a 1.0 kg/ha',
-        timing: 'Aplicações rotacionais no manejo integrado'
-      },
-      {
-        name: 'Café',
-        targets: 'Hypothenemus hampei (Broca-do-café)',
-        dose: '1.0 a 1.5 kg/ha',
-        timing: 'Época de trânsito dos frutos'
-      }
-    ],
-    targets: [
-      { commonName: 'Mosca-branca', scientificName: 'Bemisia tabaci', type: 'Inseto' },
-      { commonName: 'Ácaro-rajado', scientificName: 'Tetranychus urticae', type: 'Ácaro' },
-      { commonName: 'Tripes', scientificName: 'Frankliniella schultzei / Thrips palmi', type: 'Inseto' },
-      { commonName: 'Broca-do-café', scientificName: 'Hypothenemus hampei', type: 'Inseto' }
-    ],
-    application: {
-      sprayVolume: '100 a 200 L/ha garantindo cobertura na face abaxial das folhas',
-      waterPh: 'pH 5.5 a 7.0',
-      compatibilityNotice: 'Aplicar preferencialmente em horários com menor incidência de radiação solar direta.',
-      recommendedDosageHa: 0.75,
-      recommendedUnit: 'kg/ha'
+    applicationConditions: {
+      climate: 'Aplicar conforme recomendação técnica de bula com foco em gotas que atinjam o cartucho e folhas do milho.',
+      tips: 'As doses descritas referem-se aos tratamentos do ensaio técnico do estudo fornecido.'
     },
-    evidence: [
-      {
-        title: 'Manejo de Mosca-Branca em Soja de Cerrado',
-        institution: 'Universidade Federal de Goiás (UFG)',
-        location: 'Jataí - GO',
-        season: 'Safra 2024/2025',
-        yieldDelta: '-78%',
-        deltaUnit: 'Ninfas Vivas / Folíolo',
-        controlValue: 34.2,
-        treatedValue: 7.5,
-        metricName: 'População de Ninfas de Mosca-branca',
-        notes: '2 aplicações intervaladas por 7 dias. Mortalidade média de adultos confirmada em 82% em laboratório.'
-      }
-    ],
-    documents: [
-      { type: 'bula', title: 'Bula Oficial Biopar Beauveril', code: 'BUL-BEAU-2025', size: '1.4 MB', filename: 'bula_biopar_beauveril.pdf' },
-      { type: 'ficha', title: 'Ficha Técnica do Produto', code: 'FIT-BEAU-01', size: '820 KB', filename: 'ficha_tecnica_biopar_beauveril.pdf' }
-    ],
-    relatedProductIds: ['metamix', 'bacillus-shield'],
-    relatedArticleIds: ['artigo-manejo-antirresistencia', 'artigo-cigarrinha-milho']
+    imagePlaceholders: {
+      packshot: { label: 'Imagem do Frasco BPR BEAUVERIA®', hint: 'Reservado para foto do produto em frasco de 1L' },
+      infographic: { label: 'Gráfico do Ensaio Científico (Silva et al.)', hint: 'Reservado para gráfico de barras 45,5 → 16,7 cigarrinhas e curva de persistência aos 10 DAA' }
+    }
   },
+
   {
-    id: 'fosfotech',
-    slug: 'biopar-fosfotech',
-    name: 'Biopar Fosfotech',
-    category: 'Solubilizadores de Nutrientes',
-    categorySlug: 'solubilizadores',
-    microorganismShort: 'Bacillus megaterium + B. subtilis',
-    microorganismScientific: 'Bacillus megaterium (BM-11) + Bacillus subtilis (BS-15)',
-    shortDescription: 'Inoculante solubilizador de fósforo fixado no solo, liberando P lábil através da produção de ácidos orgânicos e fosfatases.',
-    fullDescription: 'Biopar Fosfotech atua diretamente sobre o maior patrimônio oculto do agricultor: o fósforo retido nas argilas e óxidos de ferro e alumínio do solo. Seu consórcio bacteriano secreta ácidos cítrico, oxálico e glucônico, além de enzimas fitases e fosfatases, disponibilizando ortofosfato absorvível pelas plantas.',
-    mainPositioning: 'Destravamento do fósforo retido no solo e maximização do aproveitamento de adubos fosfatados.',
-    featured: false,
-    badge: 'Desbloqueio de Fósforo',
-    heroImage: 'https://images.unsplash.com/photo-1589923188900-85dae523342b?auto=format&fit=crop&w=1200&q=80',
-    packshotImage: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80',
-    colorAccent: '#0E7051',
-    technicalIdentity: {
-      categoria: 'Inoculante Solubilizador de Fósforo',
-      microrganismo: 'Bacillus megaterium + Bacillus subtilis',
-      especie: 'megaterium / subtilis',
-      cepa_ou_isolado: 'BM-11 + BS-15',
-      concentracao: '4 x 10⁹ UFC/mL',
-      formulacao: 'Líquida Concentrada (L)',
-      registro_mapa: 'PR-007421-9.000311',
-      apresentacao: 'Galões de 5L e 20L',
-      classe_toxicologica: 'Não aplicável (Insumo Biológico Registrado)',
-      inflamabilidade: 'Não inflamável',
-      prazo_validade: '12 meses'
-    },
+    id: 'bpr-metha',
+    slug: 'bpr-metha',
+    image: './static/products/hero-bpr-metha.jpg',
+    name: 'BPR METHA',
+    category: 'Bioinseticidas',
+    categorySlug: 'bioinseticidas',
+    productType: 'Inseticida Microbiológico',
+    tagline: 'Metarhizium anisopliae IBCB 425 para o controle biológico de cigarrinhas.',
+    speciesHighlights: '1 Espécie • 1 Isolado • Mínimo 1 × 10⁹ conídios/mL',
+    microorganisms: 'Metarhizium anisopliae • IBCB 425',
+    formulation: 'Suspensão Concentrada (SC)',
+    packaging: 'Conteúdo: vide rótulo / frascos de 1 L.',
+    stability: 'Armazenamento: entre 5 °C e 27 °C por até 150 dias.',
+    organicApproved: true,
+    regulatoryNotice: 'Categoria 5 – Produto improvável de causar dano agudo. Classe IV – Pouco perigoso ao meio ambiente. Produto fitossanitário dispensado de receituário agronômico com uso aprovado pela agricultura orgânica.',
+    composition: [
+      { name: 'Metarhizium anisopliae', strain: 'isolado IBCB 425', concentration: 'Mínimo de 1 × 10⁹ conídios viáveis/mL (100 g/L - 9,20% m/v)' },
+      { name: 'Outros ingredientes', strain: 'Veículo formulado', concentration: '986 g/L (90,80% m/v)' }
+    ],
+    cropsAndTargets: 'Cana-de-açúcar: cigarrinha-da-raiz (Mahanarva fimbriolata). Pastagens: cigarrinha-das-pastagens (Zulia entreriana e Deois flavopicta).',
+    targets: [
+      { name: 'Mahanarva fimbriolata', commonName: 'Cigarrinha-da-raiz (cana-de-açúcar)' },
+      { name: 'Zulia entreriana', commonName: 'Cigarrinha-das-pastagens' },
+      { name: 'Deois flavopicta', commonName: 'Cigarrinha-dos-capinzais' }
+    ],
+    dosageTable: [
+      { modality: 'Cana-de-açúcar (Mahanarva fimbriolata)', dose: '1 L/ha', timing: 'Calda de 200–300 L/ha. Monitorar ninfas após as primeiras chuvas; realizar duas aplicações por ciclo' },
+      { modality: 'Pastagens (Zulia entreriana)', dose: '1 L/ha', timing: 'Calda de 200–300 L/ha. Monitorar ninfas após primeiras chuvas; realizar duas aplicações por ano' },
+      { modality: 'Pastagens com Brachiaria decumbens (Deois flavopicta)', dose: '16 L/ha', timing: 'Calda de 300 L/ha (equivalente a 1 × 10¹² e 16 × 10¹² conídios/ha). Realizar conforme necessidade' }
+    ],
     modeOfAction: {
-      summary: 'Acidificação localizada na rizosfera por quelação de cátions (Fe³⁺, Al³⁺, Ca²⁺) e mineralização enzimática de P orgânico.',
-      mechanisms: [
-        {
-          title: 'Secreção de Ácidos Orgânicos de Cadeia Curta',
-          description: 'Quebram as ligações químicas fortes que fixam o fósforo nas partículas minerais do solo.'
-        },
-        {
-          title: 'Produção de Fosfatases Ácidas e Alcalinas',
-          description: 'Hidrolisam ésteres fosfóricos da matéria orgânica transformando fósforo orgânico em ortofosfato inorgânico (H₂PO₄⁻).'
-        }
+      summary: 'Pulverização líquida de alta viabilidade com infecção por contato sobre ninfas e adultos nas horas mais frescas.',
+      points: [
+        'Cana-de-açúcar: monitorar o surgimento de ninfas espumosas após o início das primeiras chuvas e aplicar ao detectar a praga.',
+        'Para Mahanarva fimbriolata, realizar duas aplicações por ciclo da cultura da cana.',
+        'Pastagens com Zulia entreriana: monitorar ninfas após as primeiras chuvas e realizar duas aplicações anuais.',
+        'Para Deois flavopicta em Brachiaria decumbens, realizar aplicação conforme a necessidade de controle da infestação.',
+        'Aplicar com pulverizador hidropneumático tratorizado ou tracionado com bicos calibrados.',
+        'Buscar excelente cobertura da parte aérea sem provocar escorrimento da calda.',
+        'Aplicar preferencialmente no final da tarde ou à noite, em dias nublados ou com garoa fina.',
+        'Limpar muito bem tanque e bicos para eliminar quaisquer resíduos de defensivos químicos.',
+        'Diluir no volume de calda recomendado, manter a agitação constante e aplicar logo após o preparo.'
       ]
     },
     benefits: [
-      'Aumento no teor de fósforo foliar e absorção radicular',
-      'Melhoria no pegamento de vagens e enchimento de grãos',
-      'Retorno expressivo sobre o investimento na adubação fosfatada',
-      'Alta compatibilidade com caldas de plantio'
+      'Controle microbiológico eficaz de cigarrinha-da-raiz, cigarrinha-das-pastagens e cigarrinha-dos-capinzais.',
+      'Amplo espectro de aplicação em culturas com ocorrência dos alvos previstos em bula.',
+      'Alta concentração mínima garantida de 1 × 10⁹ conídios viáveis/mL.',
+      'Aplicação líquida homogênea com excelente cobertura da base e parte aérea das plantas.',
+      'Recomendado para pulverização nas horas mais frescas, preservando ao máximo a viabilidade conidial.',
+      'Não causa nenhum efeito fitotóxico quando utilizado rigorosamente conforme as recomendações de bula.',
+      'Produto fitossanitário com uso aprovado pela agricultura orgânica.'
     ],
-    crops: [
-      {
-        name: 'Soja, Milho e Algodão',
-        targets: 'Solubilização e disponibilização de fósforo',
-        dose: '200 a 300 mL/ha',
-        timing: 'Sulco de plantio na semeadura'
-      },
-      {
-        name: 'Cana-de-açúcar',
-        targets: 'Solubilização de P em plantio de cana-planta e soqueira',
-        dose: '500 mL/ha',
-        timing: 'No sulco de plantio de cana ou no corte de soqueira'
-      }
-    ],
-    targets: [
-      { commonName: 'Solubilização de Fósforo Fixado', scientificName: 'Disponibilização de H₂PO₄⁻', type: 'Nutrição Biológica' },
-      { commonName: 'Atividade Enzimática do Solo', scientificName: 'Fosfatase e Fitase', type: 'Biológico de Solo' }
-    ],
-    application: {
-      sprayVolume: '40 a 80 L/ha no sulco de semeadura',
-      waterPh: 'pH 5.5 a 7.5',
-      compatibilityNotice: 'Aplicar no sulco de plantio. Compatível com inoculantes e promotores de crescimento.',
-      recommendedDosageHa: 0.25,
-      recommendedUnit: 'L/ha'
+    applicationConditions: {
+      climate: 'Evitar vento > 10 km/h, temperatura > 27 °C e umidade relativa < 70%.',
+      tips: 'Reentrada na área permitida somente após a secagem completa da calda (no mínimo 24 horas).'
     },
-    evidence: [
-      {
-        title: 'Eficiência de Absorção de Fósforo e Produtividade em Soja',
-        institution: 'Universidade de Rio Verde (UniRV)',
-        location: 'Rio Verde - GO',
-        season: 'Safra 2024/2025',
-        yieldDelta: '+3.9',
-        deltaUnit: 'sc/ha',
-        controlValue: 66.8,
-        treatedValue: 70.7,
-        metricName: 'Produtividade de Soja em Solo de Cerrado',
-        notes: 'Aumento de 18% no teor de P foliar na fase R2 (floração plena).'
-      }
-    ],
-    documents: [
-      { type: 'bula', title: 'Bula Oficial Biopar Fosfotech', code: 'BUL-FOSFO-2025', size: '1.3 MB', filename: 'bula_biopar_fosfotech.pdf' },
-      { type: 'ficha', title: 'Estudo Técnico de Solubilização de Fósforo', code: 'FIT-FOSFO-01', size: '890 KB', filename: 'estudo_fosforo_biopar.pdf' }
-    ],
-    relatedProductIds: ['azos', 'trichocontrol'],
-    relatedArticleIds: ['artigo-coinoculacao-soja', 'artigo-microbioma-solo']
+    imagePlaceholders: {
+      packshot: { label: 'Imagem do Frasco BPR METHA', hint: 'Reservado para foto do produto em frasco de 1L' },
+      infographic: { label: 'Esquema de Aplicação em Cana e Pastagem', hint: 'Reservado para infográfico de bicos e calda dirigida na base da cana' }
+    }
   },
+
+  // ==========================================
+  // PROMOTORES DE CRESCIMENTO
+  // ==========================================
   {
-    id: 'nematox',
-    slug: 'biopar-nematox',
-    name: 'Biopar Nematox',
-    category: 'Bionematicidas',
-    categorySlug: 'bionematicidas',
-    microorganismShort: 'Bacillus amyloliquefaciens',
-    microorganismScientific: 'Bacillus amyloliquefaciens (BA-44)',
-    shortDescription: 'Bionematicida bacteriano especialista em colonização da coifa radicular e paralisia de juvenis de nematoides.',
-    fullDescription: 'Biopar Nematox utiliza o potente isolado BA-44 de Bacillus amyloliquefaciens. O microrganismo forma uma capa protetora de biofilme nos pontos de entrada das raízes e secreta enzimas proteolíticas e surfactantes que destroem a camada lipídica dos ovos e desorientam o quimiotactismo dos nematoides fitoparasitas.',
-    mainPositioning: 'Proteção biológica de alta persistência contra nematoides das galhas, lesões e cisto.',
-    featured: false,
-    badge: 'Especialista em Nematoides',
-    heroImage: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80',
-    packshotImage: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80',
-    colorAccent: '#0E7051',
-    technicalIdentity: {
-      categoria: 'Bionematicida Microbiológico',
-      microrganismo: 'Bacillus amyloliquefaciens',
-      especie: 'amyloliquefaciens',
-      cepa_ou_isolado: 'Cepa BA-44',
-      concentracao: '1 x 10¹⁰ UFC/g',
-      formulacao: 'Grânulos Dispersíveis em Água (WDG)',
-      registro_mapa: 'PR-008102-1.000405',
-      apresentacao: 'Sacos de 1 kg e 5 kg',
-      classe_toxicologica: 'Classe V - Pouco Tóxico',
-      inflamabilidade: 'Não inflamável',
-      prazo_validade: '24 meses em temperatura ambiente'
-    },
+    id: 'bpr-azo',
+    slug: 'bpr-azo',
+    image: './static/products/hero-bpr-azo.jpg',
+    name: 'BPR AZO',
+    category: 'Promotores de Crescimento',
+    categorySlug: 'promotores-de-crescimento',
+    productType: 'Inoculante Líquido (Inoculante Agrícola)',
+    tagline: 'Inoculante líquido à base de Azospirillum brasilense para milho e co-inoculação da soja.',
+    speciesHighlights: '2 × 10⁸ UFC/mL • Estirpes Ab-V5 e Ab-V6',
+    microorganisms: 'Azospirillum brasilense (Estirpes Ab-V5 e Ab-V6)',
+    formulation: 'Inoculante Líquido',
+    packaging: 'Caixa contendo 4 unidades (bags) de 3 L (60 doses por unidade = 240 doses por caixa).',
+    stability: 'Formulação líquida estabilizada para aplicação em sulco ou sementes.',
+    organicApproved: true,
+    regulatoryNotice: 'Uso exclusivamente agrícola. Produto registrado no Ministério da Agricultura e Pecuária – MAPA PR sob nº 002438-4.000021.',
+    composition: [
+      { name: 'Azospirillum brasilense', strain: 'Estirpes Ab-V5 e Ab-V6', concentration: '2 × 10⁸ UFC/mL' }
+    ],
+    cropsAndTargets: 'Produto indicado para a cultura do milho e para co-inoculação da soja.',
+    targets: [
+      { name: 'Fixação Biológica de Nitrogênio (FBN)', commonName: 'Nutrição nitrogenada e produção de fitormônios' },
+      { name: 'Expansão Radicular', commonName: 'Aumento da área e massa radicular' }
+    ],
+    dosageTable: [
+      { modality: 'Cultura do Milho', dose: '100 mL por saca de 60.000 sementes', timing: 'Aplicação diretamente na semente ou em máquinas de aplicação direta no sulco de semeadura' },
+      { modality: 'Co-inoculação da Soja', dose: 'Conforme recomendação técnica', timing: 'Co-inoculação associada ao Bradyrhizobium no plantio' }
+    ],
     modeOfAction: {
-      summary: 'Destruição de ovos de nematoides, paralisação de juvenis J2 e bloqueio físico das pontas radiculares.',
-      mechanisms: [
-        {
-          title: 'Bloqueio do Sítio de Infecção',
-          description: 'Criação de barreira biológica que impede a fixação e alimentação dos nematoides.'
-        },
-        {
-          title: 'Ação Ovicida',
-          description: 'Enzimas líticas degradam a casca de quitina e proteínas dos ovos de Meloidogyne e Heterodera.'
-        }
+      summary: 'Azospirillum brasilense estirpes Ab-V5 + Ab-V6 fornecendo fixação biológica de nitrogênio e potente síntese de fitormônios de enraizamento.',
+      points: [
+        'Formulação líquida à base de Azospirillum brasilense reunindo as estirpes consagradas da pesquisa nacional Ab-V5 e Ab-V6.',
+        'Concentração bacteriana informada de 2 × 10⁸ UFC/mL.',
+        'Pode ser utilizado tanto em máquinas de aplicação direta no sulco de semeadura quanto diretamente nas sementes.',
+        'Apresenta aumento cientificamente comprovado na fixação biológica do nitrogênio (FBN) no milho.',
+        'Favorece um expressivo incremento na área superficial e na massa total de raízes das plantas.',
+        'Amplia significativamente a eficiência de absorção hídrica e de macro e micronutrientes do solo.',
+        'Perfeito para co-inoculação na cultura da soja em sinergia com Bradyrhizobium.',
+        'Pode ser associado com máxima segurança a outros produtos biológicos do portfólio Biopar.'
       ]
     },
     benefits: [
-      'Fórmula em grânulos WDG de alta solubilidade e sem entupimento de filtros e bicos',
-      'Persistência prolongada no solo, acompanhando o crescimento das raízes',
-      'Compatível com fertilizantes fluídos de arranque e inoculantes'
+      'Inoculante líquido puro à base de Azospirillum brasilense.',
+      'Combinação balanceada das estirpes Ab-V5 e Ab-V6 com garantia de 2 × 10⁸ UFC/mL.',
+      'Flexibilidade operacional: aplicação direta no sulco de semeadura ou no tratamento de sementes.',
+      'Comprovado aumento na fixação biológica do nitrogênio (FBN) na cultura do milho.',
+      'Proporciona nítido aumento da área e da massa radicular das plantas.',
+      'Melhor tolerância da lavoura a veranicos devido ao enraizamento mais profundo.',
+      'Pode ser associado livremente a outros produtos biológicos do portfólio.',
+      'Produto biológico registrado no MAPA e aprovado como inoculante agrícola.'
     ],
-    crops: [
-      {
-        name: 'Soja, Algodão, Cana e Café',
-        targets: 'Meloidogyne incognita, Meloidogyne javanica, Pratylenchus brachyurus, Heterodera glycines',
-        dose: '0.2 a 0.4 kg/ha',
-        timing: 'Sulco de plantio ou drench no pegamento'
-      }
-    ],
-    targets: [
-      { commonName: 'Nematoide-das-galhas', scientificName: 'Meloidogyne incognita / javanica', type: 'Nematoide' },
-      { commonName: 'Nematoide-das-lesões', scientificName: 'Pratylenchus brachyurus', type: 'Nematoide' },
-      { commonName: 'Nematoide-do-cisto-da-soja', scientificName: 'Heterodera glycines', type: 'Nematoide' },
-      { commonName: 'Nematoide-reniforme', scientificName: 'Rotylenchulus reniformis', type: 'Nematoide' }
-    ],
-    application: {
-      sprayVolume: '40 a 80 L/ha no sulco de plantio',
-      waterPh: 'pH 5.0 a 8.0',
-      compatibilityNotice: 'Altamente estável e compatível com tratamentos biológicos e químicos usuais.',
-      recommendedDosageHa: 0.3,
-      recommendedUnit: 'kg/ha'
+    applicationConditions: {
+      climate: 'Manter a calda abrigada do calor direto; aplicar no sulco ou em sementes antes do plantio.',
+      tips: 'Para recomendações de uso específicas de co-inoculação, consulte o rótulo e a equipe agronômica.'
     },
-    evidence: [
-      {
-        title: 'Manejo de Pratylenchus em Área Arenosa',
-        institution: 'Fundação Chapadão',
-        location: 'Chapadão do Sul - MS',
-        season: 'Safra 2024/2025',
-        yieldDelta: '+5.1',
-        deltaUnit: 'sc/ha',
-        controlValue: 58.6,
-        treatedValue: 63.7,
-        metricName: 'Produtividade de Soja em Solo Arenoso sob Nematoides',
-        notes: 'Redução de 66% na população de Pratylenchus por 10g de raiz aos 60 DAE.'
-      }
+    imagePlaceholders: {
+      packshot: { label: 'Imagem do Bag BPR AZO (3L)', hint: 'Reservado para foto da embalagem pouch/bag com bocal dosador' },
+      infographic: { label: 'Foto Comparativa de Raízes no Milho', hint: 'Reservado para foto de raízes testemunha vs inoculada com BPR AZO' }
+    }
+  },
+
+  {
+    id: 'bpr-brad',
+    slug: 'bpr-brad',
+    image: './static/products/hero-bpr-brad.jpg',
+    name: 'BPR BRAD',
+    category: 'Promotores de Crescimento',
+    categorySlug: 'promotores-de-crescimento',
+    productType: 'Inoculante Agrícola',
+    tagline: 'Inoculante líquido à base de Bradyrhizobium japonicum para nodulação e fixação biológica de nitrogênio.',
+    speciesHighlights: '7 × 10⁹ UFC/mL • Estirpes 5079 / 5080',
+    microorganisms: 'Bradyrhizobium japonicum (Estirpes 5079/5080)',
+    formulation: 'Inoculante Líquido',
+    packaging: 'Caixa contendo 4 unidades (bags) de 3 L (60 doses por unidade = 240 doses por caixa).',
+    stability: 'Elevada viabilidade celular para estocagem e aplicação no campo.',
+    organicApproved: true,
+    regulatoryNotice: 'Uso exclusivamente agrícola. Produto registrado no Ministério da Agricultura e Pecuária – MAPA PR sob nº 002438-4.000029.',
+    composition: [
+      { name: 'Bradyrhizobium japonicum', strain: 'Estirpes 5079/5080', concentration: '7 × 10⁹ UFC/mL' }
     ],
-    documents: [
-      { type: 'bula', title: 'Bula Oficial Biopar Nematox', code: 'BUL-NEMATOX-2025', size: '1.4 MB', filename: 'bula_biopar_nematox.pdf' },
-      { type: 'ficha', title: 'Guia de Diagnóstico e Manejo de Nematoides', code: 'FIT-NEMATOX-01', size: '1.2 MB', filename: 'guia_nematoides_biopar.pdf' }
+    cropsAndTargets: 'Produto indicado para leguminosas, com destaque principal e dosagem específica para a cultura da soja.',
+    targets: [
+      { name: 'Fixação Biológica de Nitrogênio (FBN)', commonName: 'Suprimento integral de N para a soja' },
+      { name: 'Nodulação Radicular', commonName: 'Infecção e formação de nódulos de alta atividade da nitrogenase' }
     ],
-    relatedProductIds: ['trichocontrol', 'bacillus-shield'],
-    relatedArticleIds: ['artigo-microbioma-solo', 'artigo-manejo-mofo-branco']
+    dosageTable: [
+      { modality: 'Cultura da Soja (Sementes)', dose: '50 mL para cada 50 kg de sementes', timing: 'Tratamento de sementes pré-plantio ou aplicação no sulco de semeadura' }
+    ],
+    modeOfAction: {
+      summary: 'Infecção específica dos pelos radiculares da soja, diferenciação em bacteroides e formação de nódulos para FBN intensiva.',
+      points: [
+        'Formulação líquida com altíssima concentração celular de Bradyrhizobium japonicum (7 × 10⁹ UFC/mL).',
+        'Reúne as consagradas estirpes 5079 e 5080 recomendadas pela Embrapa para máxima nodulação.',
+        'Pode ser aplicado tanto diretamente no sulco de semeadura quanto no tratamento de sementes.',
+        'Promove elevada taxa de infecção radicular e rápida formação de nódulos eficientes na raiz principal e secundárias.',
+        'Garante aumento comprovado da fixação biológica de nitrogênio (FBN) e da produtividade final de grãos.',
+        'Contribui decisivamente para maior produção de biomassa vegetativa das plantas.',
+        'Pode ser combinado com BPR AZO em programas avançados de co-inoculação.'
+      ]
+    },
+    benefits: [
+      'Inoculante líquido à base de Bradyrhizobium japonicum (5079/5080).',
+      'Concentração garantida de 7 × 10⁹ UFC/mL para máxima colonização da semente e sulco.',
+      'Uso eficiente em máquinas de aplicação direta no sulco de semeadura e no tratamento de sementes.',
+      'Elevada eficácia na infecção e formação rápida de nódulos ativos nas raízes de soja.',
+      'Comprovado aumento na fixação biológica de nitrogênio (FBN) e nos tetos de produtividade.',
+      'Contribui de forma direta para o aumento do vigor e da biomassa aérea das plantas.',
+      'Totalmente compatível para associação a outros bioinsumos do portfólio Biopar.',
+      'Produto biológico registrado no MAPA e aprovado como inoculante agrícola.'
+    ],
+    applicationConditions: {
+      climate: 'Evitar exposição das sementes tratadas e bags ao sol direto e calor excessivo.',
+      tips: 'Aplicar conforme recomendação técnica e dosagem de 50 mL por 50 kg de sementes.'
+    },
+    imagePlaceholders: {
+      packshot: { label: 'Imagem do Bag BPR BRAD (3L)', hint: 'Reservado para foto da embalagem de inoculante para soja' },
+      infographic: { label: 'Foto de Nodulação Radicular na Soja', hint: 'Reservado para foto de raízes com nódulos coroa ativos e avermelhados' }
+    }
+  },
+
+  {
+    id: 'bpr-tetra',
+    slug: 'bpr-tetra',
+    image: './static/products/hero-bpr-tetra.jpg',
+    name: 'BPR TETRA',
+    category: 'Promotores de Crescimento',
+    categorySlug: 'promotores-de-crescimento',
+    productType: 'Solubilizador de Nutrientes',
+    tagline: 'Consórcio de Bacillus para solubilização, ciclagem de nutrientes e mitigação de estresse hídrico.',
+    speciesHighlights: '4 Bacillus • 1 × 10⁹ UFC/mL • Biofertilidade Total',
+    microorganisms: 'B. subtilis • B. megaterium • B. licheniformes • B. aryabhattai',
+    formulation: 'Suspensão / Formulação Líquida de Bacillus',
+    packaging: '12 unidades de 1 L • 4 unidades de 5 L • 1 unidade de 20 L.',
+    stability: 'Esporos bacterianos com estabilidade biológica superior.',
+    organicApproved: true,
+    regulatoryNotice: 'Uso exclusivamente agrícola. Informações mantidas conforme documentação técnica fornecida. Para recomendação agronômica completa, consulte a equipe Biopar.',
+    composition: [
+      { name: 'Bacillus subtilis', strain: 'Cepa consórcio', concentration: 'Componente do consórcio' },
+      { name: 'Bacillus megaterium', strain: 'Cepa consórcio', concentration: 'Componente do consórcio' },
+      { name: 'Bacillus licheniformes', strain: 'Cepa consórcio', concentration: 'Componente do consórcio' },
+      { name: 'Bacillus aryabhattai', strain: 'Cepa consórcio', concentration: 'Componente do consórcio' },
+      { name: 'Concentração total', strain: 'Consórcio 4 Bacillus', concentration: '1 × 10⁹ UFC/mL' }
+    ],
+    cropsAndTargets: 'Em aplicações recomendadas para este tipo de produto em tratamento de sementes e sulco de plantio.',
+    targets: [
+      { name: 'Solubilização de Fósforo e Minerais', commonName: 'Disponibilização de nutrientes retidos na fração mineral' },
+      { name: 'Ciclagem de Matéria Orgânica', commonName: 'Degradação acelerada de resíduos culturais e palhada' },
+      { name: 'Mitigação de Estresse Hídrico', commonName: 'Produção de biofilmes e exopolissacarídeos (EPS)' }
+    ],
+    dosageTable: [
+      { modality: 'Tratamento de Sementes', dose: '0,100 L a 0,242 L', timing: 'Aplicação homogênea nas sementes via máquinas específicas' },
+      { modality: 'Aplicação no Sulco de Semeadura', dose: '0,150 L a 0,363 L', timing: 'Dirigido ao sulco no momento do plantio' }
+    ],
+    modeOfAction: {
+      summary: 'Quatro Bacillus complementares voltados à dinâmica da rizosfera, ciclagem acelerada de nutrientes e proteção fisiológica contra a seca.',
+      points: [
+        'B. subtilis integra o consórcio microbiológico do BPR TETRA, produzindo fitormônios e substâncias promotoras de crescimento.',
+        'B. megaterium atua agressivamente na solubilização do fósforo adsorvido aos coloides do solo através da secreção de ácidos orgânicos.',
+        'B. licheniformes atua intensamente nos processos de ciclagem da matéria orgânica e liberação de nutrientes.',
+        'B. aryabhattai completa o quarteto sintetizando biofilmes e exopolissacarídeos que mantêm a umidade radicular e mitigam o estresse hídrico.',
+        'Concentração total informada: 1 × 10⁹ UFC/mL.',
+        'Posicionamento comercial especializado: Solubilizador de nutrientes.',
+        'Posicionado tecnicamente também como potente mitigador de estresse hídrico em veranicos.',
+        'Favorece a disponibilidade de nutrientes retidos em resíduos de culturas anteriores (palhada).',
+        'Promove aumento expressivo da vida microbiana e diversidade biológica nos ambientes onde é aplicado.'
+      ]
+    },
+    benefits: [
+      'Solubilizador de alta potência e mitigador de estresse hídrico.',
+      'Consórcio exclusivo com quatro espécies comprovadas de Bacillus.',
+      'Contribui ativamente para a aceleração da ciclagem de nutrientes no solo.',
+      'Atua fortemente na transformação biológica da matéria orgânica.',
+      'Favorece a disponibilidade e aproveitamento de nutrientes retidos em resíduos de culturas.',
+      'Promove aumento expressivo e duradouro da vida microbiana no ambiente aplicado.',
+      'Aplicação versátil indicada via tratamento de sementes e aplicação no sulco.'
+    ],
+    applicationConditions: {
+      climate: 'Utilizar máquinas específicas para aplicação e seguir a recomendação técnica adequada ao sistema de uso.',
+      tips: 'Pode ser aplicado no sulco ou em sementes em conjunto com maquinários de dosagem precisa.'
+    },
+    imagePlaceholders: {
+      packshot: { label: 'Imagem do Frasco / Galão BPR TETRA', hint: 'Reservado para foto de embalagem (1L, 5L ou 20L)' },
+      infographic: { label: 'Diagrama dos 4 Bacillus na Rizosfera', hint: 'Reservado para representação de B. subtilis, megaterium, licheniformes e aryabhattai' }
+    }
   }
 ];

@@ -10,7 +10,7 @@ export function openMarketModal(indicator) {
   if (modalEl) modalEl.remove();
 
   const isUp = indicator.dailyChangePercent >= 0;
-  const changeColor = isUp ? 'text-emerald-600 bg-emerald-50' : 'text-red-600 bg-red-50';
+  const changeColor = isUp ? 'text-[#60B73F] bg-neutral-100 border border-neutral-300' : 'text-red-700 bg-neutral-100 border border-neutral-300';
   const changeSign = isUp ? '+' : '';
   const source = marketSources.find(s => s.id === indicator.sourceId) || {
     name: indicator.sourceName,
@@ -38,7 +38,7 @@ export function openMarketModal(indicator) {
     return `${x},${y}`;
   }).join(' ')} ${svgWidth - 20},${svgHeight} 20,${svgHeight}`;
 
-  const lineColor = isUp ? '#10B981' : '#EF4444';
+  const lineColor = isUp ? '#60B73F' : '#EF4444';
   const fillGradient = isUp ? 'url(#gradient-green)' : 'url(#gradient-red)';
 
   modalEl = document.createElement('div');
@@ -57,7 +57,7 @@ export function openMarketModal(indicator) {
           <div class="flex items-center gap-2">
             <span class="text-xs font-semibold uppercase tracking-wider text-neutral-400">${indicator.marketType}</span>
             <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium bg-neutral-100 text-neutral-600">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Live
+              <span class="w-1.5 h-1.5 rounded-full bg-[#60B73F]"></span> Live
             </span>
           </div>
           <h3 class="text-2xl font-bold text-neutral-900 mt-1">${indicator.commodity}</h3>
@@ -83,8 +83,8 @@ export function openMarketModal(indicator) {
           <svg viewBox="0 0 ${svgWidth} ${svgHeight}" class="w-full h-36">
             <defs>
               <linearGradient id="gradient-green" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#10B981" stop-opacity="0.35"/>
-                <stop offset="100%" stop-color="#10B981" stop-opacity="0.0"/>
+                <stop offset="0%" stop-color="#60B73F" stop-opacity="0.35"/>
+                <stop offset="100%" stop-color="#60B73F" stop-opacity="0.0"/>
               </linearGradient>
               <linearGradient id="gradient-red" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stop-color="#EF4444" stop-opacity="0.35"/>
@@ -133,7 +133,7 @@ export function openMarketModal(indicator) {
         ${indicator.globalBenchmark ? `
           <div class="pt-2 border-t border-neutral-200/60 flex items-center justify-between">
             <strong class="text-neutral-800 font-semibold">Referência Global:</strong>
-            <span class="font-mono bg-white px-2 py-0.5 rounded border border-neutral-200 text-neutral-700">${indicator.globalBenchmark}</span>
+            <span class="bg-white px-2 py-0.5 rounded border border-neutral-200 text-neutral-700 font-semibold text-xs">${indicator.globalBenchmark}</span>
           </div>
         ` : ''}
       </div>
@@ -144,7 +144,7 @@ export function openMarketModal(indicator) {
           <span class="block font-semibold text-neutral-700">${source.name}</span>
           <span class="text-[11px] text-neutral-400">Atualizado: ${indicator.lastUpdate}</span>
         </div>
-        <a href="${source.url}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-emerald-700 hover:text-emerald-800 font-medium hover:underline">
+        <a href="${source.url}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-[#60B73F] hover:underline font-medium">
           Portal Oficial
           <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
         </a>

@@ -15,7 +15,7 @@ export const ADMIN_USERS = [
     email: 'marketing@biopar.agr.br',
     password: '@mkt123',
     role: 'Head de Marketing',
-    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
+    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80',
     bio: 'Head de Marketing da Biopar Biotecnologia Agrícola. Especialista em posicionamento comercial, inteligência de mercado do agronegócio e estratégias de bioinsumos para produtores e cooperativas.'
   }
 ];
@@ -24,6 +24,30 @@ class ArticleService {
   constructor() {
     this.subscribers = [];
     this._initStore();
+  }
+
+  /**
+   * Retorna os dados mais recentes do perfil do autor (incluindo foto/avatar atualizado)
+   */
+  getAuthor() {
+    let customProfile = null;
+    if (typeof localStorage !== 'undefined') {
+      try {
+        const raw = localStorage.getItem('biopar_admin_profile');
+        if (raw) customProfile = JSON.parse(raw);
+        if (!customProfile) {
+          const sessionRaw = localStorage.getItem(SESSION_KEY);
+          if (sessionRaw) customProfile = JSON.parse(sessionRaw);
+        }
+      } catch (e) {}
+    }
+
+    return {
+      name: customProfile?.name || ADMIN_USERS[0].name,
+      role: customProfile?.role || ADMIN_USERS[0].role,
+      avatar: customProfile?.avatar || ADMIN_USERS[0].avatar,
+      bio: customProfile?.bio || ADMIN_USERS[0].bio
+    };
   }
 
   /**
@@ -65,26 +89,45 @@ class ArticleService {
   }
 
   /**
-   * Retorna todos os artigos cadastrados
+   * Retorna todos os artigos cadastrados com os dados mais recentes do autor injetados dinamicamente
    */
   getAll() {
-    if (typeof localStorage === 'undefined') return [...initialArticles];
-    try {
-      const data = localStorage.getItem(STORAGE_KEY);
-      if (data) {
-        const parsed = JSON.parse(data);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          return parsed;
+    let rawList = [...initialArticles];
+    if (typeof localStorage !== 'undefined') {
+      try {
+        const data = localStorage.getItem(STORAGE_KEY);
+        if (data) {
+          const parsed = JSON.parse(data);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            rawList = parsed;
+          }
         }
+      } catch (e) {
+        console.error('Erro ao ler artigos do storage:', e);
       }
-    } catch (e) {
-      console.error('Erro ao ler artigos do storage:', e);
     }
-    return [...initialArticles];
+
+    // Injeta dinamicamente o perfil atualizado do autor (avatar, cargo, bio)
+    const currentAuthor = this.getAuthor();
+    return rawList.map(art => {
+      if (!art.author || !art.author.name || art.author.name.toLowerCase().includes('sued')) {
+        return {
+          ...art,
+          author: {
+            ...art.author,
+            name: currentAuthor.name,
+            role: currentAuthor.role,
+            avatar: currentAuthor.avatar,
+            bio: currentAuthor.bio
+          }
+        };
+      }
+      return art;
+    });
   }
 
   /**
-   * Retorna um artigo pelo slug ou id
+   * Retorna um artigo pelo slug ou id garantindo autor sempre atualizado
    */
   getBySlug(slug) {
     const all = this.getAll();
@@ -362,19 +405,14 @@ export const articles = ${JSON.stringify(articlesList, null, 2)};
       }
     }
 
+    // Sincroniza em memória
+    ADMIN_USERS[0].name = updated.name;
+    ADMIN_USERS[0].role = updated.role;
+    ADMIN_USERS[0].avatar = updated.avatar;
+    ADMIN_USERS[0].bio = updated.bio;
+
     if (syncArticles) {
       const all = this.getAll();
-      all.forEach(art => {
-        // Atualiza os dados de autor em matérias publicadas pelo Sued Oninem
-        if (!art.author || art.author.name === current.name || art.author.name === updated.name) {
-          art.author = {
-            name: updated.name || art.author?.name || 'Sued Oninem',
-            role: updated.role || art.author?.role || 'Head de Marketing',
-            avatar: updated.avatar || art.author?.avatar,
-            bio: updated.bio || art.author?.bio
-          };
-        }
-      });
       this._persist(all);
     }
 

@@ -1156,21 +1156,33 @@ export function createAdminPage({ router }) {
     if (chooseFileBtn) chooseFileBtn.addEventListener('click', triggerFile);
     if (triggerUploadBtn) triggerUploadBtn.addEventListener('click', triggerFile);
 
-    // Processar arquivo selecionado via FileReader (Base64)
+    // Processar arquivo selecionado via FileReader e otimizar para avatar quadrado
     if (fileInput) {
       fileInput.addEventListener('change', (e) => {
         const file = e.target.files && e.target.files[0];
         if (file) {
-          if (file.size > 3 * 1024 * 1024) {
-            alert('A foto selecionada é muito pesada (máximo 3MB). Por favor, escolha outra imagem.');
-            return;
-          }
           const reader = new FileReader();
           reader.onload = (evt) => {
-            currentAvatarValue = evt.target.result;
-            if (previewImg) previewImg.src = currentAvatarValue;
-            if (urlInput) urlInput.value = '';
-            showToast('Foto carregada do computador com sucesso!');
+            const rawData = evt.target.result;
+            const img = new Image();
+            img.onload = () => {
+              const canvas = document.createElement('canvas');
+              const ctx = canvas.getContext('2d');
+              canvas.width = 250;
+              canvas.height = 250;
+
+              // Recorte quadrado perfeito centralizado
+              const minDim = Math.min(img.width, img.height);
+              const sx = (img.width - minDim) / 2;
+              const sy = (img.height - minDim) / 2;
+
+              ctx.drawImage(img, sx, sy, minDim, minDim, 0, 0, 250, 250);
+              currentAvatarValue = canvas.toDataURL('image/jpeg', 0.88);
+              if (previewImg) previewImg.src = currentAvatarValue;
+              if (urlInput) urlInput.value = '';
+              showToast('Foto do computador carregada com sucesso!');
+            };
+            img.src = rawData;
           };
           reader.readAsDataURL(file);
         }

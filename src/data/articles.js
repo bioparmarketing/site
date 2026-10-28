@@ -28,7 +28,7 @@ export const articles = [
     author: {
       name: 'Sued Oninem',
       role: 'Head de Marketing — Biopar',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80',
       bio: 'Head de Marketing da Biopar Biotecnologia Agrícola. Especialista em posicionamento comercial, inteligência de mercado do agronegócio e estratégias de bioinsumos para produtores e cooperativas.'
     },
     featured: true,
@@ -75,7 +75,7 @@ export const articles = [
     author: {
       name: 'Sued Oninem',
       role: 'Head de Marketing — Biopar',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80',
       bio: 'Head de Marketing da Biopar Biotecnologia Agrícola. Especialista em posicionamento comercial, inteligência de mercado do agronegócio e estratégias de bioinsumos para produtores e cooperativas.'
     },
     featured: false,
@@ -109,7 +109,7 @@ export const articles = [
     author: {
       name: 'Sued Oninem',
       role: 'Head de Marketing — Biopar',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80',
       bio: 'Head de Marketing da Biopar Biotecnologia Agrícola. Especialista em posicionamento comercial, inteligência de mercado do agronegócio e estratégias de bioinsumos para produtores e cooperativas.'
     },
     featured: false,
@@ -140,7 +140,7 @@ export const articles = [
     author: {
       name: 'Sued Oninem',
       role: 'Head de Marketing — Biopar',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80',
       bio: 'Head de Marketing da Biopar Biotecnologia Agrícola. Especialista em posicionamento comercial, inteligência de mercado do agronegócio e estratégias de bioinsumos para produtores e cooperativas.'
     },
     featured: false,
@@ -174,7 +174,7 @@ export const articles = [
     author: {
       name: 'Sued Oninem',
       role: 'Head de Marketing — Biopar',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80',
       bio: 'Head de Marketing da Biopar Biotecnologia Agrícola. Especialista em posicionamento comercial, inteligência de mercado do agronegócio e estratégias de bioinsumos para produtores e cooperativas.'
     },
     featured: false,
@@ -205,7 +205,7 @@ export const articles = [
     author: {
       name: 'Sued Oninem',
       role: 'Head de Marketing — Biopar',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80',
       bio: 'Head de Marketing da Biopar Biotecnologia Agrícola. Especialista em posicionamento comercial, inteligência de mercado do agronegócio e estratégias de bioinsumos para produtores e cooperativas.'
     },
     featured: false,
@@ -236,7 +236,7 @@ export const articles = [
     author: {
       name: 'Sued Oninem',
       role: 'Head de Marketing — Biopar',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80',
       bio: 'Head de Marketing da Biopar Biotecnologia Agrícola. Especialista em posicionamento comercial, inteligência de mercado do agronegócio e estratégias de bioinsumos para produtores e cooperativas.'
     },
     featured: false,
@@ -271,7 +271,7 @@ export const articles = [
     author: {
       name: 'Sued Oninem',
       role: 'Head de Marketing — Biopar',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80',
       bio: 'Head de Marketing da Biopar Biotecnologia Agrícola. Especialista em posicionamento comercial, inteligência de mercado do agronegócio e estratégias de bioinsumos para produtores e cooperativas.'
     },
     featured: false,
@@ -302,7 +302,7 @@ export const articles = [
     author: {
       name: 'Sued Oninem',
       role: 'Head de Marketing — Biopar',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80',
       bio: 'Head de Marketing da Biopar Biotecnologia Agrícola. Especialista em posicionamento comercial, inteligência de mercado do agronegócio e estratégias de bioinsumos para produtores e cooperativas.'
     },
     featured: false,
@@ -333,7 +333,7 @@ export const articles = [
     author: {
       name: 'Sued Oninem',
       role: 'Head de Marketing — Biopar',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80',
       bio: 'Head de Marketing da Biopar Biotecnologia Agrícola. Especialista em posicionamento comercial, inteligência de mercado do agronegócio e estratégias de bioinsumos para produtores e cooperativas.'
     },
     featured: false,

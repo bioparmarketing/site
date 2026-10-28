@@ -218,5 +218,13 @@ export function createArticleDetailPage({ params, router }) {
     showToast('Link do artigo copiado para a área de transferência!', 'success');
   });
 
+  // Atualização reativa da foto e dados do autor
+  const unsubscribe = articleService.subscribe(() => {
+    const freshAuthor = articleService.getAuthor();
+    container.querySelectorAll(`img[alt="${article.author.name}"]`).forEach(img => {
+      img.src = freshAuthor.avatar;
+    });
+  });
+
   return container;
 }

@@ -592,24 +592,24 @@ export function createInstagramApprovalPage({ router }) {
           <!-- ============================================== -->
           <!-- COLUNA ESQUERDA: VISUAL DA IMAGEM / CARROSSEL   -->
           <!-- ============================================== -->
-          <div class="lg:col-span-7 bg-black flex items-center justify-center relative aspect-square lg:aspect-auto select-none overflow-hidden group">
+          <div class="lg:col-span-7 bg-[#0D0D0E] flex items-center justify-center relative min-h-[360px] sm:min-h-[480px] lg:min-h-[620px] select-none overflow-hidden group p-2 sm:p-4">
             <img 
               id="detail-main-img" 
               src="${currentImg}" 
               alt="${post.title}" 
-              class="w-full h-full object-contain max-h-[75vh]"
+              class="max-w-full max-h-[82vh] w-auto h-auto object-contain mx-auto rounded-lg shadow-lg transition-all"
             />
 
             <!-- Setas de Navegação do Carrossel -->
             ${isCarousel ? `
               ${activeCarouselIndex > 0 ? `
-                <button id="detail-prev-img-btn" class="absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/60 hover:bg-black text-white transition-all shadow-md">
+                <button id="detail-prev-img-btn" class="absolute left-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-black/70 hover:bg-black text-white transition-all shadow-lg cursor-pointer">
                   <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
                 </button>
               ` : ''}
 
               ${activeCarouselIndex < images.length - 1 ? `
-                <button id="detail-next-img-btn" class="absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/60 hover:bg-black text-white transition-all shadow-md">
+                <button id="detail-next-img-btn" class="absolute right-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-black/70 hover:bg-black text-white transition-all shadow-lg cursor-pointer">
                   <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
                 </button>
               ` : ''}
@@ -622,21 +622,31 @@ export function createInstagramApprovalPage({ router }) {
               </div>
 
               <!-- Indicador Numérico (ex: 1/3) -->
-              <div class="absolute top-3 right-3 bg-black/60 text-white text-[11px] font-bold px-2.5 py-1 rounded-full">
+              <div class="absolute top-3 left-3 bg-black/70 backdrop-blur-xs text-white text-[11px] font-bold px-2.5 py-1 rounded-full border border-white/20">
                 ${activeCarouselIndex + 1}/${images.length}
               </div>
             ` : ''}
 
-            <!-- Botão Download da Imagem -->
-            <a 
-              href="${currentImg}" 
-              target="_blank" 
-              download="biopar-post-${post.id}.jpg" 
-              title="Baixar imagem em alta resolução"
-              class="absolute bottom-3 right-3 p-2 rounded-full bg-black/50 hover:bg-black text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity"
-            >
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-            </a>
+            <!-- Ações Flutuantes da Imagem (Tamanho Real & Download) -->
+            <div class="absolute bottom-3 right-3 flex items-center gap-1.5 opacity-90 sm:opacity-0 group-hover:opacity-100 transition-opacity">
+              <a 
+                href="${currentImg}" 
+                target="_blank" 
+                title="Abrir imagem em tamanho real 100%"
+                class="p-2 rounded-full bg-black/70 hover:bg-black text-white text-xs transition-colors backdrop-blur-xs shadow-md"
+              >
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+              </a>
+              <a 
+                href="${currentImg}" 
+                target="_blank" 
+                download="biopar-post-${post.id}.jpg" 
+                title="Baixar imagem original"
+                class="p-2 rounded-full bg-black/70 hover:bg-black text-white text-xs transition-colors backdrop-blur-xs shadow-md"
+              >
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+              </a>
+            </div>
           </div>
 
           <!-- ============================================== -->
@@ -1147,7 +1157,7 @@ export function createInstagramApprovalPage({ router }) {
       uploadBtn.addEventListener('click', () => fileInput && fileInput.click());
     }
 
-    // Processamento de imagens via FileReader + Canvas (compressão quadrada perfeita para feed)
+    // Processamento de imagens via FileReader + Canvas (preserva dimensões e proporções originais SEM CORTES)
     if (fileInput) {
       fileInput.addEventListener('change', (e) => {
         const files = Array.from(e.target.files || []);
@@ -1161,20 +1171,32 @@ export function createInstagramApprovalPage({ router }) {
             img.onload = () => {
               const canvas = document.createElement('canvas');
               const ctx = canvas.getContext('2d');
-              canvas.width = 1080;
-              canvas.height = 1080;
 
-              // Recorte quadrado centralizado
-              const minDim = Math.min(img.width, img.height);
-              const sx = (img.width - minDim) / 2;
-              const sy = (img.height - minDim) / 2;
+              // Preserva a proporção e formato original (vertical 4:5, 1:1, etc.) - ZERO CORTES
+              const maxDim = 1600;
+              let w = img.width;
+              let h = img.height;
 
-              ctx.drawImage(img, sx, sy, minDim, minDim, 0, 0, 1080, 1080);
-              const compressedUrl = canvas.toDataURL('image/jpeg', 0.82);
+              if (w > maxDim || h > maxDim) {
+                if (w > h) {
+                  h = Math.round((h * maxDim) / w);
+                  w = maxDim;
+                } else {
+                  w = Math.round((w * maxDim) / h);
+                  h = maxDim;
+                }
+              }
 
-              uploadedImages.push(compressedUrl);
+              canvas.width = w;
+              canvas.height = h;
+
+              // Desenha 100% da imagem original sem recortar nada
+              ctx.drawImage(img, 0, 0, w, h);
+              const originalRatioUrl = canvas.toDataURL('image/jpeg', 0.90);
+
+              uploadedImages.push(originalRatioUrl);
               refreshPreviewGrid();
-              showToast('Imagem carregada com sucesso!');
+              showToast('Imagem em tamanho original carregada com sucesso!');
             };
             img.src = rawData;
           };
@@ -1194,14 +1216,14 @@ export function createInstagramApprovalPage({ router }) {
       });
     }
 
-    // Atualizar grade de prévias
+    // Atualizar grade de prévias (exibe imagem inteira sem crop)
     function refreshPreviewGrid() {
       const grid = modalContainer.querySelector('#create-images-preview-grid');
       if (!grid) return;
 
       grid.innerHTML = uploadedImages.map((imgUrl, idx) => `
-        <div class="relative aspect-square rounded-xl overflow-hidden border border-neutral-200 bg-neutral-100 group">
-          <img src="${imgUrl}" alt="" class="w-full h-full object-cover" />
+        <div class="relative aspect-square rounded-xl overflow-hidden border border-neutral-300 bg-neutral-900 group flex items-center justify-center p-1">
+          <img src="${imgUrl}" alt="" class="max-w-full max-h-full object-contain" />
           <button type="button" class="create-remove-img-btn absolute top-1 right-1 p-1 rounded-full bg-red-600 text-white shadow-xs opacity-0 group-hover:opacity-100 transition-opacity" data-index="${idx}">
             <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
           </button>

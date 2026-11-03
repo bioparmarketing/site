@@ -5,7 +5,7 @@
 
 import { articles as initialArticles, articleCategories as initialCategories } from '../data/articles.js';
 
-const STORAGE_KEY = 'biopar_articles_store';
+const STORAGE_KEY = 'biopar_articles_store_v2';
 const SESSION_KEY = 'biopar_admin_session';
 
 // Perfis Oficiais de Acesso ao Painel e Central de Aprovação
@@ -74,6 +74,21 @@ class ArticleService {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (!stored) {
+        const oldStored = localStorage.getItem('biopar_articles_store');
+        if (oldStored) {
+          try {
+            const oldList = JSON.parse(oldStored);
+            const initialIds = new Set(initialArticles.map(a => a.id));
+            const customUserArticles = oldList.filter(art => 
+              !initialIds.has(art.id) && 
+              !art.id.includes('soja-trichoderma') &&
+              !art.id.includes('registro-mapa') &&
+              !art.id.includes('custo-hectare')
+            );
+            localStorage.setItem(STORAGE_KEY, JSON.stringify([...initialArticles, ...customUserArticles]));
+            return;
+          } catch (e) {}
+        }
         localStorage.setItem(STORAGE_KEY, JSON.stringify(initialArticles));
       }
     } catch (e) {
@@ -123,18 +138,16 @@ class ArticleService {
       }
     }
 
-    // Injeta dinamicamente o perfil atualizado do autor (avatar, cargo, bio)
+    // Injeta a foto/dados de Sued Oninem apenas se o artigo for explicitamente de autoria dele
     const currentAuthor = this.getAuthor();
     return rawList.map(art => {
-      if (!art.author || !art.author.name || art.author.name.toLowerCase().includes('sued')) {
+      if (art.author && art.author.name && art.author.name.toLowerCase().includes('sued')) {
         return {
           ...art,
           author: {
             ...art.author,
-            name: currentAuthor.name,
-            role: currentAuthor.role,
             avatar: currentAuthor.avatar,
-            bio: currentAuthor.bio
+            bio: currentAuthor.bio || art.author.bio
           }
         };
       }

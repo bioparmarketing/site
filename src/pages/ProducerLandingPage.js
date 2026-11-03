@@ -18,7 +18,7 @@ export function createProducerPage({ router }) {
   // Produtos Destaque para o Produtor
   const trixma = products.find(p => p.id === 'trixma') || products[0];
   const mbControl = products.find(p => p.id === 'mb-control') || products[1];
-  const bprTetra = products.find(p => p.id === 'bpr-tetra') || products[2];
+  const bprAzo = products.find(p => p.id === 'bpr-azo') || products[2];
 
   container.innerHTML = `
     <!-- 1. Barra de Alerta Superior Estilo Vidro com Animação Marquee de Urgência -->
@@ -31,11 +31,7 @@ export function createProducerPage({ router }) {
             <span class="font-black text-[#60B73F]">SAFRA 2024/2025:</span>
             <span>Condições especiais direto da fábrica para produtores</span>
             <span class="text-neutral-400 font-bold px-3">—</span>
-            <span>Frete refrigerado até a fazenda</span>
-            <span class="text-neutral-400 font-bold px-3">—</span>
             <span>Suporte agronômico</span>
-            <span class="text-neutral-400 font-bold px-3">—</span>
-            <span class="text-[#60B73F] font-bold">Lotes com preço direto de fábrica</span>
             <span class="text-neutral-400 font-bold px-3">—</span>
           </div>
 
@@ -44,11 +40,7 @@ export function createProducerPage({ router }) {
             <span class="font-black text-[#60B73F]">SAFRA 2024/2025:</span>
             <span>Condições especiais direto da fábrica para produtores</span>
             <span class="text-neutral-400 font-bold px-3">—</span>
-            <span>Frete refrigerado até a fazenda</span>
-            <span class="text-neutral-400 font-bold px-3">—</span>
             <span>Suporte agronômico</span>
-            <span class="text-neutral-400 font-bold px-3">—</span>
-            <span class="text-[#60B73F] font-bold">Lotes com preço direto de fábrica</span>
             <span class="text-neutral-400 font-bold px-3">—</span>
           </div>
 
@@ -373,35 +365,35 @@ export function createProducerPage({ router }) {
             </div>
           </div>
 
-          <!-- Card 3: BPR Tetra -->
+          <!-- Card 3: BPR Azo -->
           <div class="bg-white rounded-3xl overflow-hidden border border-neutral-200/80 shadow-md hover:shadow-xl transition-all flex flex-col justify-between group">
             <div>
               <div class="relative h-60 overflow-hidden bg-neutral-100 p-4 flex items-center justify-center">
-                <img src="./static/products/hero-bpr-tetra.jpg" alt="BPR Tetra Biopar" class="max-h-full w-auto object-contain group-hover:scale-105 transition-transform duration-300" />
-                <span class="absolute top-3 left-3 bg-neutral-900 text-white text-[10px] font-bold px-2.5 py-1 rounded-full">Solubilizador & Vigor</span>
+                <img src="./static/products/hero-bpr-azo.jpg" alt="BPR Azo Biopar" class="max-h-full w-auto object-contain group-hover:scale-105 transition-transform duration-300" />
+                <span class="absolute top-3 left-3 bg-neutral-900 text-white text-[10px] font-bold px-2.5 py-1 rounded-full">Inoculante & Enraizamento</span>
               </div>
               <div class="p-6 space-y-3">
-                <h3 class="text-2xl font-black text-neutral-900 tracking-tight">BPR TETRA®</h3>
+                <h3 class="text-2xl font-black text-neutral-900 tracking-tight">BPR AZO®</h3>
                 <div class="text-xs font-bold text-[#007A42] bg-[#EBF7E7] px-2.5 py-1 rounded-lg inline-block">
-                  Destrava o Adubo & Segura a Seca
+                  Explosão Radicular & Fixação de Nitrogênio
                 </div>
                 <p class="text-xs sm:text-sm text-neutral-600 leading-relaxed">
-                  Consórcio de <strong>4 bactérias benéficas</strong> que soltam o Fósforo travado na terra, produzem hormônios de raiz e aumentam a tolerância da planta a dias sem chuva.
+                  Inoculante líquido puro de <em>Azospirillum brasilense</em> (Ab-V5 e Ab-V6) que turbina o sistema radicular, multiplica os pelos absorventes e maximiza o aproveitamento de água e adubo.
                 </p>
                 <div class="pt-2 text-xs text-neutral-500 space-y-1">
-                  <div>✓ <strong>Efeito:</strong> Raiz volumosa que busca água no fundo</div>
-                  <div>✓ <strong>Resultado:</strong> Aproveitamento máximo do fertilizante</div>
+                  <div>✓ <strong>Efeito:</strong> Raiz profunda que busca umidade e nutrientes no perfil do solo</div>
+                  <div>✓ <strong>Resultado:</strong> Maior resistência a veranicos e alta conversão de nitrogênio</div>
                 </div>
               </div>
             </div>
             <div class="p-6 pt-0">
               <a 
-                href="https://wa.me/5545991312295?text=Ol%C3%A1%2C%20quero%20cotar%20o%20BPR%20TETRA%20direto%20de%20f%C3%A1brica%20para%20minha%20fazenda." 
+                href="https://wa.me/5545991312295?text=Ol%C3%A1%2C%20quero%20cotar%20o%20BPR%20AZO%20direto%20de%20f%C3%A1brica%20para%20minha%20fazenda." 
                 target="_blank"
                 rel="noopener noreferrer"
                 class="w-full inline-flex items-center justify-center gap-2 bg-neutral-900 hover:bg-[#60B73F] text-white text-xs font-bold py-3 px-4 rounded-xl transition-colors"
               >
-                <span>Cotar BPR Tetra® no WhatsApp</span>
+                <span>Cotar BPR Azo® no WhatsApp</span>
                 <span>→</span>
               </a>
             </div>
@@ -548,7 +540,7 @@ export function createProducerPage({ router }) {
           <div class="p-6 bg-neutral-50 rounded-2xl border border-neutral-200/80 space-y-4">
             <div class="flex items-center gap-1 text-amber-500 text-sm">★★★★★</div>
             <p class="text-xs sm:text-sm text-neutral-700 leading-relaxed italic">
-              "Pegamos 19 dias de veranico forte em janeiro. O talhão onde inoculamos o BPR Tetra ficou verde e ereto enquanto o vizinho já tava enrolando folha. A raiz desceu muito mais fundo. O resultado no caminhão pagou o investimento três vezes."
+              "Pegamos 19 dias de veranico forte em janeiro. O talhão onde inoculamos o BPR Azo ficou verde e ereto enquanto o vizinho já tava enrolando folha. A raiz desceu muito mais fundo pela ação do Azospirillum. O resultado no caminhão pagou o investimento três vezes."
             </p>
             <div class="pt-2 border-t border-neutral-200/60">
               <div class="font-bold text-xs text-neutral-900">João Paulo Zanchett</div>

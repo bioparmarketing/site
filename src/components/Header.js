@@ -63,7 +63,7 @@ export function renderHeader() {
                         <span class="w-2 h-2 rounded-full bg-[#60B73F]"></span>
                         <span>Biofungicidas</span>
                       </a>
-                      <span class="text-[10px] text-neutral-600 font-semibold bg-neutral-100 px-2 py-0.5 rounded-full border border-neutral-200/80">4 soluções</span>
+                      <span class="text-[10px] text-neutral-600 font-semibold bg-neutral-100 px-2 py-0.5 rounded-full border border-neutral-200/80">${biofungicidas.length} soluções</span>
                     </div>
                     <div class="flex flex-col gap-1.5">
                       ${biofungicidas.map(p => `
@@ -100,7 +100,7 @@ export function renderHeader() {
                         <span class="w-2 h-2 rounded-full bg-[#60B73F]"></span>
                         <span>Bioinseticidas</span>
                       </a>
-                      <span class="text-[10px] text-neutral-600 font-semibold bg-neutral-100 px-2 py-0.5 rounded-full border border-neutral-200/80">3 soluções</span>
+                      <span class="text-[10px] text-neutral-600 font-semibold bg-neutral-100 px-2 py-0.5 rounded-full border border-neutral-200/80">${bioinseticidas.length} soluções</span>
                     </div>
                     <div class="flex flex-col gap-1.5">
                       ${bioinseticidas.map(p => `
@@ -137,7 +137,7 @@ export function renderHeader() {
                         <span class="w-2 h-2 rounded-full bg-[#60B73F]"></span>
                         <span>Promotores</span>
                       </a>
-                      <span class="text-[10px] text-neutral-600 font-semibold bg-neutral-100 px-2 py-0.5 rounded-full border border-neutral-200/80">3 soluções</span>
+                      <span class="text-[10px] text-neutral-600 font-semibold bg-neutral-100 px-2 py-0.5 rounded-full border border-neutral-200/80">${promotores.length} soluções</span>
                     </div>
                     <div class="flex flex-col gap-1.5">
                       ${promotores.map(p => `
@@ -199,7 +199,6 @@ export function renderHeader() {
 
           <a href="#/produtor" data-link class="nav-item text-sm font-semibold text-neutral-700 hover:text-[#60B73F] transition-colors flex items-center gap-1.5">
             <span>Para o Produtor</span>
-            <span class="text-[9px] font-bold uppercase tracking-wider text-[#007A42] bg-[#EBF7E7] px-1.5 py-0.5 rounded-full border border-[#60B73F]/30">Direto de Fábrica</span>
           </a>
           <a href="#/blog" data-link class="nav-item text-sm font-semibold text-neutral-700 hover:text-black transition-colors">Conteúdo</a>
           <a href="#/#biopar" data-link class="nav-item text-sm font-semibold text-neutral-700 hover:text-black transition-colors">A Biopar</a>
@@ -228,7 +227,6 @@ export function renderHeader() {
         <a href="#/" data-link class="mobile-nav-link text-base font-bold text-neutral-800 hover:text-black">Início</a>
         <a href="#/produtor" data-link class="mobile-nav-link text-base font-bold text-[#007A42] hover:text-[#60B73F] flex items-center justify-between">
           <span>Para o Produtor Rural</span>
-          <span class="text-[10px] font-bold bg-[#EBF7E7] px-2 py-0.5 rounded-full border border-[#60B73F]/30">Direto de Fábrica</span>
         </a>
         
         <!-- Bloco de Produtos Mobile com Acordeão -->
@@ -245,7 +243,7 @@ export function renderHeader() {
             <!-- Biofungicidas Mobile -->
             <div class="p-3 bg-neutral-50 rounded-2xl border border-neutral-200/60">
               <a href="#/produtos/categoria/biofungicidas" data-link class="mobile-nav-link text-xs font-black uppercase tracking-wider text-neutral-900 block mb-2">
-                Biofungicidas (4) →
+                Biofungicidas (${biofungicidas.length}) →
               </a>
               <div class="grid grid-cols-2 gap-1.5 pl-1">
                 ${biofungicidas.map(p => `
@@ -259,7 +257,7 @@ export function renderHeader() {
             <!-- Bioinseticidas Mobile -->
             <div class="p-3 bg-neutral-50 rounded-2xl border border-neutral-200/60">
               <a href="#/produtos/categoria/bioinseticidas" data-link class="mobile-nav-link text-xs font-black uppercase tracking-wider text-neutral-900 block mb-2">
-                Bioinseticidas (3) →
+                Bioinseticidas (${bioinseticidas.length}) →
               </a>
               <div class="grid grid-cols-2 gap-1.5 pl-1">
                 ${bioinseticidas.map(p => `
@@ -273,7 +271,7 @@ export function renderHeader() {
             <!-- Promotores Mobile -->
             <div class="p-3 bg-neutral-50 rounded-2xl border border-neutral-200/60">
               <a href="#/produtos/categoria/promotores-de-crescimento" data-link class="mobile-nav-link text-xs font-black uppercase tracking-wider text-neutral-900 block mb-2">
-                Promotores de Crescimento (3) →
+                Promotores de Crescimento (${promotores.length}) →
               </a>
               <div class="grid grid-cols-2 gap-1.5 pl-1">
                 ${promotores.map(p => `

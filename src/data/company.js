@@ -28,14 +28,14 @@ export const companyData = {
       id: 'tecnologia-biologica',
       title: 'Tecnologia Biológica',
       subtitle: 'Formulação avançada e alta viabilidade celular',
-      description: 'Nossos processos industriais de biorreatores de precisão garantem contagens celulares superiores a 10¹⁰ UFC por dose, com adjuvantes osmoprotetores que protegem os bioagentes da dessecação e da radiação solar.',
+      description: 'Nossos processos industriais, aliados e inovadores métodos de obtenção de esporos, garantem produtos concentrados e efetivos para utilização no campo.',
       icon: 'flask-conical'
     },
     {
       id: 'compromisso-com-o-campo',
       title: 'Compromisso com o Campo',
       subtitle: 'Validação agronômica em redes de ensaios',
-      description: 'Não comercializamos hipóteses. Todos os produtos do portfólio Biopar passam por pelo menos 3 anos de validação em universidades, fundações de pesquisa e cooperativas nas principais regiões agrícolas do país.',
+      description: 'Todas as soluções biotecnológicas da Biopar passam por validação em 3 regiões distintas, através de estudos validados por pesquisadores que comprovam a eficiência agronômica de nossos produtos.',
       icon: 'shield-check'
     }
   ],
@@ -43,19 +43,19 @@ export const companyData = {
     {
       step: '01',
       title: 'Isolamento & Triagem Genômica',
-      description: 'Prospecção e seleção de cepas nativas ultra-adaptadas a condições tropicais de temperatura e solo brasileiro.',
+      description: 'Prospecção e seleção de cepas com especificidade em controle biológico e promoção de crescimento. Cepas ultra eficientes que realizam a proteção de cultivos agrícolas.',
       tag: 'Genética & Bioprospecção'
     },
     {
       step: '02',
       title: 'Bioprocessamento de Precisão',
-      description: 'Fermentação submersa com controle estrito de oxigênio dissolvido, nutrientes e formação de endósporos resistentes.',
+      description: 'Processos precisos de inoculação e multiplicação dos microrganismos de interesse agronômico que garantem o mais alto nível de pureza no processo de escalonamento.',
       tag: 'Engenharia de Bioprocessos'
     },
     {
       step: '03',
       title: 'Formulação de Alta Densidade',
-      description: 'Aditivação com protetores celulares, tensoativos vegetais e estabilizadores que garantem 24 meses de prateleira.',
+      description: 'Formulações criadas por time de especialistas: Químicos e biólogos. E validada e certificada por instituições como o Instituto Biológico de Campinas - IBC.',
       tag: 'Tecnologia de Formulação'
     },
     {

@@ -54,6 +54,24 @@ export function createInstagramApprovalPage({ router }) {
             </p>
           </div>
 
+          <!-- Seleção Rápida de Perfil -->
+          <div class="mb-5 flex items-center gap-2 p-1.5 bg-neutral-100 rounded-2xl">
+            <button 
+              type="button" 
+              id="login-quick-ceo" 
+              class="flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all bg-white text-neutral-900 shadow-2xs flex items-center justify-center gap-1.5 cursor-pointer"
+            >
+              <span>👑 Juliano (CEO)</span>
+            </button>
+            <button 
+              type="button" 
+              id="login-quick-mkt" 
+              class="flex-1 py-2 px-3 rounded-xl text-xs font-semibold transition-all text-neutral-600 hover:text-neutral-900 flex items-center justify-center gap-1.5 cursor-pointer"
+            >
+              <span>Marketing</span>
+            </button>
+          </div>
+
           <!-- Formulário -->
           <form id="approval-login-form" class="space-y-4">
             <div>
@@ -64,8 +82,8 @@ export function createInstagramApprovalPage({ router }) {
                 type="email" 
                 id="approval-email" 
                 required 
-                value="marketing@biopar.agr.br" 
-                placeholder="marketing@biopar.agr.br ou ceo@biopar.agr.br"
+                value="juliano@biopar.agr.br" 
+                placeholder="juliano@biopar.agr.br"
                 class="w-full px-4 py-3 rounded-2xl bg-neutral-50 border border-neutral-200 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#60B73F] focus:bg-white transition-all"
               />
             </div>
@@ -78,8 +96,8 @@ export function createInstagramApprovalPage({ router }) {
                 type="password" 
                 id="approval-password" 
                 required 
-                value="@mkt123"
-                placeholder="@mkt123"
+                value="@Mkt123"
+                placeholder="@Mkt123"
                 class="w-full px-4 py-3 rounded-2xl bg-neutral-50 border border-neutral-200 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#60B73F] focus:bg-white transition-all"
               />
             </div>
@@ -88,9 +106,9 @@ export function createInstagramApprovalPage({ router }) {
 
             <button 
               type="submit" 
-              class="w-full py-3.5 px-6 rounded-2xl bg-neutral-900 hover:bg-black text-white font-bold text-sm shadow-md transition-all active:scale-[0.99] flex items-center justify-center gap-2"
+              class="w-full py-3.5 px-6 rounded-2xl bg-neutral-900 hover:bg-black text-white font-bold text-sm shadow-md transition-all active:scale-[0.99] flex items-center justify-center gap-2 cursor-pointer"
             >
-              <span>Acessar Feed de Aprovação</span>
+              <span>Acessar Painel de Aprovações</span>
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
             </button>
           </form>
@@ -98,8 +116,8 @@ export function createInstagramApprovalPage({ router }) {
           <!-- Dicas de Acesso -->
           <div class="mt-8 pt-6 border-t border-neutral-100 text-center space-y-2">
             <div class="text-[11px] text-neutral-500">
-              Acesso configurado para o Marketing e Diretoria:
-              <span class="block font-mono text-neutral-700 mt-1">marketing@biopar.agr.br • @mkt123</span>
+              Acesso exclusivo para o CEO e equipe de conteúdo:
+              <span class="block font-mono text-neutral-700 mt-1 font-bold">juliano@biopar.agr.br • @Mkt123</span>
             </div>
             <div>
               <a href="#/" data-link class="text-xs font-medium text-neutral-400 hover:text-neutral-900 transition-colors">
@@ -114,6 +132,28 @@ export function createInstagramApprovalPage({ router }) {
 
     const form = container.querySelector('#approval-login-form');
     const errBox = container.querySelector('#approval-login-error');
+    const emailInput = container.querySelector('#approval-email');
+    const passInput = container.querySelector('#approval-password');
+    const btnQuickCeo = container.querySelector('#login-quick-ceo');
+    const btnQuickMkt = container.querySelector('#login-quick-mkt');
+
+    if (btnQuickCeo) {
+      btnQuickCeo.addEventListener('click', () => {
+        emailInput.value = 'juliano@biopar.agr.br';
+        passInput.value = '@Mkt123';
+        btnQuickCeo.className = 'flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all bg-white text-neutral-900 shadow-2xs flex items-center justify-center gap-1.5 cursor-pointer';
+        btnQuickMkt.className = 'flex-1 py-2 px-3 rounded-xl text-xs font-semibold transition-all text-neutral-600 hover:text-neutral-900 flex items-center justify-center gap-1.5 cursor-pointer';
+      });
+    }
+
+    if (btnQuickMkt) {
+      btnQuickMkt.addEventListener('click', () => {
+        emailInput.value = 'marketing@biopar.agr.br';
+        passInput.value = '@mkt123';
+        btnQuickMkt.className = 'flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all bg-white text-neutral-900 shadow-2xs flex items-center justify-center gap-1.5 cursor-pointer';
+        btnQuickCeo.className = 'flex-1 py-2 px-3 rounded-xl text-xs font-semibold transition-all text-neutral-600 hover:text-neutral-900 flex items-center justify-center gap-1.5 cursor-pointer';
+      });
+    }
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();

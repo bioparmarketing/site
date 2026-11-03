@@ -11,6 +11,14 @@ const SESSION_KEY = 'biopar_admin_session';
 // Perfis Oficiais de Acesso ao Painel e Central de Aprovação
 export const ADMIN_USERS = [
   {
+    name: 'Juliano',
+    email: 'juliano@biopar.agr.br',
+    password: '@Mkt123',
+    role: 'CEO & Diretor Executivo',
+    avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=300&q=80',
+    bio: 'CEO e Diretor Executivo da Biopar Biotecnologia Agrícola. Liderança estratégica, inovação microbiológica e visão de mercado para o agronegócio sustentável.'
+  },
+  {
     name: 'Sued Oninem',
     email: 'marketing@biopar.agr.br',
     password: '@mkt123',
@@ -319,9 +327,12 @@ export const articles = ${JSON.stringify(articlesList, null, 2)};
    */
   login(email, password) {
     const cleanEmail = (email || '').trim().toLowerCase();
-    const user = ADMIN_USERS.find(
-      u => u.email.toLowerCase() === cleanEmail && u.password === password
-    );
+    const cleanPass = (password || '').trim();
+    const user = ADMIN_USERS.find(u => {
+      const emailMatches = u.email.toLowerCase() === cleanEmail;
+      const passMatches = u.password === cleanPass || u.password.toLowerCase() === cleanPass.toLowerCase();
+      return emailMatches && passMatches;
+    });
 
     if (user) {
       let customProfile = null;

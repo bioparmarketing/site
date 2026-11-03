@@ -105,10 +105,10 @@ export function createAdminPage({ router }) {
           <!-- Credenciais Padrão & Atalhos -->
           <div class="mt-8 pt-6 border-t border-neutral-100 space-y-3">
             <div class="p-3.5 rounded-2xl bg-[#60B73F]/10 border border-[#60B73F]/20 text-xs text-neutral-700">
-              <span class="font-bold text-[#007A42] block mb-1">Acesso do Head de Marketing:</span>
-              <div class="flex flex-col gap-0.5 text-[11px] font-mono text-neutral-600">
-                <span>E-mail: <strong>marketing@biopar.agr.br</strong></span>
-                <span>Senha: <strong>@mkt123</strong></span>
+              <span class="font-bold text-[#007A42] block mb-1">Acessos Cadastrados (Diretoria & Marketing):</span>
+              <div class="flex flex-col gap-1 text-[11px] font-mono text-neutral-600">
+                <div>👑 CEO: <strong>juliano@biopar.agr.br</strong> • <strong>@Mkt123</strong></div>
+                <div>⚡ Marketing: <strong>marketing@biopar.agr.br</strong> • <strong>@mkt123</strong></div>
               </div>
             </div>
 

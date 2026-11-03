@@ -112,11 +112,11 @@ export function createHomePage({ router }) {
             <div class="relative h-48 overflow-hidden bg-neutral-900">
               <img src="./static/products/category-promotores.jpg" alt="Promotores de Crescimento" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90" />
               <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-              <span class="absolute bottom-3 left-4 text-xs font-medium text-white bg-black/50 backdrop-blur-md px-3 py-1 rounded-full border border-white/30 shadow-sm">3 Soluções Registradas</span>
+              <span class="absolute bottom-3 left-4 text-xs font-medium text-white bg-black/50 backdrop-blur-md px-3 py-1 rounded-full border border-white/30 shadow-sm">2 Soluções Registradas</span>
             </div>
             <div class="p-6">
               <h3 class="text-2xl font-black text-neutral-900 group-hover:text-black transition-colors tracking-tight">Promotores de Crescimento</h3>
-              <p class="text-neutral-500 text-sm mt-2 leading-relaxed">Inoculantes líquidos para fixação biológica de nitrogênio (FBN) e consórcio de Bacillus para solubilização e estresse hídrico.</p>
+              <p class="text-neutral-500 text-sm mt-2 leading-relaxed">Inoculantes líquidos de alta concentração para fixação biológica de nitrogênio (FBN) e expansão radicular.</p>
             </div>
           </div>
           <div class="px-6 pb-6 pt-2 flex items-center text-xs font-bold text-neutral-800 group-hover:text-[#60B73F] transition-colors">
@@ -142,7 +142,7 @@ export function createHomePage({ router }) {
   const showcaseProducts = [
     products.find(p => p.id === 'trixma'),
     products.find(p => p.id === 'mb-control'),
-    products.find(p => p.id === 'bpr-tetra')
+    products.find(p => p.id === 'bpr-azo')
   ].filter(Boolean);
 
   featured.innerHTML = `

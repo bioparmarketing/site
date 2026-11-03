@@ -28,11 +28,11 @@ export const categories = [
     id: 'promotores-de-crescimento',
     image: './static/products/category-promotores.jpg',
     name: 'Promotores de Crescimento',
-    tagline: 'Inoculantes e Solubilizadores Biológicos',
-    description: 'Bactérias promotoras de crescimento, fixação biológica de nitrogênio (FBN), solubilização de fósforo e mitigação de estresse hídrico.',
+    tagline: 'Inoculantes e Promotores Biológicos',
+    description: 'Bactérias promotoras de crescimento vegetal, fixação biológica de nitrogênio (FBN), expansão radicular e tolerância a estresses climáticos.',
     icon: 'sparkles',
     badge: 'Produtividade & Nutrição',
-    productIds: ['bpr-azo', 'bpr-brad', 'bpr-tetra']
+    productIds: ['bpr-azo', 'bpr-brad']
   }
 ];
 
@@ -602,8 +602,18 @@ export const products = [
       packshot: { label: 'Imagem do Bag BPR BRAD (3L)', hint: 'Reservado para foto da embalagem de inoculante para soja' },
       infographic: { label: 'Foto de Nodulação Radicular na Soja', hint: 'Reservado para foto de raízes com nódulos coroa ativos e avermelhados' }
     }
-  },
+  }
+];
 
+/**
+ * =========================================================================
+ * PRODUTOS TEMPORARIAMENTE OCULTOS (AGUARDANDO REGISTROS MAPA / ANVISA / IBAMA)
+ * =========================================================================
+ * O BPR TETRA está mantido aqui com sua ficha técnica, dosagens e composição
+ * 100% preservadas. Para reativá-lo assim que os registros forem homologados,
+ * basta reinserir o objeto no array 'products' e incluir 'bpr-tetra' em 'categories'.
+ */
+export const pendingProducts = [
   {
     id: 'bpr-tetra',
     slug: 'bpr-tetra',

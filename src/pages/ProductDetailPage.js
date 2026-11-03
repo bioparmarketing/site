@@ -9,7 +9,28 @@ import { openContactModal } from '../components/ContactModal.js';
 
 export function createProductDetailPage({ params, router }) {
   const { slug } = params;
-  const product = products.find(p => p.slug === slug) || products[0];
+  const product = products.find(p => p.slug === slug);
+
+  if (!product || slug === 'bpr-tetra') {
+    if (router) {
+      setTimeout(() => router.navigate('/produtos'), 0);
+    }
+    const empty = document.createElement('div');
+    empty.className = 'w-full bg-[#F5F5F7] min-h-[60vh] flex items-center justify-center px-4';
+    empty.innerHTML = `
+      <div class="text-center py-20 bg-white rounded-3xl p-8 max-w-md shadow-sm border border-neutral-200">
+        <div class="w-16 h-16 rounded-full bg-neutral-100 text-neutral-400 flex items-center justify-center mx-auto mb-4">
+          <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+          </svg>
+        </div>
+        <h2 class="text-xl font-bold text-neutral-900">Produto Indisponível</h2>
+        <p class="text-sm text-neutral-500 mt-2">Esta tecnologia biológica não está disponível para visualização no momento. Redirecionando para o catálogo...</p>
+        <a href="#/produtos" data-link class="btn-pill-primary inline-block text-xs mt-6">Ver Soluções Disponíveis</a>
+      </div>
+    `;
+    return empty;
+  }
   const category = categories.find(c => c.id === product.categorySlug) || categories[0];
   const siblingProducts = products.filter(p => p.categorySlug === product.categorySlug && p.id !== product.id);
 

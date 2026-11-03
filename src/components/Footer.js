@@ -49,7 +49,7 @@ export function renderFooter() {
           <ul class="space-y-2.5 text-sm">
             <li><a href="#/produtos/categoria/biofungicidas" data-link class="hover:text-[#60B73F] transition-colors">Biofungicidas (4)</a></li>
             <li><a href="#/produtos/categoria/bioinseticidas" data-link class="hover:text-[#60B73F] transition-colors">Bioinseticidas (3)</a></li>
-            <li><a href="#/produtos/categoria/promotores-de-crescimento" data-link class="hover:text-[#60B73F] transition-colors">Promotores & Inoculantes (3)</a></li>
+            <li><a href="#/produtos/categoria/promotores-de-crescimento" data-link class="hover:text-[#60B73F] transition-colors">Promotores & Inoculantes (2)</a></li>
             <li><a href="#/produtor" data-link class="text-[#60B73F] font-bold hover:underline transition-colors flex items-center gap-1"><span>Direto para o Produtor</span><span>→</span></a></li>
             <li><a href="#/produtos" data-link class="hover:text-[#60B73F] font-semibold transition-colors">Ver Portfólio Completo</a></li>
           </ul>

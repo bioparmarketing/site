@@ -89,7 +89,7 @@ export function createTermsOfUsePage({ router }) {
         <section id="aviso-agronomico" class="space-y-3 pt-4 border-t border-neutral-100 scroll-mt-28">
           <h2 class="text-xl sm:text-2xl font-black text-neutral-900 tracking-tight">2. Natureza das Informações Técnicas e Agronômicas</h2>
           <p>
-            As fichas técnicas, dosagens sugeridas, espectros de controle de pragas e doenças e modos de ação descritos nas páginas dos produtos (ex.: Trixma®, MB Control®, BPR Tetra®) derivam diretamente dos registros oficiais outorgados pelos órgãos reguladores competentes: <strong>Ministério da Agricultura e Pecuária (MAPA), ANVISA e IBAMA</strong>.
+            As fichas técnicas, dosagens sugeridas, espectros de controle de pragas e doenças e modos de ação descritos nas páginas dos produtos (ex.: Trixma®, MB Control®, BPR Azo®) derivam diretamente dos registros oficiais outorgados pelos órgãos reguladores competentes: <strong>Ministério da Agricultura e Pecuária (MAPA), ANVISA e IBAMA</strong>.
           </p>
           <p>
             No entanto, a eficácia agronômica de agentes biológicos vivos no campo está intrinsecamente vinculada a fatores edafoclimáticos locais, tais como:

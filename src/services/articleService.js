@@ -347,10 +347,12 @@ class ArticleService {
         readingTime: articleData.readingTime || calculatedReadingTime,
         author: articleData.author || {
           name: currentUser.name,
+          email: currentUser.email || '',
           role: currentUser.role,
           avatar: currentUser.avatar,
           bio: currentUser.bio
         },
+        createdBy: currentUser.email || currentUser.name,
         featured: !!articleData.featured,
         image: articleData.image || 'https://images.unsplash.com/photo-1574943320219-553eb213f72d?auto=format&fit=crop&w=1200&q=80',
         content: articleData.content || '<p>Conteúdo da publicação...</p>',
@@ -389,7 +391,36 @@ class ArticleService {
   /**
    * Remove um artigo pelo ID na nuvem Supabase e localmente
    */
+  /**
+   * Verifica se o usuário autenticado tem permissão para gerenciar/excluir o artigo
+   */
+  canUserManageArticle(article, user = null) {
+    const current = user || this.getCurrentUser();
+    if (!current) return false;
+
+    const currentEmail = (current.email || '').trim().toLowerCase();
+    const currentName = (current.name || '').trim().toLowerCase();
+
+    const authorEmail = (article.author?.email || article.createdBy || '').trim().toLowerCase();
+    const authorName = (article.author?.name || '').trim().toLowerCase();
+
+    // Se bater o e-mail do autor/criador
+    if (authorEmail && currentEmail && authorEmail === currentEmail) return true;
+
+    // Se bater o nome do autor/criador
+    if (authorName && currentName && authorName === currentName) return true;
+
+    // Se for artigo legado sem identificação prévia
+    if (!authorEmail && !authorName) return true;
+
+    return false;
+  }
+
   async deleteArticle(id) {
+    const target = this.getAll().find(a => a.id === id);
+    if (target && !this.canUserManageArticle(target)) {
+      throw new Error(`Permissão negada: apenas o autor (${target.author?.name || "criador"}) tem permissão para excluir esta matéria.`);
+    }
     let all = [...this.getAll()];
     const beforeCount = all.length;
     all = all.filter(a => a.id !== id);

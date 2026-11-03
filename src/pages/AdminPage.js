@@ -288,9 +288,7 @@ export function createAdminPage({ router }) {
               </select>
             </div>
 
-            <button id="admin-reset-defaults-btn" title="Restaura os 10 artigos originais se necessário" class="px-3 py-2 rounded-xl text-xs font-medium text-neutral-500 hover:text-neutral-900 hover:bg-neutral-100 transition-colors">
-              Restaurar Padrão
-            </button>
+            
           </div>
 
         </div>
@@ -472,17 +470,7 @@ export function createAdminPage({ router }) {
       });
     }
 
-    // Restaurar Padrões
-    const resetBtn = container.querySelector('#admin-reset-defaults-btn');
-    if (resetBtn) {
-      resetBtn.addEventListener('click', () => {
-        if (confirm('Atenção: Isso restaurará os 10 artigos padrão originais e apagará modificações locais. Deseja prosseguir?')) {
-          articleService.resetToDefaults();
-          showToast('Artigos restaurados para o padrão original!');
-          renderDashboardView();
-        }
-      });
-    }
+    // Botão Restaurar Padrão removido permanentemente
 
     // Ações de cada linha (Editar, Excluir)
     container.querySelectorAll('button[data-action="edit"]').forEach(btn => {

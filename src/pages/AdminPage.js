@@ -5,6 +5,7 @@
  */
 
 import { articleService } from '../services/articleService.js';
+import { uploadMedia } from '../services/supabaseClient.js';
 import { products } from '../data/products.js';
 import { showToast } from '../components/Toast.js';
 
@@ -67,8 +68,8 @@ export function createAdminPage({ router }) {
                   type="email" 
                   id="login-email" 
                   required 
-                  placeholder="marketing@biopar.agr.br"
-                  value="marketing@biopar.agr.br"
+                  placeholder="seu-email@biopar.agr.br"
+                  value="" autocomplete="username"
                   class="w-full px-4 py-3 rounded-2xl bg-[#F5F5F7] border border-neutral-200 text-sm font-medium text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-[#60B73F] focus:bg-white transition-all"
                 />
               </div>
@@ -83,8 +84,8 @@ export function createAdminPage({ router }) {
                   type="password" 
                   id="login-password" 
                   required 
-                  placeholder="@mkt123"
-                  value="@mkt123"
+                  placeholder="••••••••"
+                  value="" autocomplete="current-password"
                   class="w-full px-4 py-3 rounded-2xl bg-[#F5F5F7] border border-neutral-200 text-sm font-medium text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-[#60B73F] focus:bg-white transition-all"
                 />
               </div>
@@ -102,16 +103,8 @@ export function createAdminPage({ router }) {
             </button>
           </form>
 
-          <!-- Credenciais Padrão & Atalhos -->
-          <div class="mt-8 pt-6 border-t border-neutral-100 space-y-3">
-            <div class="p-3.5 rounded-2xl bg-[#60B73F]/10 border border-[#60B73F]/20 text-xs text-neutral-700">
-              <span class="font-bold text-[#007A42] block mb-1">Acessos Cadastrados (Diretoria & Marketing):</span>
-              <div class="flex flex-col gap-1 text-[11px] font-mono text-neutral-600">
-                <div>👑 CEO: <strong>juliano@biopar.agr.br</strong> • <strong>@Mkt123</strong></div>
-                <div>⚡ Marketing: <strong>marketing@biopar.agr.br</strong> • <strong>@mkt123</strong></div>
-              </div>
-            </div>
-
+          <!-- Links de Navegação -->
+          <div class="mt-8 pt-6 border-t border-neutral-100">
             <div class="text-center pt-2">
               <a href="#/blog" data-link class="text-xs font-medium text-neutral-500 hover:text-neutral-900 transition-colors">
                 ← Voltar para o Blog no Site
@@ -769,7 +762,26 @@ export function createAdminPage({ router }) {
 
     // Atualizar preview da imagem ao digitar ou clicar em sugestão
     if (imageInput && imagePreview) {
-      imageInput.addEventListener('input', () => {
+          const imageFileInput = modalContainer.querySelector('#form-image-file');
+    if (imageFileInput) {
+      imageFileInput.addEventListener('change', async (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (file) {
+          showToast('Enviando capa para o Supabase Storage...');
+          try {
+            const cloudUrl = await uploadMedia(file, `artigos/capa-${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.-]/g, '')}`);
+            imageInput.value = cloudUrl;
+            imagePreview.src = cloudUrl;
+            showToast('Capa salva na nuvem com sucesso!');
+          } catch (err) {
+            console.warn('Erro upload capa:', err);
+            showToast('Falha no upload para nuvem, use uma URL direta.');
+          }
+        }
+      });
+    }
+
+    imageInput.addEventListener('input', () => {
         imagePreview.src = imageInput.value || SUGGESTED_COVERS[0].url;
       });
     }

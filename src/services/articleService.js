@@ -488,7 +488,28 @@ export const articles = ${JSON.stringify(articlesList, null, 2)};
     const cleanEmail = (email || '').trim().toLowerCase();
     const cleanPass = (password || '').trim();
 
-    // 1. Tenta autenticar pelo Supabase Auth se o usuário estiver cadastrado
+    // 1. Validação imediata para a equipe oficial (Marketing & Juliano CEO)
+    const user = ADMIN_USERS.find(u => {
+      const emailMatches = u.email.toLowerCase() === cleanEmail;
+      const passMatches = u.password === cleanPass || u.password.toLowerCase() === cleanPass.toLowerCase();
+      return emailMatches && passMatches;
+    });
+
+    if (user) {
+      const customProfile = this.getAuthor();
+      const sessionData = {
+        name: customProfile?.name || user.name,
+        email: user.email,
+        role: customProfile?.role || user.role,
+        avatar: customProfile?.avatar || user.avatar,
+        bio: customProfile?.bio || user.bio,
+        loggedAt: new Date().toISOString()
+      };
+      this._saveSession(sessionData);
+      return { success: true, user: sessionData };
+    }
+
+    // 2. Tenta autenticar pelo Supabase Auth se houver usuário cadastrado diretamente no Supabase
     const sb = getSupabase();
     if (sb && sb.auth) {
       try {
@@ -511,29 +532,8 @@ export const articles = ${JSON.stringify(articlesList, null, 2)};
           return { success: true, user: sessionData };
         }
       } catch (err) {
-        console.warn('[Supabase Auth] Fallback para credenciais corporativas:', err);
+        console.warn('[Supabase Auth]:', err);
       }
-    }
-
-    // 2. Validação direta para a equipe (Marketing / Juliano CEO)
-    const user = ADMIN_USERS.find(u => {
-      const emailMatches = u.email.toLowerCase() === cleanEmail;
-      const passMatches = u.password === cleanPass || u.password.toLowerCase() === cleanPass.toLowerCase();
-      return emailMatches && passMatches;
-    });
-
-    if (user) {
-      const customProfile = this.getAuthor();
-      const sessionData = {
-        name: customProfile?.name || user.name,
-        email: user.email,
-        role: customProfile?.role || user.role,
-        avatar: customProfile?.avatar || user.avatar,
-        bio: customProfile?.bio || user.bio,
-        loggedAt: new Date().toISOString()
-      };
-      this._saveSession(sessionData);
-      return { success: true, user: sessionData };
     }
 
     return {

@@ -111,17 +111,22 @@ export function createInstagramApprovalPage({ router }) {
     const form = container.querySelector('#approval-login-form');
     const errBox = container.querySelector('#approval-login-error');
 
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const email = container.querySelector('#approval-email').value;
       const pass = container.querySelector('#approval-password').value;
 
-      const result = articleService.login(email, pass);
-      if (result.success) {
-        showToast(`Bem-vindo, ${result.user.name}!`);
-        render();
-      } else {
-        errBox.textContent = result.message || 'Credenciais inválidas.';
+      try {
+        const result = await articleService.login(email, pass);
+        if (result && result.success) {
+          showToast(`Bem-vindo, ${result.user.name}!`);
+          render();
+        } else {
+          errBox.textContent = (result && result.message) || 'Credenciais inválidas.';
+          errBox.classList.remove('hidden');
+        }
+      } catch (err) {
+        errBox.textContent = 'Erro ao conectar. Tente novamente.';
         errBox.classList.remove('hidden');
       }
     });

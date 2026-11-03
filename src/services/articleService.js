@@ -70,16 +70,10 @@ class ArticleService {
         .order('created_at', { ascending: false });
 
       if (!artError && Array.isArray(dbArticles)) {
-        if (dbArticles.length > 0) {
-          const mappedArticles = dbArticles.map(row => this._mapFromDb(row));
-          this.inMemoryArticles = mappedArticles;
-          this._persist(mappedArticles);
-          this._notify();
-        } else {
-          // Se a tabela estiver vazia no banco, faz o seed inicial dos artigos
-          console.log('[Supabase] Tabela de artigos vazia. Realizando carga inicial...');
-          await this._seedToSupabase(sb);
-        }
+        const mappedArticles = dbArticles.map(row => this._mapFromDb(row));
+        this.inMemoryArticles = mappedArticles;
+        this._persist(mappedArticles);
+        this._notify();
       } else if (artError) {
         console.warn('[Supabase] Aviso ao buscar artigos:', artError.message);
       }
@@ -211,7 +205,7 @@ class ArticleService {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored === null) {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(initialArticles));
+        localStorage.setItem(STORAGE_KEY, JSON.stringify([]));
       }
     } catch (e) {
       console.warn('Não foi possível acessar localStorage:', e);
@@ -249,7 +243,7 @@ class ArticleService {
       return this.inMemoryArticles;
     }
 
-    let rawList = [...initialArticles];
+    let rawList = [];
     if (typeof localStorage !== 'undefined') {
       try {
         const data = localStorage.getItem(STORAGE_KEY);

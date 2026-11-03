@@ -79,6 +79,7 @@
     import { createCookiesPage } from './src/pages/CookiesPage.js';
     import { createProducerPage } from './src/pages/ProducerLandingPage.js';
     import { createAdminPage } from './src/pages/AdminPage.js';
+    import { createInstagramApprovalPage } from './src/pages/InstagramApprovalPage.js';
 
     // Monta Layout Global
     const headerContainer = document.getElementById('app-header');
@@ -97,6 +98,10 @@
       .add('/blog/:slug', createArticleDetailPage)
       .add('/admin', createAdminPage)
       .add('/login', createAdminPage)
+      .add('/aprovacoes', createInstagramApprovalPage)
+      .add('/aprovações', createInstagramApprovalPage)
+      .add('/aprovacao', createInstagramApprovalPage)
+      .add('/aprovação', createInstagramApprovalPage)
       .add('/privacidade', createPrivacyPolicyPage)
       .add('/politica-de-privacidade', createPrivacyPolicyPage)
       .add('/termos', createTermsOfUsePage)

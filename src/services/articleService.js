@@ -8,7 +8,7 @@ import { articles as initialArticles, articleCategories as initialCategories } f
 const STORAGE_KEY = 'biopar_articles_store';
 const SESSION_KEY = 'biopar_admin_session';
 
-// Perfil Oficial de Conteúdo e Marketing configurado para o sistema
+// Perfis Oficiais de Acesso ao Painel e Central de Aprovação
 export const ADMIN_USERS = [
   {
     name: 'Sued Oninem',
@@ -17,6 +17,14 @@ export const ADMIN_USERS = [
     role: 'Head de Marketing',
     avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80',
     bio: 'Head de Marketing da Biopar Biotecnologia Agrícola. Especialista em posicionamento comercial, inteligência de mercado do agronegócio e estratégias de bioinsumos para produtores e cooperativas.'
+  },
+  {
+    name: 'Diretoria & CEO',
+    email: 'ceo@biopar.agr.br',
+    password: '@mkt123',
+    role: 'CEO & Diretor Executivo',
+    avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=300&q=80',
+    bio: 'Diretoria Executiva Biopar Biotecnologia Agrícola.'
   }
 ];
 

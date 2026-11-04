@@ -169,6 +169,17 @@ export function createInstagramApprovalPage({ router }) {
               <span>Novo Post</span>
             </button>
 
+            ${allPosts.length > 0 ? `
+              <button 
+                id="hub-btn-delete-all" 
+                class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-red-50 hover:bg-red-100 text-red-700 border border-red-200/80 font-bold text-xs transition-colors cursor-pointer"
+                title="Excluir todos os posts da fila de aprovação"
+              >
+                <svg class="w-3.5 h-3.5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                <span>Excluir Todos</span>
+              </button>
+            ` : ''}
+
             <a 
               href="#/admin" 
               data-link 
@@ -384,8 +395,8 @@ export function createInstagramApprovalPage({ router }) {
               <div class="w-12 h-12 rounded-full bg-neutral-100 flex items-center justify-center mx-auto mb-3 text-neutral-400">
                 <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
               </div>
-              <h3 class="text-base font-bold text-neutral-800">Nenhum post encontrado nesta categoria</h3>
-              <p class="text-xs text-neutral-500 mt-1">Clique em "+ Novo Post" para subir uma imagem para aprovação.</p>
+              <h3 class="text-base font-bold text-neutral-800">Nenhuma publicação na fila de aprovação</h3>
+              <p class="text-xs text-neutral-500 mt-1">Clique em "+ Novo Post" para subir a foto e a copy para aprovação do CEO Juliano.</p>
             </div>
           ` : filteredPosts.map(post => {
             const isCarousel = Array.isArray(post.images) && post.images.length > 1;
@@ -491,6 +502,18 @@ export function createInstagramApprovalPage({ router }) {
     const newPostHeaderBtn = container.querySelector('#hub-btn-new-post-header');
     if (newPostBtn) newPostBtn.addEventListener('click', () => openCreatePostModal());
     if (newPostHeaderBtn) newPostHeaderBtn.addEventListener('click', () => openCreatePostModal());
+
+    // Excluir todos os posts
+    const deleteAllBtn = container.querySelector('#hub-btn-delete-all');
+    if (deleteAllBtn) {
+      deleteAllBtn.addEventListener('click', () => {
+        if (confirm('Atenção: Deseja realmente excluir TODOS os posts da fila de aprovação do Instagram?\n\nEles serão removidos permanentemente e NÃO voltarão de forma automática.')) {
+          instagramApprovalService.deleteAllPosts();
+          showToast('Todos os posts foram excluídos com sucesso.');
+          renderApprovalHub();
+        }
+      });
+    }
 
     // Clicar em um Post no Grid para abrir o detalhe estilo Instagram
     container.querySelectorAll('.post-grid-item').forEach(item => {
@@ -629,7 +652,7 @@ export function createInstagramApprovalPage({ router }) {
                     <svg class="w-3.5 h-3.5 text-[#007A42]" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
                   </div>
                   <div class="text-[11px] text-neutral-400">
-                    Programado: <strong class="text-neutral-700">${post.scheduledDate} às ${post.scheduledTime}</strong>
+                    Publicação para Avaliação do CEO
                   </div>
                 </div>
               </div>
@@ -679,8 +702,8 @@ export function createInstagramApprovalPage({ router }) {
 
               <!-- Metadados Adicionais -->
               <div class="pt-2 flex items-center justify-between text-[11px] text-neutral-400">
-                <span>Criado por: <strong>${post.createdBy || 'Sued Oninem'}</strong></span>
-                <span>Categoria: <strong>${post.category || 'Manejo Biológico'}</strong></span>
+                <span>Enviado por: <strong>${post.createdBy || 'Sued Oninem'}</strong></span>
+                <span>Aprovação: <strong>Juliano (CEO)</strong></span>
               </div>
 
             </div>
@@ -897,7 +920,7 @@ export function createInstagramApprovalPage({ router }) {
     // Excluir post
     if (deletePostBtn) {
       deletePostBtn.addEventListener('click', () => {
-        if (confirm(`Tem certeza que deseja remover o post "${selectedPost.title}" da fila de aprovação?`)) {
+        if (confirm('Tem certeza que deseja remover esta publicação da fila de aprovação?')) {
           instagramApprovalService.deletePost(selectedPost.id);
           showToast('Publicação removida com sucesso.');
           closeModal();
@@ -916,15 +939,8 @@ export function createInstagramApprovalPage({ router }) {
     if (!modalContainer) return;
 
     const isEdit = !!postToEdit;
-    let uploadedImages = isEdit && Array.isArray(postToEdit.images) ? [...postToEdit.images] : [
-      'https://images.unsplash.com/photo-1574943320219-553eb213f72d?auto=format&fit=crop&w=1080&q=80'
-    ];
-
-    const initialTitle = isEdit ? postToEdit.title : '';
-    const initialCategory = isEdit ? postToEdit.category : 'Biofungicidas';
-    const initialDate = isEdit ? postToEdit.scheduledDate : new Date(Date.now() + 86400000 * 2).toISOString().split('T')[0];
-    const initialTime = isEdit ? postToEdit.scheduledTime : '18:00';
-    const initialCaption = isEdit ? postToEdit.caption : `Título impactante sobre manejo biológico no campo! 🌾🔬\n\nDescreva os diferenciais da tecnologia Biopar, modos de ação e benefícios comprovados em campo.\n\n✅ Alta pureza e densidade celular\n✅ Retorno garantido por hectare\n\nFale com nosso time técnico no link da bio! 🌱\n\n#Biopar #AgriculturaBiologica #SojaBrasil #ManejoIntegrado`;
+    let uploadedImages = isEdit && Array.isArray(postToEdit.images) ? [...postToEdit.images] : [];
+    const initialCaption = isEdit ? (postToEdit.caption || '') : '';
 
     modalContainer.innerHTML = `
       <div class="fixed inset-0 z-50 overflow-y-auto bg-black/75 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 animate-fade-in">
@@ -986,64 +1002,6 @@ export function createInstagramApprovalPage({ router }) {
               </div>
             </div>
 
-            <!-- Título Interno & Categoria -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label class="block text-xs font-semibold uppercase tracking-wider text-neutral-700 mb-1" for="create-input-title">
-                  Título / Tema do Post *
-                </label>
-                <input 
-                  type="text" 
-                  id="create-input-title" 
-                  required 
-                  value="${initialTitle}" 
-                  placeholder="Ex: Manejo de Mofo-Branco na Soja..." 
-                  class="w-full px-3.5 py-2.5 rounded-xl bg-neutral-50 border border-neutral-200 text-xs font-bold text-neutral-900 focus:outline-none focus:ring-2 focus:ring-[#60B73F] focus:bg-white transition-all"
-                />
-              </div>
-
-              <div>
-                <label class="block text-xs font-semibold uppercase tracking-wider text-neutral-700 mb-1" for="create-select-category">
-                  Categoria Temática
-                </label>
-                <select id="create-select-category" class="w-full px-3.5 py-2.5 rounded-xl bg-neutral-50 border border-neutral-200 text-xs font-semibold text-neutral-800 focus:outline-none focus:ring-2 focus:ring-[#60B73F]">
-                  <option value="Biofungicidas" ${initialCategory === 'Biofungicidas' ? 'selected' : ''}>Biofungicidas</option>
-                  <option value="Bioinseticidas" ${initialCategory === 'Bioinseticidas' ? 'selected' : ''}>Bioinseticidas</option>
-                  <option value="Promotores de Crescimento" ${initialCategory === 'Promotores de Crescimento' ? 'selected' : ''}>Promotores de Crescimento</option>
-                  <option value="Boas Práticas de Aplicação" ${initialCategory === 'Boas Práticas de Aplicação' ? 'selected' : ''}>Boas Práticas de Aplicação</option>
-                  <option value="Mercado & Gestão" ${initialCategory === 'Mercado & Gestão' ? 'selected' : ''}>Mercado & Gestão</option>
-                  <option value="Institucional & Ciência" ${initialCategory === 'Institucional & Ciência' ? 'selected' : ''}>Institucional & Ciência</option>
-                </select>
-              </div>
-            </div>
-
-            <!-- Data & Horário Previstos -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label class="block text-xs font-semibold uppercase tracking-wider text-neutral-700 mb-1" for="create-input-date">
-                  Data Prevista de Publicação
-                </label>
-                <input 
-                  type="date" 
-                  id="create-input-date" 
-                  value="${initialDate}"
-                  class="w-full px-3.5 py-2.5 rounded-xl bg-neutral-50 border border-neutral-200 text-xs font-medium text-neutral-800 focus:outline-none focus:ring-2 focus:ring-[#60B73F]"
-                />
-              </div>
-
-              <div>
-                <label class="block text-xs font-semibold uppercase tracking-wider text-neutral-700 mb-1" for="create-input-time">
-                  Horário de Postagem
-                </label>
-                <input 
-                  type="time" 
-                  id="create-input-time" 
-                  value="${initialTime}"
-                  class="w-full px-3.5 py-2.5 rounded-xl bg-neutral-50 border border-neutral-200 text-xs font-medium text-neutral-800 focus:outline-none focus:ring-2 focus:ring-[#60B73F]"
-                />
-              </div>
-            </div>
-
             <!-- Legenda Completa -->
             <div>
               <div class="flex items-center justify-between mb-1">
@@ -1054,8 +1012,9 @@ export function createInstagramApprovalPage({ router }) {
               </div>
               <textarea 
                 id="create-textarea-caption" 
-                rows="7" 
+                rows="8" 
                 required 
+                placeholder="Digite ou cole aqui a legenda e copy completa para o Instagram com emojis, hashtags e CTA..."
                 class="w-full p-4 rounded-2xl bg-neutral-50 border border-neutral-200 text-xs font-medium text-neutral-900 focus:outline-none focus:ring-2 focus:ring-[#60B73F] focus:bg-white transition-all leading-relaxed"
               >${initialCaption}</textarea>
             </div>
@@ -1089,10 +1048,6 @@ export function createInstagramApprovalPage({ router }) {
     const addUrlBtn = modalContainer.querySelector('#create-btn-add-url');
     const captionArea = modalContainer.querySelector('#create-textarea-caption');
     const counter = modalContainer.querySelector('#create-caption-counter');
-    const titleInput = modalContainer.querySelector('#create-input-title');
-    const categorySelect = modalContainer.querySelector('#create-select-category');
-    const dateInput = modalContainer.querySelector('#create-input-date');
-    const timeInput = modalContainer.querySelector('#create-input-time');
 
     function closeModal() {
       modalContainer.innerHTML = '';
@@ -1206,46 +1161,28 @@ export function createInstagramApprovalPage({ router }) {
     // Salvar Post
     if (saveBtn) {
       saveBtn.addEventListener('click', () => {
-        const title = titleInput.value.trim();
-        const caption = captionArea.value.trim();
-        const category = categorySelect.value;
-        const scheduledDate = dateInput.value;
-        const scheduledTime = timeInput.value;
+        const caption = captionArea ? captionArea.value.trim() : '';
 
         if (uploadedImages.length === 0) {
           alert('Por favor, adicione pelo menos 1 foto para o post.');
           return;
         }
 
-        if (!title) {
-          alert('Por favor, informe o título/tema do post.');
-          titleInput.focus();
-          return;
-        }
-
         if (!caption) {
-          alert('Por favor, redija a legenda da publicação.');
-          captionArea.focus();
+          alert('Por favor, redija a legenda e copy da publicação para o Instagram.');
+          if (captionArea) captionArea.focus();
           return;
         }
 
         if (isEdit && editingPost) {
           instagramApprovalService.updatePost(editingPost.id, {
-            title,
             caption,
-            category,
-            scheduledDate,
-            scheduledTime,
             images: uploadedImages
           });
           showToast('Publicação atualizada com sucesso!');
         } else {
           instagramApprovalService.createPost({
-            title,
             caption,
-            category,
-            scheduledDate,
-            scheduledTime,
             images: uploadedImages
           });
           showToast('✓ Novo post enviado para a fila de aprovação do CEO!');

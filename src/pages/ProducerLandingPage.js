@@ -48,41 +48,55 @@ export function createProducerPage({ router }) {
       </div>
     </div>
 
-    <!-- 2. HERO SECTION DE ALTA CONVERSÃO -->
-    <section class="relative overflow-hidden pt-10 pb-16 md:pt-16 md:pb-24 bg-gradient-to-b from-neutral-50 via-white to-neutral-50 border-b border-neutral-200/80">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- 2. HERO SECTION DE ALTA CONVERSÃO COM FUNDO RESPONSIVO -->
+    <section class="relative overflow-hidden pt-10 pb-16 md:pt-16 md:pb-24 border-b border-neutral-200/80 bg-neutral-900">
+      
+      <!-- Fundo Responsivo: Imagem da Lavoura e Camada de Degradê com Contraste Otimizado -->
+      <div class="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden">
+        <img 
+          src="./static/assets/hero-producer-bg.jpg" 
+          alt="Lavoura Biopar ao entardecer" 
+          class="hero-producer-bg-img"
+          loading="eager"
+          fetchpriority="high"
+        />
+        <!-- Degradê adaptativo: Preserva a leitura dos títulos preto e verde no Desktop e no Mobile -->
+        <div class="hero-producer-overlay"></div>
+      </div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
           <!-- Lado Esquerdo: Promessa Forte, Dores e Prova Social -->
           <div class="lg:col-span-7 space-y-6">
             
-            <div class="inline-flex items-center gap-2 bg-[#EBF7E7] text-[#007A42] px-3.5 py-1.5 rounded-full text-xs font-bold border border-[#60B73F]/30 shadow-sm">
+            <div class="inline-flex items-center gap-2 bg-white/95 backdrop-blur-md text-[#007A42] px-3.5 py-1.5 rounded-full text-xs font-bold border border-[#60B73F]/40 shadow-sm">
               <svg class="w-4 h-4 text-[#60B73F]" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
               </svg>
               DIRETO DA INDÚSTRIA PARA A SUA LAVOURA
             </div>
 
-            <h1 class="text-3xl sm:text-5xl lg:text-5xl font-black text-neutral-900 tracking-tight leading-[1.12]">
-              Cansado de gastar rios de dinheiro em químico e a praga <span class="text-[#60B73F]">continuar roubando suas sacas?</span>
+            <h1 class="text-3xl sm:text-5xl lg:text-5xl font-black text-neutral-950 tracking-tight leading-[1.12]">
+              Cansado de gastar rios de dinheiro em químico e a praga <span class="text-[#007A42]">continuar roubando suas sacas?</span>
             </h1>
 
-            <p class="text-base sm:text-lg text-neutral-600 font-normal leading-relaxed">
+            <p class="text-base sm:text-lg text-neutral-800 font-normal leading-relaxed">
               O defensivo tradicional perdeu eficácia por resistência. Nossos <strong>produtos biológicos líquidos de alta concentração</strong> atacam as doenças de solo e sugadores na raiz, destravam o adubo preso na terra e garantem <strong>mais sacas colhidas por hectare</strong> com custo que fecha a conta.
             </p>
 
             <!-- 3 Selos de Confiança Imediata -->
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-              <div class="p-3 bg-white rounded-xl border border-neutral-200/80 shadow-xs flex items-center gap-2.5">
+              <div class="p-3 bg-white/95 backdrop-blur-sm rounded-xl border border-neutral-200/90 shadow-sm flex items-center gap-2.5">
                 <div class="w-7 h-7 rounded-full bg-[#EBF7E7] text-[#007A42] flex items-center justify-center font-bold text-xs shrink-0">✓</div>
                 <span class="text-xs font-semibold text-neutral-800">Não entope bico de pulverizador</span>
               </div>
-              <div class="p-3 bg-white rounded-xl border border-neutral-200/80 shadow-xs flex items-center gap-2.5">
+              <div class="p-3 bg-white/95 backdrop-blur-sm rounded-xl border border-neutral-200/90 shadow-sm flex items-center gap-2.5">
                 <div class="w-7 h-7 rounded-full bg-[#EBF7E7] text-[#007A42] flex items-center justify-center font-bold text-xs shrink-0">✓</div>
                 <span class="text-xs font-semibold text-neutral-800">100% Registro MAPA Oficial</span>
               </div>
-              <div class="p-3 bg-white rounded-xl border border-neutral-200/80 shadow-xs flex items-center gap-2.5">
+              <div class="p-3 bg-white/95 backdrop-blur-sm rounded-xl border border-neutral-200/90 shadow-sm flex items-center gap-2.5">
                 <div class="w-7 h-7 rounded-full bg-[#EBF7E7] text-[#007A42] flex items-center justify-center font-bold text-xs shrink-0">✓</div>
                 <span class="text-xs font-semibold text-neutral-800">Assistência do agrônomo no campo</span>
               </div>
@@ -94,7 +108,7 @@ export function createProducerPage({ router }) {
                 href="https://wa.me/5545991312295?text=Ol%C3%A1%2C%20sou%20produtor%20rural%20e%20quero%20conhecer%20as%20solu%C3%A7%C3%B5es%20da%20Biopar%20para%20minha%20lavoura." 
                 target="_blank"
                 rel="noopener noreferrer"
-                class="inline-flex items-center justify-center gap-2.5 bg-[#60B73F] hover:bg-[#52A633] text-white text-base font-bold px-7 py-4 rounded-full shadow-lg shadow-[#60B73F]/25 transition-all transform hover:-translate-y-0.5"
+                class="inline-flex items-center justify-center gap-2.5 bg-[#60B73F] hover:bg-[#52A633] text-white text-base font-bold px-7 py-4 rounded-full shadow-lg shadow-[#60B73F]/25 transition-all transform hover:-translate-y-0.5 cursor-pointer"
               >
                 <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
                   <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.969.587 1.771.867 2.796.867 3.183 0 5.769-2.586 5.77-5.766.001-3.18-2.585-5.754-5.77-5.754zm3.364 8.243c-.14.394-.714.733-1.019.78-.305.048-.686.068-1.954-.457-1.623-.672-2.67-2.315-2.751-2.423-.081-.108-.66-879-.66-1.674 0-.796.417-1.189.565-1.351.148-.162.324-.203.432-.203.108 0 .216 0 .311.006.101.007.236-.038.37.284.14.338.473 1.15.513 1.233.04.083.067.18.013.288-.053.108-.08.175-.16.27-.08.095-.169.212-.241.285-.081.08-.166.168-.071.332.095.163.421.696.903 1.127.621.554 1.144.726 1.307.807.162.081.257.068.351-.041.095-.108.405-.473.513-.635.108-.162.216-.135.365-.081.148.054.945.446 1.107.527.162.081.27.122.311.189.04.068.04.393-.1.787z"/>
@@ -104,14 +118,14 @@ export function createProducerPage({ router }) {
 
               <a 
                 href="#calculadora" 
-                class="inline-flex items-center gap-1.5 text-sm font-semibold text-neutral-700 hover:text-black py-3 px-4 rounded-full bg-white border border-neutral-300 hover:border-neutral-400 transition-colors"
+                class="inline-flex items-center gap-1.5 text-sm font-semibold text-neutral-800 hover:text-black py-3 px-4 rounded-full bg-white/95 hover:bg-white border border-neutral-300 hover:border-neutral-400 transition-colors shadow-sm cursor-pointer"
               >
                 <span>Calcular ganho da minha safra</span>
                 <svg class="w-4 h-4 text-neutral-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
               </a>
             </div>
 
-            <div class="pt-2 text-xs text-neutral-500 flex items-center gap-4">
+            <div class="pt-2 text-xs text-neutral-600 font-medium flex items-center gap-4">
               <span>⚡ Resposta média em 5 minutos</span>
               <span>•</span>
               <span>🔒 Cotação sem compromisso</span>
@@ -119,9 +133,9 @@ export function createProducerPage({ router }) {
 
           </div>
 
-          <!-- Lado Direito: Formulário de Cotação Rápida no Próprio Bloco -->
+          <!-- Lado Direito: Formulário de Cotação Rápida em Card Branco Sólido com Alta Elevação -->
           <div class="lg:col-span-5">
-            <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-neutral-200 ring-1 ring-black/5 relative">
+            <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-neutral-200/90 ring-1 ring-black/5 relative">
               
               <div class="absolute -top-3 right-6 bg-[#60B73F] text-white text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-sm">
                 Atendimento Direto da Fábrica

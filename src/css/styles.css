@@ -323,3 +323,61 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   background-color: #FFFFFF !important;
   opacity: 1 !important;
 }
+
+
+/* ==========================================================================
+   Producer Landing Page (/produtor) — Hero Background Responsivo & Contraste
+   ========================================================================== */
+.hero-producer-bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Mobile: prioriza o enquadramento da lavoura (folhagem verde) evitando apenas o céu */
+  object-position: center 84%;
+  transition: object-position 0.4s ease;
+}
+
+@media (min-width: 640px) {
+  .hero-producer-bg-img {
+    object-position: center 70%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-producer-bg-img {
+    /* Desktop: ocupa toda a largura integrando lavoura e horizonte dourado */
+    object-position: center 48%;
+  }
+}
+
+/* Camada de sobreposição / degradê para alto contraste dos títulos pretos e verdes */
+.hero-producer-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  /* Mobile: degradê vertical mais claro no topo para os títulos preto/verde e translúcido na base */
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.96) 0%,
+    rgba(255, 255, 255, 0.90) 30%,
+    rgba(255, 255, 255, 0.78) 55%,
+    rgba(255, 255, 255, 0.45) 85%,
+    rgba(255, 255, 255, 0.25) 100%
+  );
+}
+
+@media (min-width: 1024px) {
+  .hero-producer-overlay {
+    /* Desktop: degradê horizontal denso à esquerda (textos) que se suaviza em direção ao card e à paisagem */
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.97) 0%,
+      rgba(255, 255, 255, 0.93) 38%,
+      rgba(255, 255, 255, 0.76) 58%,
+      rgba(255, 255, 255, 0.35) 85%,
+      rgba(255, 255, 255, 0.15) 100%
+    );
+  }
+}

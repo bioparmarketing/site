@@ -29,7 +29,7 @@ export function createProducerPage({ router }) {
           <!-- Bloco 1 -->
           <div class="flex items-center gap-6 shrink-0 pr-8">
             <span class="font-black text-[#60B73F]">SAFRA 2024/2025:</span>
-            <span>Condições especiais direto da fábrica para produtores</span>
+            <span>ATENDIMENTO ESPECIALIZADO E CONDIÇÕES ESPECIAIS</span>
             <span class="text-neutral-400 font-bold px-3">—</span>
             <span>Suporte agronômico</span>
             <span class="text-neutral-400 font-bold px-3">—</span>
@@ -38,7 +38,7 @@ export function createProducerPage({ router }) {
           <!-- Bloco 2 (Loop Infinito Contínuo) -->
           <div class="flex items-center gap-6 shrink-0 pr-8" aria-hidden="true">
             <span class="font-black text-[#60B73F]">SAFRA 2024/2025:</span>
-            <span>Condições especiais direto da fábrica para produtores</span>
+            <span>ATENDIMENTO ESPECIALIZADO E CONDIÇÕES ESPECIAIS</span>
             <span class="text-neutral-400 font-bold px-3">—</span>
             <span>Suporte agronômico</span>
             <span class="text-neutral-400 font-bold px-3">—</span>
@@ -62,6 +62,8 @@ export function createProducerPage({ router }) {
         />
         <!-- Degradê adaptativo: Preserva a leitura dos títulos preto e verde no Desktop e no Mobile -->
         <div class="hero-producer-overlay"></div>
+        <!-- Gride Técnico de Precisão Agronômica -->
+        <div class="hero-producer-grid"></div>
       </div>
 
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

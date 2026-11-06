@@ -73,12 +73,6 @@ export function createProducerPage({ router }) {
           <!-- Lado Esquerdo: Promessa Forte, Dores e Prova Social -->
           <div class="lg:col-span-7 space-y-6">
             
-            <div class="inline-flex items-center gap-2 bg-white/95 backdrop-blur-md text-[#007A42] px-3.5 py-1.5 rounded-full text-xs font-bold border border-[#60B73F]/40 shadow-sm">
-              <svg class="w-4 h-4 text-[#60B73F]" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-              </svg>
-              DIRETO DA INDÚSTRIA PARA A SUA LAVOURA
-            </div>
 
             <h1 class="text-3xl sm:text-5xl lg:text-5xl font-black text-neutral-950 tracking-tight leading-[1.12]">
               Cansado de gastar rios de dinheiro em químico e a praga <span class="text-[#007A42]">continuar roubando suas sacas?</span>
@@ -139,9 +133,6 @@ export function createProducerPage({ router }) {
           <div class="lg:col-span-5">
             <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-neutral-200/90 ring-1 ring-black/5 relative">
               
-              <div class="absolute -top-3 right-6 bg-[#60B73F] text-white text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-sm">
-                Atendimento Direto da Fábrica
-              </div>
 
               <h2 class="text-xl font-black text-neutral-900 tracking-tight">Simule o Manejo da Sua Fazenda</h2>
               <p class="text-xs text-neutral-500 mt-1">Preencha em menos de 1 minuto e receba a dosagem recomendada para o seu talhão.</p>

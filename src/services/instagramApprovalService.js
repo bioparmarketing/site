@@ -4,8 +4,8 @@
  * Gerencia fila de aprovação de posts, feedback do CEO Juliano e mídia no Supabase Storage.
  */
 
-import { articleService } from './articleService.js?v=3.2';
-import { getSupabase, uploadBase64Media } from './supabaseClient.js?v=3.2';
+import { articleService } from './articleService.js';
+import { getSupabase, uploadBase64Media } from './supabaseClient.js';
 
 const STORAGE_KEY = 'biopar_instagram_approval_posts_v2';
 const LEGACY_STORAGE_KEY = 'biopar_instagram_approval_posts';

@@ -4,8 +4,8 @@
  * Perfil oficial: Sued Oninem (marketing@biopar.agr.br / @mkt123)
  */
 
-import { articleService } from '../services/articleService.js?v=3.2';
-import { uploadMedia } from '../services/supabaseClient.js?v=3.2';
+import { articleService } from '../services/articleService.js';
+import { uploadMedia } from '../services/supabaseClient.js';
 import { products } from '../data/products.js';
 import { showToast } from '../components/Toast.js';
 

@@ -4,8 +4,8 @@
  * modal de aprovação/alterações do CEO, agendamento de posts e upload de conteúdos.
  */
 
-import { instagramApprovalService } from '../services/instagramApprovalService.js?v=3.2';
-import { articleService } from '../services/articleService.js?v=3.2';
+import { instagramApprovalService } from '../services/instagramApprovalService.js';
+import { articleService } from '../services/articleService.js';
 import { showToast } from '../components/Toast.js';
 
 export function createInstagramApprovalPage({ router }) {

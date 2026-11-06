@@ -52,3 +52,50 @@ export async function uploadMedia(file, customPath) {
 
   return urlData.publicUrl;
 }
+
+/**
+ * Converte e faz upload de imagem Base64 para o Supabase Storage (Bucket: biopar-media)
+ * @param {string} base64Data 
+ * @param {string} [customPath] 
+ * @returns {Promise<string>} URL pública no Supabase Storage CDN
+ */
+export async function uploadBase64Media(base64Data, customPath) {
+  const sb = getSupabase();
+  if (!sb) throw new Error('Cliente Supabase não disponível');
+
+  if (!base64Data || !base64Data.startsWith('data:')) {
+    return base64Data; // Já é uma URL externa ou storage
+  }
+
+  const parts = base64Data.split(';base64,');
+  const contentType = parts[0].split(':')[1] || 'image/jpeg';
+  const raw = atob(parts[1]);
+  const rawLength = raw.length;
+  const uInt8Array = new Uint8Array(rawLength);
+  for (let i = 0; i < rawLength; ++i) {
+    uInt8Array[i] = raw.charCodeAt(i);
+  }
+  const blob = new Blob([uInt8Array], { type: contentType });
+
+  const ext = contentType.includes('png') ? 'png' : contentType.includes('webp') ? 'webp' : 'jpg';
+  const fileName = customPath || `instagram/${Date.now()}-${Math.random().toString(36).substring(2, 9)}.${ext}`;
+
+  const { data, error } = await sb.storage
+    .from('biopar-media')
+    .upload(fileName, blob, {
+      cacheControl: '31536000',
+      upsert: true,
+      contentType
+    });
+
+  if (error) {
+    console.error('Erro ao subir base64 para Supabase Storage:', error);
+    throw error;
+  }
+
+  const { data: urlData } = sb.storage
+    .from('biopar-media')
+    .getPublicUrl(fileName);
+
+  return urlData.publicUrl;
+}

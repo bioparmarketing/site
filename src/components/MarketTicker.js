@@ -7,6 +7,9 @@ import { marketService } from '../services/marketProvider.js';
 import { openMarketModal } from './MarketModal.js';
 
 export function createMarketSection() {
+  // Assegura que o serviço de mercado está inicializado
+  marketService.init();
+
   const section = document.createElement('section');
   section.id = 'mercado';
   section.className = 'py-12 bg-[#F5F5F7] border-y border-[#E5E5EA]';
@@ -22,7 +25,7 @@ export function createMarketSection() {
               <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#60B73F]"></span>
             </span>
             <span class="text-xs font-semibold uppercase tracking-wider text-neutral-700 bg-neutral-100 px-2.5 py-0.5 rounded-full border border-neutral-300" id="market-status-badge">Mercado Agora</span>
-            <span class="text-xs text-neutral-500 font-medium" id="market-last-update">Atualizando...</span>
+            <span class="text-xs text-neutral-500 font-medium" id="market-last-update">Atualizando cotações...</span>
           </div>
           <h2 class="text-3xl sm:text-4xl font-extrabold text-neutral-900 tracking-tight">Indicadores do Agro</h2>
           <p class="text-neutral-500 text-sm sm:text-base mt-1">Cotações físicas, futuros e câmbio integrados às principais fontes de referência.</p>
@@ -30,8 +33,8 @@ export function createMarketSection() {
 
         <div class="flex items-center gap-2.5">
           <button id="btn-refresh-market" class="px-4 py-2 bg-white rounded-full border border-neutral-200 text-xs font-semibold text-neutral-700 hover:bg-neutral-50 shadow-sm transition-all flex items-center gap-1.5 cursor-pointer">
-            <svg class="w-3.5 h-3.5 text-neutral-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-            <span>Atualizar Cotações</span>
+            <svg class="w-3.5 h-3.5 text-neutral-500 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            <span id="btn-refresh-text">Atualizar Cotações</span>
           </button>
         </div>
       </div>
@@ -64,9 +67,31 @@ export function createMarketSection() {
 
   // Listener para atualização dos dados
   const unsubscribe = marketService.subscribe(({ state, indicators, lastFetched }) => {
+    // Se a seção foi removida do DOM após navegação SPA, cancela a assinatura
+    if (section.parentElement && !document.body.contains(section)) {
+      unsubscribe();
+      return;
+    }
+
     const grid = section.querySelector('#market-indicators-grid');
     const updateEl = section.querySelector('#market-last-update');
     const statusBadge = section.querySelector('#market-status-badge');
+    const refreshBtn = section.querySelector('#btn-refresh-market');
+    const refreshIcon = refreshBtn?.querySelector('svg');
+    const refreshText = section.querySelector('#btn-refresh-text');
+
+    if (state === 'loading') {
+      if (refreshIcon) refreshIcon.classList.add('animate-spin');
+      if (refreshText) refreshText.textContent = 'Atualizando...';
+      if (refreshBtn) refreshBtn.disabled = true;
+      if (updateEl && !lastFetched) {
+        updateEl.textContent = 'Atualizando cotações...';
+      }
+    } else {
+      if (refreshIcon) refreshIcon.classList.remove('animate-spin');
+      if (refreshText) refreshText.textContent = 'Atualizar Cotações';
+      if (refreshBtn) refreshBtn.disabled = false;
+    }
 
     if (updateEl && lastFetched) {
       updateEl.textContent = `Atualizado às ${lastFetched.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}`;
@@ -78,14 +103,17 @@ export function createMarketSection() {
         statusBadge.className = 'text-xs font-semibold uppercase tracking-wider text-neutral-700 bg-neutral-100 px-2.5 py-0.5 rounded-full border border-neutral-300';
       } else if (state === 'cached') {
         statusBadge.textContent = 'Modo Offline (Cache)';
-        statusBadge.className = 'text-xs font-semibold uppercase tracking-wider text-amber-800 bg-amber-100/70 px-2.5 py-0.5 rounded-full';
+        statusBadge.className = 'text-xs font-semibold uppercase tracking-wider text-amber-800 bg-amber-100/70 px-2.5 py-0.5 rounded-full border border-amber-200';
       } else if (state === 'delayed') {
         statusBadge.textContent = 'Cotações com Delay';
         statusBadge.className = 'text-xs font-semibold uppercase tracking-wider text-neutral-600 bg-neutral-200 px-2.5 py-0.5 rounded-full';
+      } else if (state === 'loading') {
+        statusBadge.textContent = 'Atualizando';
+        statusBadge.className = 'text-xs font-semibold uppercase tracking-wider text-neutral-600 bg-neutral-100 px-2.5 py-0.5 rounded-full border border-neutral-300';
       }
     }
 
-    if (grid && indicators) {
+    if (grid && indicators && indicators.length > 0) {
       grid.innerHTML = indicators.map(ind => {
         const isUp = ind.dailyChangePercent >= 0;
         const trendClass = isUp ? 'text-[#60B73F] bg-neutral-100 border border-neutral-300' : 'text-red-700 bg-neutral-100 border border-neutral-300';

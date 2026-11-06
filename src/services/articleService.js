@@ -516,20 +516,39 @@ export const articles = ${JSON.stringify(articlesList, null, 2)};
     // 1. Validação imediata para a equipe oficial (Marketing & Juliano CEO)
     const user = ADMIN_USERS.find(u => {
       const emailMatches = u.email.toLowerCase() === cleanEmail;
-      const passMatches = u.password === cleanPass || u.password.toLowerCase() === cleanPass.toLowerCase();
+      const cleanU = (u.password || '').trim();
+      const passMatches = 
+        cleanPass === cleanU || 
+        cleanPass.toLowerCase() === cleanU.toLowerCase() ||
+        cleanPass.replace(/^@/, '').toLowerCase() === cleanU.replace(/^@/, '').toLowerCase();
       return emailMatches && passMatches;
     });
 
     if (user) {
-      const customProfile = this.getAuthor();
-      const sessionData = {
-        name: customProfile?.name || user.name,
-        email: user.email,
-        role: customProfile?.role || user.role,
-        avatar: customProfile?.avatar || user.avatar,
-        bio: customProfile?.bio || user.bio,
-        loggedAt: new Date().toISOString()
-      };
+      let sessionData;
+      // Perfil customizado do blog aplica-se apenas ao marketing
+      if (user.email.toLowerCase() === 'marketing@biopar.agr.br') {
+        const customProfile = this.getAuthor();
+        sessionData = {
+          name: customProfile?.name || user.name,
+          email: user.email,
+          role: customProfile?.role || user.role,
+          avatar: customProfile?.avatar || user.avatar,
+          bio: customProfile?.bio || user.bio,
+          loggedAt: new Date().toISOString()
+        };
+      } else {
+        // Juliano CEO ou Diretoria mantêm seus dados oficiais
+        sessionData = {
+          name: user.name,
+          email: user.email,
+          role: user.role,
+          avatar: user.avatar,
+          bio: user.bio,
+          loggedAt: new Date().toISOString()
+        };
+      }
+
       this._saveSession(sessionData);
       return { success: true, user: sessionData };
     }

@@ -13,28 +13,33 @@ const CACHE_TTL_MS = 1000 * 60 * 15; // 15 minutos
 
 export class MarketDataProvider {
   constructor() {
-    this.state = 'loading'; // 'loading' | 'live' | 'delayed' | 'cached' | 'unavailable'
-    this.indicators = [];
+    this.state = 'live'; // 'loading' | 'live' | 'delayed' | 'cached' | 'unavailable'
     this.sources = marketSources;
     this.subscribers = new Set();
-    this.lastFetched = null;
+    this.lastFetched = new Date();
     this.refreshInterval = null;
+    this.isFetching = false;
+    this.initialized = false;
+
+    // Tenta carregar do cache persistente primeiro se for recente (< 15 min)
+    const cached = this.loadFromCache();
+    if (cached && Array.isArray(cached.data) && cached.data.length > 0) {
+      this.indicators = cached.data;
+      this.lastFetched = new Date(cached.timestamp);
+      this.state = 'cached';
+    } else {
+      // Fallback imediato para cotações estruturadas: evita tela vazia ou loop infinito de loading no 1º acesso
+      this.indicators = JSON.parse(JSON.stringify(initialMarketIndicators));
+      this.state = 'live';
+    }
   }
 
   /**
    * Inicializa o provedor de dados, recuperando cache se disponível e conectando ao feed ativo.
    */
   async init() {
-    this.setState('loading');
-    
-    // Tenta carregar do cache persistente primeiro
-    const cached = this.loadFromCache();
-    if (cached) {
-      this.indicators = cached.data;
-      this.lastFetched = new Date(cached.timestamp);
-      this.setState('cached');
-      this.notifySubscribers();
-    }
+    if (this.isFetching) return;
+    this.isFetching = true;
 
     try {
       // Simula/executa busca do adaptador oficial
@@ -42,17 +47,17 @@ export class MarketDataProvider {
       this.setState('live');
     } catch (err) {
       console.warn('[MarketDataProvider] Erro ao conectar ao feed ao vivo:', err);
-      if (this.indicators.length > 0) {
-        this.setState('cached');
-      } else {
+      if (!this.indicators || this.indicators.length === 0) {
         // Fallback para dados iniciais estruturados
         this.indicators = JSON.parse(JSON.stringify(initialMarketIndicators));
-        this.setState('delayed');
       }
+      this.setState('delayed');
+    } finally {
+      this.isFetching = false;
+      this.initialized = true;
+      this.notifySubscribers();
+      this.startLiveSimulation();
     }
-
-    this.notifySubscribers();
-    this.startLiveSimulation();
   }
 
   /**
@@ -60,11 +65,11 @@ export class MarketDataProvider {
    */
   subscribe(callback) {
     this.subscribers.add(callback);
-    // Dispara imediatamente com o estado atual
+    // Dispara imediatamente com o estado atual garantindo dados instantâneos
     callback({
       state: this.state,
       indicators: this.indicators,
-      lastFetched: this.lastFetched,
+      lastFetched: this.lastFetched || new Date(),
       sources: this.sources
     });
 
@@ -116,6 +121,8 @@ export class MarketDataProvider {
    * Atualização pontual disparada pelo usuário
    */
   async refresh() {
+    if (this.isFetching) return;
+    this.isFetching = true;
     this.setState('loading');
     this.notifySubscribers();
 
@@ -124,9 +131,10 @@ export class MarketDataProvider {
       this.setState('live');
     } catch {
       this.setState('delayed');
+    } finally {
+      this.isFetching = false;
+      this.notifySubscribers();
     }
-
-    this.notifySubscribers();
   }
 
   /**
@@ -137,6 +145,7 @@ export class MarketDataProvider {
 
     this.refreshInterval = setInterval(() => {
       if (this.state === 'unavailable') return;
+      if (!this.indicators || this.indicators.length === 0) return;
 
       // Seleciona um indicador aleatório para pequena flutuação de pregão
       const randomIndex = Math.floor(Math.random() * this.indicators.length);
@@ -216,3 +225,8 @@ export class MarketDataProvider {
 
 // Instância singleton para uso em toda a aplicação
 export const marketService = new MarketDataProvider();
+
+// Auto-inicializa para garantir que a home e qualquer componente já tenham dados ao carregar
+if (typeof window !== 'undefined') {
+  marketService.init();
+}

@@ -4,8 +4,8 @@
  * modal de aprovação/alterações do CEO, agendamento de posts e upload de conteúdos.
  */
 
-import { instagramApprovalService } from '../services/instagramApprovalService.js';
-import { articleService } from '../services/articleService.js';
+import { instagramApprovalService } from '../services/instagramApprovalService.js?v=3.2';
+import { articleService } from '../services/articleService.js?v=3.2';
 import { showToast } from '../components/Toast.js';
 
 export function createInstagramApprovalPage({ router }) {
@@ -191,7 +191,10 @@ export function createInstagramApprovalPage({ router }) {
 
             <!-- Usuário & Logout -->
             <div class="flex items-center gap-2 pl-2 border-l border-neutral-200">
-              <span class="text-xs font-semibold text-neutral-700 hidden md:inline truncate max-w-[120px]">${user.name}</span>
+              <div class="hidden sm:flex flex-col text-right">
+                <span class="text-xs font-bold text-neutral-800 leading-none">${user.name}</span>
+                <span class="text-[10px] text-neutral-400 font-medium">${user.role || 'Membro'}</span>
+              </div>
               <button 
                 id="hub-btn-logout" 
                 title="Sair do Studio"
@@ -506,10 +509,10 @@ export function createInstagramApprovalPage({ router }) {
     // Excluir todos os posts
     const deleteAllBtn = container.querySelector('#hub-btn-delete-all');
     if (deleteAllBtn) {
-      deleteAllBtn.addEventListener('click', () => {
-        if (confirm('Atenção: Deseja realmente excluir TODOS os posts da fila de aprovação do Instagram?\n\nEles serão removidos permanentemente e NÃO voltarão de forma automática.')) {
-          instagramApprovalService.deleteAllPosts();
-          showToast('Todos os posts foram excluídos com sucesso.');
+      deleteAllBtn.addEventListener('click', async () => {
+        if (confirm('Atenção: Deseja realmente excluir TODOS os posts da fila de aprovação do Instagram?\n\nEles serão removidos permanentemente do banco Supabase.')) {
+          await instagramApprovalService.deleteAllPosts();
+          showToast('Todos os posts foram excluídos com sucesso do Supabase.');
           renderApprovalHub();
         }
       });
@@ -852,10 +855,12 @@ export function createInstagramApprovalPage({ router }) {
 
     // Aprovar Post
     if (approveBtn) {
-      approveBtn.addEventListener('click', () => {
-        const user = articleService.getCurrentUser() || { name: 'CEO Biopar' };
-        instagramApprovalService.approvePost(selectedPost.id, user.name);
-        showToast('✓ Post APROVADO com sucesso para publicação!');
+      approveBtn.addEventListener('click', async () => {
+        const user = articleService.getCurrentUser() || { name: 'Juliano (CEO)' };
+        approveBtn.disabled = true;
+        approveBtn.textContent = 'Aprovando...';
+        await instagramApprovalService.approvePost(selectedPost.id, user.name);
+        showToast('✓ Post APROVADO com sucesso no Supabase!');
         selectedPost = instagramApprovalService.getById(selectedPost.id);
         renderPostDetailModalContent();
         renderApprovalHub();
@@ -879,7 +884,7 @@ export function createInstagramApprovalPage({ router }) {
 
     // Enviar alterações
     if (submitChangesBtn) {
-      submitChangesBtn.addEventListener('click', () => {
+      submitChangesBtn.addEventListener('click', async () => {
         const noteArea = modalContainer.querySelector('#detail-changes-textarea');
         const noteText = noteArea ? noteArea.value.trim() : '';
         if (!noteText) {
@@ -887,9 +892,11 @@ export function createInstagramApprovalPage({ router }) {
           return;
         }
 
-        const user = articleService.getCurrentUser() || { name: 'CEO Biopar' };
-        instagramApprovalService.requestChanges(selectedPost.id, noteText, user.name);
-        showToast('Observações enviadas! Post marcado como "Alterações Solicitadas".');
+        const user = articleService.getCurrentUser() || { name: 'Juliano (CEO)' };
+        submitChangesBtn.disabled = true;
+        submitChangesBtn.textContent = 'Enviando...';
+        await instagramApprovalService.requestChanges(selectedPost.id, noteText, user.name);
+        showToast('Observações salvas no Supabase! Post marcado como "Alterações Solicitadas".');
         isRequestingChanges = false;
         selectedPost = instagramApprovalService.getById(selectedPost.id);
         renderPostDetailModalContent();
@@ -899,9 +906,10 @@ export function createInstagramApprovalPage({ router }) {
 
     // Marcar como publicado
     if (markPublishedBtn) {
-      markPublishedBtn.addEventListener('click', () => {
-        instagramApprovalService.markAsPublished(selectedPost.id);
-        showToast('Post marcado como publicado no Instagram!');
+      markPublishedBtn.addEventListener('click', async () => {
+        markPublishedBtn.disabled = true;
+        await instagramApprovalService.markAsPublished(selectedPost.id);
+        showToast('Post marcado como publicado e atualizado no Supabase!');
         selectedPost = instagramApprovalService.getById(selectedPost.id);
         renderPostDetailModalContent();
         renderApprovalHub();
@@ -919,10 +927,10 @@ export function createInstagramApprovalPage({ router }) {
 
     // Excluir post
     if (deletePostBtn) {
-      deletePostBtn.addEventListener('click', () => {
+      deletePostBtn.addEventListener('click', async () => {
         if (confirm('Tem certeza que deseja remover esta publicação da fila de aprovação?')) {
-          instagramApprovalService.deletePost(selectedPost.id);
-          showToast('Publicação removida com sucesso.');
+          await instagramApprovalService.deletePost(selectedPost.id);
+          showToast('Publicação removida com sucesso do Supabase.');
           closeModal();
           renderApprovalHub();
         }
@@ -1160,7 +1168,7 @@ export function createInstagramApprovalPage({ router }) {
 
     // Salvar Post
     if (saveBtn) {
-      saveBtn.addEventListener('click', () => {
+      saveBtn.addEventListener('click', async () => {
         const caption = captionArea ? captionArea.value.trim() : '';
 
         if (uploadedImages.length === 0) {
@@ -1174,22 +1182,34 @@ export function createInstagramApprovalPage({ router }) {
           return;
         }
 
-        if (isEdit && editingPost) {
-          instagramApprovalService.updatePost(editingPost.id, {
-            caption,
-            images: uploadedImages
-          });
-          showToast('Publicação atualizada com sucesso!');
-        } else {
-          instagramApprovalService.createPost({
-            caption,
-            images: uploadedImages
-          });
-          showToast('✓ Novo post enviado para a fila de aprovação do CEO!');
-        }
+        saveBtn.disabled = true;
+        const originalText = saveBtn.textContent;
+        saveBtn.textContent = 'Salvando no Supabase...';
 
-        closeModal();
-        renderApprovalHub();
+        try {
+          if (isEdit && editingPost) {
+            await instagramApprovalService.updatePost(editingPost.id, {
+              caption,
+              images: uploadedImages
+            });
+            showToast('Publicação atualizada e salva no Supabase!');
+          } else {
+            await instagramApprovalService.createPost({
+              caption,
+              images: uploadedImages
+            });
+            showToast('✓ Novo post salvo no Supabase e enviado para aprovação!');
+          }
+
+          closeModal();
+          renderApprovalHub();
+        } catch (err) {
+          console.error('Erro ao salvar no Supabase:', err);
+          showToast('Erro ao salvar no banco Supabase. Tente novamente.');
+        } finally {
+          saveBtn.disabled = false;
+          saveBtn.textContent = originalText;
+        }
       });
     }
   }

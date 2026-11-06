@@ -4,8 +4,8 @@
  * Perfil oficial: Sued Oninem (marketing@biopar.agr.br / @mkt123)
  */
 
-import { articleService } from '../services/articleService.js';
-import { uploadMedia } from '../services/supabaseClient.js';
+import { articleService } from '../services/articleService.js?v=3.2';
+import { uploadMedia } from '../services/supabaseClient.js?v=3.2';
 import { products } from '../data/products.js';
 import { showToast } from '../components/Toast.js';
 
@@ -119,12 +119,12 @@ export function createAdminPage({ router }) {
     const form = container.querySelector('#admin-login-form');
     const errorBox = container.querySelector('#login-error-msg');
 
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const email = container.querySelector('#login-email').value;
       const pass = container.querySelector('#login-password').value;
 
-      const result = articleService.login(email, pass);
+      const result = await articleService.login(email, pass);
       if (result.success) {
         showToast(`Bem-vindo, ${result.user.name}! Painel carregado.`);
         render();

@@ -288,7 +288,12 @@ export function createAdminPage({ router }) {
               </select>
             </div>
 
-            
+            ${allArticles.length > 0 ? `
+              <button id="admin-delete-all-btn" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold text-red-600 bg-red-50 hover:bg-red-100 border border-red-200 transition-colors cursor-pointer" title="Excluir todas as matérias do blog">
+                <svg class="w-3.5 h-3.5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                <span>Excluir Todas</span>
+              </button>
+            ` : ''}
           </div>
 
         </div>
@@ -470,7 +475,22 @@ export function createAdminPage({ router }) {
       });
     }
 
-    // Botão Restaurar Padrão removido permanentemente
+    // Botão Excluir Todas as Matérias
+    const deleteAllBtn = container.querySelector('#admin-delete-all-btn');
+    if (deleteAllBtn) {
+      deleteAllBtn.addEventListener('click', async () => {
+        if (confirm('Tem certeza que deseja EXCLUIR TODAS as matérias do blog?\nEsta ação apagará as publicações permanentemente tanto no painel quanto na nuvem.')) {
+          try {
+            await articleService.deleteAllArticles();
+            showToast('Todas as matérias foram excluídas com sucesso.', 'success');
+            renderDashboardView();
+          } catch (err) {
+            console.error('Erro ao excluir todas as matérias:', err);
+            showToast(err.message || 'Erro ao excluir todas as matérias.', 'error');
+          }
+        }
+      });
+    }
 
     // Ações de cada linha (Editar, Excluir)
     container.querySelectorAll('button[data-action="edit"]').forEach(btn => {
@@ -484,13 +504,18 @@ export function createAdminPage({ router }) {
     });
 
     container.querySelectorAll('button[data-action="delete"]').forEach(btn => {
-      btn.addEventListener('click', () => {
+      btn.addEventListener('click', async () => {
         const id = btn.getAttribute('data-id');
         const title = btn.getAttribute('data-title');
         if (confirm(`Tem certeza que deseja excluir a matéria:\n"${title}"?`)) {
-          articleService.deleteArticle(id);
-          showToast('Matéria excluída com sucesso.');
-          renderDashboardView();
+          try {
+            await articleService.deleteArticle(id);
+            showToast('Matéria excluída com sucesso.', 'success');
+            renderDashboardView();
+          } catch (err) {
+            console.error('Erro ao excluir matéria:', err);
+            showToast(err.message || 'Erro ao excluir matéria.', 'error');
+          }
         }
       });
     });

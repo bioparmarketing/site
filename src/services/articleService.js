@@ -392,36 +392,24 @@ class ArticleService {
    * Remove um artigo pelo ID na nuvem Supabase e localmente
    */
   /**
-   * Verifica se o usuário autenticado tem permissão para gerenciar/excluir o artigo
+   * Verifica se o usuário autenticado tem permissão para gerenciar/excluir o artigo.
+   * Administradores autenticados têm permissão total de gerenciamento.
    */
   canUserManageArticle(article, user = null) {
     const current = user || this.getCurrentUser();
     if (!current) return false;
-
-    const currentEmail = (current.email || '').trim().toLowerCase();
-    const currentName = (current.name || '').trim().toLowerCase();
-
-    const authorEmail = (article.author?.email || article.createdBy || '').trim().toLowerCase();
-    const authorName = (article.author?.name || '').trim().toLowerCase();
-
-    // Se bater o e-mail do autor/criador
-    if (authorEmail && currentEmail && authorEmail === currentEmail) return true;
-
-    // Se bater o nome do autor/criador
-    if (authorName && currentName && authorName === currentName) return true;
-
-    // Se for artigo legado sem identificação prévia
-    if (!authorEmail && !authorName) return true;
-
-    return false;
+    return true;
   }
 
   async deleteArticle(id) {
-    const target = this.getAll().find(a => a.id === id);
-    if (target && !this.canUserManageArticle(target)) {
-      throw new Error(`Permissão negada: apenas o autor (${target.author?.name || "criador"}) tem permissão para excluir esta matéria.`);
-    }
     let all = [...this.getAll()];
+    const target = all.find(a => a.id === id);
+    if (!target) return false;
+
+    if (!this.canUserManageArticle(target)) {
+      throw new Error(`Permissão negada: faça login como administrador para excluir esta matéria.`);
+    }
+
     const beforeCount = all.length;
     all = all.filter(a => a.id !== id);
 
@@ -451,6 +439,35 @@ class ArticleService {
       return true;
     }
     return false;
+  }
+
+  /**
+   * Exclui todos os artigos (limpeza total)
+   */
+  async deleteAllArticles() {
+    if (!this.isAuthenticated()) {
+      throw new Error("Permissão negada: faça login como administrador para executar esta ação.");
+    }
+    this.inMemoryArticles = [];
+    this._persist([]);
+    this._notify();
+
+    // Exclui todos os artigos no Supabase
+    try {
+      const sb = getSupabase();
+      if (sb) {
+        const { error } = await sb.from('articles').delete().neq('id', '___biopar_placeholder___');
+        if (error) {
+          console.error('[Supabase] Erro ao excluir todos os artigos na nuvem:', error);
+        } else {
+          console.log('[Supabase] Todos os artigos foram excluídos da nuvem com sucesso!');
+        }
+      }
+    } catch (err) {
+      console.warn('[Supabase] Falha ao excluir todos os artigos na nuvem:', err);
+    }
+
+    return true;
   }
 
   /**

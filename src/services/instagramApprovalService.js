@@ -17,6 +17,7 @@ class InstagramApprovalService {
     this.subscribers = [];
     this.memoryStore = null;
     this.isSyncing = false;
+    this.isMutating = false;
     this.realtimeChannel = null;
 
     this._initStore();
@@ -156,7 +157,7 @@ class InstagramApprovalService {
    * faz o upload automático para o Supabase e para o Storage.
    */
   async syncFromSupabase(isBackground = false) {
-    if (this.isSyncing) return;
+    if (this.isSyncing || this.isMutating) return;
     this.isSyncing = true;
 
     try {
@@ -176,6 +177,8 @@ class InstagramApprovalService {
         this.isSyncing = false;
         return;
       }
+
+      if (this.isMutating) return;
 
       const localPosts = Array.isArray(this.memoryStore) ? [...this.memoryStore] : [];
       const remotePosts = Array.isArray(dbRows) ? dbRows.map(r => this._mapFromDb(r)) : [];
@@ -199,9 +202,15 @@ class InstagramApprovalService {
       // Ordena por data decrescente
       remotePosts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
+      const prevSnapshot = JSON.stringify(this.memoryStore || []);
+      const nextSnapshot = JSON.stringify(remotePosts);
+
       this.memoryStore = remotePosts;
       this._persistLocalOnly(remotePosts);
-      this._notify();
+
+      if (!isBackground || prevSnapshot !== nextSnapshot) {
+        this._notify();
+      }
       console.log(`[Supabase] Sincronização concluída com sucesso: ${remotePosts.length} posts no ar.`);
     } catch (e) {
       console.warn('[Supabase] Falha de conexão ao sincronizar posts:', e);
@@ -309,71 +318,85 @@ class InstagramApprovalService {
    * Salva imediatamente no Supabase e no cache local
    */
   async createPost(data) {
-    const all = this.getAll();
-    const currentUser = articleService.getCurrentUser() || { name: 'Sued Oninem' };
-    const captionText = (data.caption || '').trim();
-    const firstLine = captionText.split('\n')[0].replace(/[#*]/g, '').trim();
-    const autoTitle = data.title || firstLine.slice(0, 50) || 'Publicação Instagram';
+    this.isMutating = true;
+    try {
+      const all = [...this.getAll()];
+      const currentUser = articleService.getCurrentUser() || { name: 'Sued Oninem' };
+      const captionText = (data.caption || '').trim();
+      const firstLine = captionText.split('\n')[0].replace(/[#*]/g, '').trim();
+      const autoTitle = data.title || firstLine.slice(0, 50) || 'Publicação Instagram';
 
-    const newPost = {
-      id: `post-${Date.now()}`,
-      images: Array.isArray(data.images) && data.images.length > 0 ? [...data.images] : ['https://images.unsplash.com/photo-1574943320219-553eb213f72d?auto=format&fit=crop&w=1080&q=80'],
-      title: autoTitle,
-      caption: captionText,
-      status: 'pendente', // Novos posts começam pendentes para o CEO Juliano
-      likesCount: Math.floor(Math.random() * 200) + 120,
-      commentsCount: Math.floor(Math.random() * 30) + 10,
-      createdAt: new Date().toISOString(),
-      approvedAt: null,
-      approvedBy: null,
-      reviewNotes: [],
-      createdBy: currentUser.name || 'Sued Oninem'
-    };
+      const newPost = {
+        id: `post-${Date.now()}`,
+        images: Array.isArray(data.images) && data.images.length > 0 ? [...data.images] : ['https://images.unsplash.com/photo-1574943320219-553eb213f72d?auto=format&fit=crop&w=1080&q=80'],
+        title: autoTitle,
+        caption: captionText,
+        status: 'pendente', // Novos posts começam pendentes para o CEO Juliano
+        likesCount: Math.floor(Math.random() * 200) + 120,
+        commentsCount: Math.floor(Math.random() * 30) + 10,
+        createdAt: new Date().toISOString(),
+        approvedAt: null,
+        approvedBy: null,
+        reviewNotes: [],
+        createdBy: currentUser.name || 'Sued Oninem'
+      };
 
-    all.unshift(newPost);
-    this.memoryStore = all;
-    this._persistLocalOnly(all);
-    this._notify();
+      // Persiste no Supabase e no Storage primeiro (converte base64 em URL pública)
+      try {
+        await this._pushPostToSupabase(newPost);
+      } catch (err) {
+        console.warn('[Supabase] Erro ao persistir novo post na nuvem:', err);
+      }
 
-    // Persiste no Supabase e no Storage
-    this._pushPostToSupabase(newPost).catch(err => {
-      console.warn('[Supabase] Erro ao persistir novo post na nuvem:', err);
-    });
+      all.unshift(newPost);
+      this.memoryStore = all;
+      this._persistLocalOnly(all);
+      this._notify();
 
-    return newPost;
+      return newPost;
+    } finally {
+      this.isMutating = false;
+    }
   }
 
   /**
    * Atualiza informações do post (imagem e legenda)
    */
   async updatePost(id, data) {
-    const all = this.getAll();
-    const index = all.findIndex(p => p.id === id);
-    if (index !== -1) {
-      const captionText = (data.caption !== undefined ? data.caption : all[index].caption || '').trim();
-      const firstLine = captionText.split('\n')[0].replace(/[#*]/g, '').trim();
-      const autoTitle = data.title || firstLine.slice(0, 50) || all[index].title || 'Publicação Instagram';
+    this.isMutating = true;
+    try {
+      const all = [...this.getAll()];
+      const index = all.findIndex(p => p.id === id);
+      if (index !== -1) {
+        const captionText = (data.caption !== undefined ? data.caption : all[index].caption || '').trim();
+        const firstLine = captionText.split('\n')[0].replace(/[#*]/g, '').trim();
+        const autoTitle = data.title || firstLine.slice(0, 50) || all[index].title || 'Publicação Instagram';
 
-      all[index] = {
-        ...all[index],
-        ...data,
-        caption: captionText,
-        title: autoTitle,
-        updatedAt: new Date().toISOString()
-      };
+        all[index] = {
+          ...all[index],
+          ...data,
+          caption: captionText,
+          title: autoTitle,
+          updatedAt: new Date().toISOString()
+        };
 
-      this.memoryStore = all;
-      this._persistLocalOnly(all);
-      this._notify();
+        // Sincroniza com Supabase e converte novas imagens base64 em URLs públicas
+        try {
+          await this._pushPostToSupabase(all[index]);
+        } catch (err) {
+          console.warn('[Supabase] Erro ao atualizar post na nuvem:', err);
+        }
 
-      // Sincroniza com Supabase
-      this._pushPostToSupabase(all[index]).catch(err => {
-        console.warn('[Supabase] Erro ao atualizar post na nuvem:', err);
-      });
+        this.memoryStore = all;
+        this._persistLocalOnly(all);
+        this._notify();
 
-      return all[index];
+        return all[index];
+      }
+      return null;
+    } finally {
+      this.isMutating = false;
     }
-    return null;
   }
 
   /**

@@ -4,7 +4,7 @@
  * modal de aprovação/alterações do CEO, agendamento de posts e upload de conteúdos.
  */
 
-import { instagramApprovalService } from '../services/instagramApprovalService.js';
+import { instagramApprovalService } from '../services/instagramApprovalService.js?v=3.3';
 import { articleService } from '../services/articleService.js';
 import { showToast } from '../components/Toast.js';
 
@@ -145,7 +145,19 @@ export function createInstagramApprovalPage({ router }) {
       ? allPosts 
       : allPosts.filter(p => p.status === currentFilter);
 
-    container.innerHTML = `
+    // Garante que os containers dos modais sejam preservados na árvore DOM
+    // mesmo quando o feed principal for re-renderizado em segundo plano
+    let hubMainContent = container.querySelector('#hub-main-content');
+    if (!hubMainContent) {
+      container.innerHTML = `
+        <div id="hub-main-content"></div>
+        <div id="hub-post-detail-modal-container"></div>
+        <div id="hub-create-post-modal-container"></div>
+      `;
+      hubMainContent = container.querySelector('#hub-main-content');
+    }
+
+    hubMainContent.innerHTML = `
       <!-- Barra Superior de Navegação -->
       <nav class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-neutral-200">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
@@ -467,10 +479,6 @@ export function createInstagramApprovalPage({ router }) {
         </div>
 
       </main>
-
-      <!-- Containers dos Modais -->
-      <div id="hub-post-detail-modal-container"></div>
-      <div id="hub-create-post-modal-container"></div>
     `;
 
     attachHubEvents();
@@ -962,13 +970,13 @@ export function createInstagramApprovalPage({ router }) {
               </h2>
               <p class="text-xs text-neutral-500">Suba as fotos e a copy que serão submetidas à diretoria.</p>
             </div>
-            <button id="create-modal-close-btn" class="p-2 text-neutral-400 hover:text-neutral-900 rounded-full hover:bg-neutral-200 transition-colors">
+            <button type="button" id="create-modal-close-btn" class="p-2 text-neutral-400 hover:text-neutral-900 rounded-full hover:bg-neutral-200 transition-colors">
               <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
             </button>
           </div>
 
           <!-- Formulário -->
-          <form id="create-post-form" class="p-6 overflow-y-auto space-y-5 flex-grow text-xs">
+          <form id="create-post-form" novalidate class="p-6 overflow-y-auto space-y-5 flex-grow text-xs">
             
             <!-- Upload de Fotos -->
             <div>
@@ -1021,7 +1029,6 @@ export function createInstagramApprovalPage({ router }) {
               <textarea 
                 id="create-textarea-caption" 
                 rows="8" 
-                required 
                 placeholder="Digite ou cole aqui a legenda e copy completa para o Instagram com emojis, hashtags e CTA..."
                 class="w-full p-4 rounded-2xl bg-neutral-50 border border-neutral-200 text-xs font-medium text-neutral-900 focus:outline-none focus:ring-2 focus:ring-[#60B73F] focus:bg-white transition-all leading-relaxed"
               >${initialCaption}</textarea>
@@ -1048,6 +1055,7 @@ export function createInstagramApprovalPage({ router }) {
 
   function attachCreatePostEvents(uploadedImages, isEdit) {
     const modalContainer = container.querySelector('#hub-create-post-modal-container');
+    const createForm = modalContainer.querySelector('#create-post-form');
     const closeBtn = modalContainer.querySelector('#create-modal-close-btn');
     const cancelBtn = modalContainer.querySelector('#create-modal-cancel-btn');
     const saveBtn = modalContainer.querySelector('#create-modal-save-btn');
@@ -1062,6 +1070,9 @@ export function createInstagramApprovalPage({ router }) {
       editingPost = null;
     }
 
+    if (createForm) {
+      createForm.addEventListener('submit', (e) => e.preventDefault());
+    }
     if (closeBtn) closeBtn.addEventListener('click', closeModal);
     if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
 
@@ -1078,7 +1089,11 @@ export function createInstagramApprovalPage({ router }) {
 
     // Trigger de seleção de arquivos do computador
     if (uploadBtn) {
-      uploadBtn.addEventListener('click', () => fileInput && fileInput.click());
+      uploadBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (fileInput) fileInput.click();
+      });
     }
 
     // Processamento de imagens via FileReader + Canvas (preserva dimensões e proporções originais SEM CORTES)
@@ -1126,6 +1141,9 @@ export function createInstagramApprovalPage({ router }) {
           };
           reader.readAsDataURL(file);
         });
+
+        // Limpa o valor do input para permitir selecionar o mesmo arquivo novamente se necessário
+        fileInput.value = '';
       });
     }
 

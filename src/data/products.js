@@ -380,9 +380,9 @@ export const products = [
       { name: 'Dalbulus maidis', commonName: 'Cigarrinha-do-milho (vetora de enfezamentos)' }
     ],
     dosageTable: [
-      { modality: 'Ensaio técnico - 0,5 L/ha', dose: '0,5 L/ha', timing: 'Redução média para 22 cigarrinhas aos 5 DAA (vs 45,5 da testemunha)' },
-      { modality: 'Ensaio técnico - 2,0 L/ha', dose: '2,0 L/ha', timing: 'Redução média para 16,7 cigarrinhas aos 5 DAA' },
-      { modality: 'Destaque de eficácia no estudo', dose: '4 × 10¹² conídios viáveis/ha', timing: 'Alcançou até 70% de eficiência aos 5 dias após a primeira aplicação' }
+      { modality: 'Ensaio técnico - 0,5 L/ha', dose: '0,5 L/ha', timing: 'Volume de calda: 100 L/ha (ou conforme a cultura e tamanho das plantas). Diluição em água: pré-misturar o produto em água em volume menor até obter solução homogênea e adicionar ao tanque sob agitação.' },
+      { modality: 'Ensaio técnico - 2,0 L/ha', dose: '2,0 L/ha', timing: 'Volume de calda: 100 L/ha (ou conforme a cultura e tamanho das plantas). Diluição em água: pré-misturar o produto em água em volume menor até obter solução homogênea e adicionar ao tanque sob agitação.' },
+      { modality: 'Destaque de eficácia no estudo', dose: '4 × 10¹² conídios viáveis/ha', timing: 'Volume de calda: 100 L/ha (ou conforme a cultura e tamanho das plantas). Diluição em água: pré-misturar o produto em água em volume menor até obter solução homogênea e adicionar ao tanque sob agitação.' }
     ],
     modeOfAction: {
       summary: 'Eficiência comprovada, quebra rápida da pressão populacional e persistência de controle no milho safrinha.',

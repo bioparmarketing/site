@@ -81,8 +81,7 @@ export function createProductDetailPage({ params, router }) {
 
             <div>
               <span class="text-xs font-bold uppercase tracking-wider text-neutral-400 block mb-1">Espécies & Microrganismos</span>
-              <p class="text-base text-neutral-800 font-normal italic leading-snug" style="font-family: Arial, sans-serif;">${product.microorganisms}</p>
-              <p class="text-xs text-neutral-500 mt-1 font-normal" style="font-family: Arial, sans-serif;">${product.speciesHighlights}</p>
+              <p class="text-base text-neutral-800 font-normal italic leading-snug" style="font-family: Arial, sans-serif;">${product.microorganisms}</p>${product.id !== 'bpr-beauveria' && product.speciesHighlights ? `\n              <p class="text-xs text-neutral-500 mt-1 font-normal" style="font-family: Arial, sans-serif;">${product.speciesHighlights}</p>` : ''}
             </div>
 
             <p class="text-base sm:text-lg text-neutral-600 font-medium leading-relaxed">
@@ -269,7 +268,7 @@ export function createProductDetailPage({ params, router }) {
                 <tr>
                   <th class="p-4 sm:p-5">Cultura / Modalidade</th>
                   <th class="p-4 sm:p-5">Dosagem</th>
-                  <th class="p-4 sm:p-5">Momento & Calda</th>
+                  <th class="p-4 sm:p-5">${product.id === 'bpr-beauveria' ? 'Calda de Diluição' : 'Momento & Calda'}</th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-neutral-200/60">

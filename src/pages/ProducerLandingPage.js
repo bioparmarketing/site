@@ -377,7 +377,7 @@ export function createProducerPage({ router }) {
                   Explosão Radicular & Fixação de Nitrogênio
                 </div>
                 <p class="text-xs sm:text-sm text-neutral-600 leading-relaxed">
-                  Inoculante líquido puro de <em>Azospirillum brasilense</em> (Ab-V5 e Ab-V6) que turbina o sistema radicular, multiplica os pelos absorventes e maximiza o aproveitamento de água e adubo.
+                  Inoculante líquido puro de <em>Azospirillum brasilense</em> (Ab-V5 e Ab-V6) que turbina o sistema radicular e potencializa a absorção de nitrogênio pelas raízes.
                 </p>
                 <div class="pt-2 text-xs text-neutral-500 space-y-1">
                   <div>✓ <strong>Efeito:</strong> Raiz profunda que busca umidade e nutrientes no perfil do solo</div>
@@ -514,17 +514,6 @@ export function createProducerPage({ router }) {
             </button>
             <div class="faq-content hidden p-5 pt-0 text-xs sm:text-sm text-neutral-600 leading-relaxed border-t border-neutral-100 mt-2">
               Você não precisa adivinhar. Quando você clica no botão ou manda mensagem no nosso WhatsApp, um Engenheiro Agrônomo da nossa equipe avalia a sua cultura, o histórico de infestação do talhão e o momento do plantio para calcular exatamente os litros necessários por hectare.
-            </div>
-          </div>
-
-          <!-- Pergunta 5 -->
-          <div class="bg-white rounded-2xl border border-neutral-200/80 overflow-hidden">
-            <button class="faq-toggle w-full p-5 text-left font-bold text-neutral-900 text-sm sm:text-base flex items-center justify-between cursor-pointer">
-              <span>5. Como comprar direto da fábrica sem intermediários?</span>
-              <span class="faq-icon text-neutral-400 font-bold text-lg">+</span>
-            </button>
-            <div class="faq-content hidden p-5 pt-0 text-xs sm:text-sm text-neutral-600 leading-relaxed border-t border-neutral-100 mt-2">
-              Basta nos chamar no WhatsApp ou preencher o formulário nesta página. Nós atendemos produtores de todo o Brasil faturando direto no CPF ou CNPJ rural, garantindo o melhor preço por litro sem a margem abusiva de revendas intermediárias.
             </div>
           </div>
 

@@ -111,14 +111,6 @@ export function createProducerPage({ router }) {
                 </svg>
                 <span>Falar com o Agrônomo no WhatsApp</span>
               </a>
-
-              <a 
-                href="#calculadora" 
-                class="inline-flex items-center gap-1.5 text-sm font-semibold text-neutral-800 hover:text-black py-3 px-4 rounded-full bg-white/95 hover:bg-white border border-neutral-300 hover:border-neutral-400 transition-colors shadow-sm cursor-pointer"
-              >
-                <span>Calcular ganho da minha safra</span>
-                <svg class="w-4 h-4 text-neutral-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-              </a>
             </div>
 
             <div class="pt-2 text-xs text-neutral-600 font-medium flex items-center gap-4">
@@ -411,101 +403,6 @@ export function createProducerPage({ router }) {
       </div>
     </section>
 
-    <!-- 5. CALCULADORA INTERATIVA DE GANHO NA SAFRA (ALTA CONVERSÃO) -->
-    <section id="calculadora" class="py-16 bg-white border-b border-neutral-200/80 scroll-mt-24">
-      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="bg-neutral-900 text-white rounded-3xl p-6 sm:p-12 shadow-2xl relative overflow-hidden">
-          
-          <div class="relative z-10">
-            <span class="inline-block text-xs font-semibold uppercase tracking-wider text-[#60B73F] bg-white/10 px-3 py-1 rounded-full border border-white/20 mb-3">
-              Calculadora de Retorno na Safra
-            </span>
-            
-            <h2 class="text-2xl sm:text-4xl font-black tracking-tight text-white">
-              Quanto a sua fazenda pode faturar a mais com a Biopar?
-            </h2>
-            <p class="text-neutral-300 text-sm sm:text-base mt-2 max-w-2xl">
-              Mova o controle abaixo para selecionar a área que você vai plantar e veja a estimativa de ganho real de sacas e faturamento:
-            </p>
-
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-8 items-center">
-              
-              <!-- Controles Interativos -->
-              <div class="lg:col-span-7 space-y-6">
-                <div>
-                  <div class="flex justify-between items-center mb-2">
-                    <label class="text-xs font-bold uppercase tracking-wider text-neutral-300">Área Plantada (Hectares):</label>
-                    <span id="calc-ha-display" class="text-xl font-black text-[#60B73F]">300 ha</span>
-                  </div>
-                  <input 
-                    type="range" 
-                    id="calc-ha-slider" 
-                    min="30" 
-                    max="2000" 
-                    step="10" 
-                    value="300" 
-                    class="w-full h-2.5 bg-neutral-700 rounded-lg appearance-none cursor-pointer accent-[#60B73F]"
-                  />
-                  <div class="flex justify-between text-[11px] text-neutral-400 mt-1">
-                    <span>30 ha</span>
-                    <span>500 ha</span>
-                    <span>1.000 ha</span>
-                    <span>2.000 ha</span>
-                  </div>
-                </div>
-
-                <div>
-                  <label class="block text-xs font-bold uppercase tracking-wider text-neutral-300 mb-2">Cultura da Sua Área:</label>
-                  <div class="grid grid-cols-2 gap-3">
-                    <button type="button" id="btn-crop-soja" class="crop-btn active py-2.5 px-4 rounded-xl text-xs font-bold border border-[#60B73F] bg-[#60B73F] text-white transition-all text-center">
-                      Soja (R$ 130/saca)
-                    </button>
-                    <button type="button" id="btn-crop-milho" class="crop-btn py-2.5 px-4 rounded-xl text-xs font-bold border border-neutral-700 bg-neutral-800 text-neutral-300 hover:text-white transition-all text-center">
-                      Milho (R$ 60/saca)
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Painel de Resultados do Produtor -->
-              <div class="lg:col-span-5 bg-white/5 border border-white/10 rounded-2xl p-6 text-center space-y-4 backdrop-blur-md">
-                <div class="text-xs font-semibold text-neutral-300 uppercase tracking-wider">
-                  Estimativa de Ganho Líquido na Safra
-                </div>
-
-                <div class="border-y border-white/10 py-4">
-                  <div class="text-xs text-neutral-400">Sacas a Mais na Balança:</div>
-                  <div id="calc-bags-result" class="text-3xl sm:text-4xl font-black text-white mt-1">+1.260 sacas</div>
-                  <div class="text-[11px] text-[#60B73F] font-semibold mt-1">Média conservadora de +4,2 sacas/ha</div>
-                </div>
-
-                <div>
-                  <div class="text-xs text-neutral-400">Faturamento Extra Estimado:</div>
-                  <div id="calc-money-result" class="text-2xl sm:text-3xl font-black text-[#60B73F] mt-1">R$ 163.800</div>
-                  <div class="text-[10px] text-neutral-400 mt-0.5">Direto no bolso do produtor</div>
-                </div>
-
-                <a 
-                  id="calc-cta-btn"
-                  href="https://wa.me/5545991312295?text=Ol%C3%A1%2C%20calculei%20no%20site%20para%20uma%20%C3%A1rea%20de%20300%20ha%20de%20soja%20e%20quero%20uma%20proposta%20da%20Biopar." 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="block w-full bg-[#60B73F] hover:bg-[#52A633] text-white text-xs font-bold py-3.5 px-4 rounded-xl shadow-md transition-all uppercase tracking-wider"
-                >
-                  Garantir esse Ganho na Minha Lavoura
-                </a>
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
     <!-- 6. PROVA SOCIAL: QUEM JÁ USOU E COLHEU NO BRASIL -->
     <section class="py-16 bg-white border-b border-neutral-100">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -636,38 +533,8 @@ export function createProducerPage({ router }) {
       </div>
     </section>
 
-    <!-- 8. GARANTIA & SUPORTE DE PORTEIRA FECHADA -->
-    <section class="py-16 bg-white border-b border-neutral-100">
-      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="p-8 sm:p-12 rounded-3xl bg-neutral-900 text-white flex flex-col md:flex-row items-center gap-8 justify-between">
-          <div class="space-y-3 max-w-xl">
-            <div class="inline-block text-xs font-semibold uppercase tracking-wider text-[#60B73F] bg-white/10 px-3 py-1 rounded-full border border-white/20">
-              Acompanhamento Técnico Garantido
-            </div>
-            <h3 class="text-2xl sm:text-3xl font-black tracking-tight text-white">
-              Na Biopar você nunca fica sozinho na hora de aplicar.
-            </h3>
-            <p class="text-neutral-300 text-sm leading-relaxed">
-              Ao fechar o fornecimento com a nossa fábrica, o nosso time técnico fica disponível para tirar dúvidas de tanque, horário de pulverização, condições climáticas e acompanhar a evolução do seu talhão até a colheita.
-            </p>
-          </div>
-          <div class="shrink-0 w-full md:w-auto">
-            <a 
-              href="https://wa.me/5545991312295?text=Ol%C3%A1%2C%20quero%20falar%20com%20um%20agr%C3%B4nomo%20da%20Biopar%20sobre%20minha%20lavoura." 
-              target="_blank"
-              rel="noopener noreferrer"
-              class="w-full md:w-auto inline-flex items-center justify-center gap-2 bg-[#60B73F] hover:bg-[#52A633] text-white text-sm font-bold py-4 px-8 rounded-full shadow-lg transition-all"
-            >
-              <span>Falar com o Agrônomo</span>
-              <span>→</span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- 9. CTA FINAL & FORMULÁRIO DE CONTATO DIRETO -->
-    <section class="py-16 bg-[#F5F5F7]">
+    <section class="py-16 bg-white">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
         
         <div class="space-y-3">
@@ -675,10 +542,10 @@ export function createProducerPage({ router }) {
             Pronto Para Colher Mais Sacas?
           </span>
           <h2 class="text-3xl sm:text-4xl font-black text-neutral-900 tracking-tight">
-            Garanta seu lote com preço de fábrica para a safra.
+            Garanta o fornecimento de bioinsumos para o seu negócio
           </h2>
           <p class="text-neutral-600 text-sm sm:text-base max-w-xl mx-auto">
-            Converse agora com nossa equipe comercial e receba uma proposta personalizada para a metragem da sua lavoura.
+            Converse agora com nossa equipe comercial e receba atendimento personalizado para o seu negócio.
           </p>
         </div>
 
@@ -728,55 +595,6 @@ export function createProducerPage({ router }) {
       </a>
     </div>
   `;
-
-  // --- LÓGICA INTERATIVA: CALCULADORA DE RETORNO DO PRODUTOR ---
-  const haSlider = container.querySelector('#calc-ha-slider');
-  const haDisplay = container.querySelector('#calc-ha-display');
-  const bagsResult = container.querySelector('#calc-bags-result');
-  const moneyResult = container.querySelector('#calc-money-result');
-  const ctaBtn = container.querySelector('#calc-cta-btn');
-  const btnSoja = container.querySelector('#btn-crop-soja');
-  const btnMilho = container.querySelector('#btn-crop-milho');
-
-  let currentCrop = 'Soja';
-  let bagPrice = 130; // R$ 130 / saca de soja
-  const avgBagGain = 4.2; // +4,2 sacas / hectare
-
-  function updateCalculator() {
-    if (!haSlider) return;
-    const ha = parseInt(haSlider.value, 10);
-    haDisplay.textContent = `${ha.toLocaleString('pt-BR')} ha`;
-
-    const totalBags = Math.round(ha * avgBagGain);
-    const totalMoney = Math.round(totalBags * bagPrice);
-
-    bagsResult.textContent = `+${totalBags.toLocaleString('pt-BR')} sacas`;
-    moneyResult.textContent = `R$ ${totalMoney.toLocaleString('pt-BR')}`;
-
-    ctaBtn.href = `https://wa.me/5545991312295?text=Ol%C3%A1%2C%20calculei%20no%20site%20para%20uma%20%C3%A1rea%20de%20${ha}%20ha%20de%20${currentCrop}%20e%20quero%20uma%20proposta%20da%20Biopar.`;
-  }
-
-  if (haSlider) {
-    haSlider.addEventListener('input', updateCalculator);
-  }
-
-  if (btnSoja && btnMilho) {
-    btnSoja.addEventListener('click', () => {
-      currentCrop = 'Soja';
-      bagPrice = 130;
-      btnSoja.className = 'crop-btn active py-2.5 px-4 rounded-xl text-xs font-bold border border-[#60B73F] bg-[#60B73F] text-white transition-all text-center';
-      btnMilho.className = 'crop-btn py-2.5 px-4 rounded-xl text-xs font-bold border border-neutral-700 bg-neutral-800 text-neutral-300 hover:text-white transition-all text-center';
-      updateCalculator();
-    });
-
-    btnMilho.addEventListener('click', () => {
-      currentCrop = 'Milho';
-      bagPrice = 60;
-      btnMilho.className = 'crop-btn active py-2.5 px-4 rounded-xl text-xs font-bold border border-[#60B73F] bg-[#60B73F] text-white transition-all text-center';
-      btnSoja.className = 'crop-btn py-2.5 px-4 rounded-xl text-xs font-bold border border-neutral-700 bg-neutral-800 text-neutral-300 hover:text-white transition-all text-center';
-      updateCalculator();
-    });
-  }
 
   // --- LÓGICA DO ACORDEÃO FAQ ---
   const faqToggles = container.querySelectorAll('.faq-toggle');
